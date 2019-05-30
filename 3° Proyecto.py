@@ -48,8 +48,10 @@ L_rightON = False
 L_leftON = False
 L_frontON = False
 L_LRON = False
+stopON = False
 NumGas=0
 NumGas_Re=0
+num_bar = 0
 
 #__________/Función para cargar imagenes
 def cargarImg(nombre):
@@ -76,7 +78,7 @@ Principal_Canvas=Canvas(root, width=1000,height=562, bg='black')
 Principal_Canvas.place(x=0,y=0)
 
 #__________/Cargar una imagen
-InicioBackup=cargarImg("backup.gif")
+InicioBackup=cargarImg("backup.png")
 Principal_Canvas.create_image(0,0, image = InicioBackup, anchor = NW)
 
 
@@ -102,13 +104,18 @@ def ventana_about():
 #__Se crea un canvas
     About_Canvas=Canvas(about, width=1000,height=562, bg='black')
     About_Canvas.place(x=0,y=0)
+#__Se crea un fondo
+    Backup_aboutImg =cargarImg('backup_about.png')
+    Backup_about=Label(About_Canvas, image=Backup_aboutImg)
+    Backup_about.photo=Backup_aboutImg
+    Backup_about.place(x=0,y=0)
 #__Se carga una imagen
     PersonalImg =cargarImg('Personalimg.gif')
     Personal=Label(About_Canvas, image=PersonalImg,bg='white')
     Personal.photo=PersonalImg
     Personal.place(x=10,y=60)
 #__Se crea un label con informacion crucial
-    Label_about=Label(About_Canvas, text=InfoPer ,font= ('Britannic Bold',16), fg='white', bg='black')
+    Label_about=Label(About_Canvas, text=InfoPer ,font= ('Britannic Bold',16), fg='white', bg='#040521')
     Label_about.place(x=410,y=10)
 #__Se crea una funcion para volver a la pantalla principal
     def atras_about():
@@ -202,30 +209,36 @@ def ventana_TestDrive():
 
     def Car_Control(event):
         key = event.char
-        global left, right, gas, NumGas,NumGas_Re, reverseON, L_rightON, L_leftON, L_frontON, L_LRON #Globales
+        global left, right, gas, NumGas,NumGas_Re, reverseON, L_rightON, L_leftON, L_frontON, L_LRON, stopON #Globales
+
         #Control de direccion izquierda
         if (key == "a") and not left:
             left = True
             Test_Canvas.itemconfig("car", state=HIDDEN)
             Test_Canvas.itemconfig("left", state=NORMAL)
             send("dir:-1;")
+            
         #Control de direccion derecha
         elif(key=="d") and not right:
             right = True
             Test_Canvas.itemconfig("car", state=HIDDEN)
             Test_Canvas.itemconfig("right", state=NORMAL)
             send("dir:1;")
+            
         #Control de aceleracion
+            
             #Limite Reversa
         elif NumGas_Re ==-1000:
             return
             ##send("pwm:"+str(NumGas_Re)+";")
             print ("pwm:"+str(NumGas_Re)+";")
+            
             #Limite hacia adelante
         elif NumGas ==1000:
             return
             ##send("pwm:"+str(NumGas)+";")
             print ("pwm:"+str(NumGas)+";")
+            
             #Reversa
         elif (key == "w") and gas and reverseON:
             gas = True
@@ -233,8 +246,10 @@ def ventana_TestDrive():
             NumGas_Re -= 100
             Test_Canvas.itemconfig("L_s2", state=HIDDEN)
             Test_Canvas.itemconfig("L_s", state=HIDDEN)
+            progress_up(NumGas)
             ##send("pwm:"+str(NumGas_Re)+";")
             print ("pwm:"+str(NumGas_Re)+";")
+            
             #Hacia adelante
         elif (key == "w") and gas:
             gas = True
@@ -242,8 +257,20 @@ def ventana_TestDrive():
             NumGas += 100
             Test_Canvas.itemconfig("L_s2", state=HIDDEN)
             Test_Canvas.itemconfig("L_s", state=HIDDEN)
+            progress_up(NumGas)
             ##send("pwm:"+str(NumGas)+";")
             print ("pwm:"+str(NumGas)+";")
+
+        #Control boton de stop
+        elif (key == "s") and not stopON:
+            stopON = True
+            ##send("pwm:0;")
+            print ("pwm:0;")
+            
+            #Desactivar reversa
+        elif (key == "s") and stopON:
+            stopON = False
+            
         #Control del boton de reversa
             #Activar reversa
         elif (key == "r") and not reverseON:
@@ -358,6 +385,7 @@ def ventana_TestDrive():
                 NumGas_Re += 100
                 ##send("pwm:"+str(NumGas_Re)+";")
                 print ("pwm:"+str(NumGas_Re)+";")
+                progress_down(NumGas)
                 
         #Control Hacia adelante
         elif (key == "w") and gas:
@@ -381,11 +409,25 @@ def ventana_TestDrive():
     style = ttk.Style()
     style.theme_use('default')
     style.configure("darkblue.Vertical.TProgressbar", background='darkblue') 
-    progressbar1 = Progressbar(Test, length=200, style='darkblue.Vertical.TProgressbar', orient= tk.VERTICAL, maximum=1023) 
+    progressbar1 = Progressbar(Test, length=200, style='darkblue.Vertical.TProgressbar', orient= tk.VERTICAL, maximum=1000) 
     progressbar1['value'] = NumGas
     progressbar1.place(x=30, y=350)
 
-    progressbar1.step(NumGas)
+    def progress_up(Progress):
+        Num_Bar = Progress 
+        progressbar1['value'] = Num_Bar
+        if Num_Bar == 1000:
+            return
+        else:
+            Num_Bar += 100
+
+    def progress_down(Progress):
+        Num_Bar = Progress
+        progressbar1['value'] = Num_Bar
+        if Num_Bar == 0:
+            return
+        else:
+            Num_Bar -= 100
 
 #Se crea una funcion para crear una barra de progreso, para el nivel de la bateria
     style = ttk.Style()
@@ -412,22 +454,26 @@ def ventana_TestDrive():
 
 #__________/Botones de ventana principal
 
-Btn_mute=Button(Principal_Canvas,text='Mute',font= ('Britannic Bold',12),command=off,fg='red')
+Btn_mute=Button(Principal_Canvas,text='Mute',font= ('Britannic Bold',12),command=off,bg='#040521',fg='#8c9fc5')
 Btn_mute.place(x=483,y=490)
 
-Btn_Quit=Button(Principal_Canvas, text='Quit',font= ('Britannic Bold',20), command=root.destroy, fg='red')
-Btn_Quit.place(x=10,y=490)
+Btn_QuitImg= cargarImg("Btn_Quit.png")
+Btn_Quit=Button(Principal_Canvas, image=Btn_QuitImg, command=root.destroy, bg='#040521')
+Btn_Quit.place(x=10,y=480)
 
-Btn_PlayMusic=Button(Principal_Canvas, text='Music',font= ('Britannic Bold',12), command=play1, fg='red')
+Btn_PlayMusic=Button(Principal_Canvas, text='Music',font= ('Britannic Bold',12), command=play1,bg='#040521', fg='#8c9fc5')
 Btn_PlayMusic.place(x=480,y=530)
 
-Btn_About = Button(Principal_Canvas,text='Credits',font= ('Britannic Bold',20),command=ventana_about,fg='red')
-Btn_About.place(x=890,y=485)
+Btn_Credits= cargarImg("Btn_Credits.png")
+Btn_About = Button(Principal_Canvas,image=Btn_Credits,command=ventana_about,bg='#040521')
+Btn_About.place(x=850,y=480)
 
-Btn_Puntajes = Button(Principal_Canvas,text='Pilots',font= ('Britannic Bold',20),command=ventana_Pilots,fg='red')
-Btn_Puntajes.place(x=10,y=35)
+Btn_Pilots= cargarImg("Btn_Pilots.png")
+Btn_Puntajes = Button(Principal_Canvas,image=Btn_Pilots,command=ventana_Pilots,bg='#040521')
+Btn_Puntajes.place(x=10,y=10)
 
-Btn_Puntajes = Button(Principal_Canvas,text='Test Driver',font= ('Britannic Bold',20),command=ventana_TestDrive,fg='red')
-Btn_Puntajes.place(x=840,y=35)
+Btn_Test= cargarImg("Btn_Test.png")
+Btn_Test_Driver = Button(Principal_Canvas,image=Btn_Test,command=ventana_TestDrive,bg='#040521')
+Btn_Test_Driver.place(x=850,y=10)
 
 root.mainloop()
