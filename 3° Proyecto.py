@@ -32,16 +32,20 @@ from tkinter import messagebox      # AskYesNo ()
 import random                   #Biblioteca Random
 from tkinter.ttk import Progressbar #Se utiliza para hacer una progressbar
 from tkinter import ttk
+from pygame import mixer
 global left, right
 #______________________________________________
 #Biblioteca para conectar con el carro
 import WiFiClient
 from WiFiClient import NodeMCU
 
+
+
 #______________________________________________
 #Control del carrito por NodeMCU
 Carrito = NodeMCU()
 Carrito.start()
+mixer.init()
 
 #______________________________________________
 #Global
@@ -66,11 +70,16 @@ def cargarImg(nombre):
 
 #__________/Música
 def Song1():
-    winsound.PlaySound('song1.wav', winsound.SND_ASYNC)
+    mixer.music.load('song1.wav')
+    mixer.music.play(loops=-1)
+    mixer.music.set_volume(0.1)
 
 #__________/funcion para el boton mute
-def off():
-    winsound.PlaySound(None, winsound.SND_ASYNC)
+def pause():
+    mixer.music.pause()
+
+def play():
+    mixer.music.unpause()
 
 #__________/Ventana Principal
 root=tk.Tk()
@@ -86,16 +95,9 @@ Principal_Canvas.place(x=0,y=0)
 InicioBackup=cargarImg("backup.png")
 Principal_Canvas.create_image(0,0, image = InicioBackup, anchor = NW)
 
-
 #_________/Se crea la funcion que ejecuta la cancion de fondo
-off()
 Play=Thread(target=Song1,args=())
 Play.start()
-
-def play1():
-    off()
-    Play=Thread(target=Song1,args=())
-    Play.start()
 
 # __________ /Funcion para ventana about
 def ventana_about():
@@ -146,12 +148,50 @@ def ventana_Pilots():
     Pilots.minsize(1000,900)
     Pilots.resizable(width=NO,height=NO)
 #__Se crea un canvas
-    Pilots_Canvas=Canvas(Pilots, width=1000,height=900, bg='black')
+    Pilots_Canvas=Canvas(Pilots, width=1000,height=900,bg = "black")
     Pilots_Canvas.place(x=0,y=0)
 #__Se carga una imagen
 
 
-#__Se crea un label con informacion crucial
+#__Se abre el archivo de texto con la info. de los pilotos
+    arch1 = open('Pilotos.txt','r+')
+    Pil0 = arch1.readline().split('@')
+    Pil1 = arch1.readline().split('@')
+    Pil2 = arch1.readline().split('@')
+    Pil3 = arch1.readline().split('@')
+    Pil4 = arch1.readline().split('@')
+    Pil5 = arch1.readline().split('@')
+    Pil6 = arch1.readline().split('@')
+    Pil7 = arch1.readline().split('@')
+    Pil8 = arch1.readline().split('@')
+    Pil9 = arch1.readline().split('@')
+    print(Pil2)
+    Jonathan = cargarImg('jonathan.gif')
+    Pil1Img = Pilots_Canvas.create_image(100,0, image = Jonathan,anchor= NW)
+
+
+    def burbuja(Lista):
+        return burbuja_aux(Lista, 0, 0, len(Lista), False)
+
+    def burbuja_aux(Lista, i, j, n, Swap):
+        if i == n:
+            return Lista
+        if j == n - i - 1:
+            if Swap:
+                return burbuja_aux(Lista, i + 1, 0, n, False)
+            else:
+                return Lista
+        if Lista[j] > Lista[j + 1]:
+            Tmp = Lista[j]
+            Lista[j] = Lista[j + 1]
+            Lista[j + 1] = Tmp
+            return burbuja_aux(Lista, i, j + 1, n, True)
+        else:
+            return burbuja_aux(Lista, i, j + 1, n, Swap)
+
+
+
+
 
     
 #__Se crea una funcion para volver a la pantalla principal
@@ -397,8 +437,7 @@ def ventana_TestDrive():
                 progress_down(NumGas)
                 
         #Control Hacia adelante
-        elif (key == "w") and gas:
-            gas = True
+        elif (key == "w"):
             Test_Canvas.itemconfig("L_s2", state=NORMAL)
             Test_Canvas.itemconfig("L_s", state=NORMAL)
             while NumGas != 0:
@@ -463,14 +502,14 @@ def ventana_TestDrive():
 
 #__________/Botones de ventana principal
 
-Btn_mute=Button(Principal_Canvas,text='Mute',font= ('Britannic Bold',12),command=off,bg='#040521',fg='#8c9fc5')
+Btn_mute=Button(Principal_Canvas,text='Mute',font= ('Britannic Bold',12),command=pause,bg='#040521',fg='#8c9fc5')
 Btn_mute.place(x=483,y=490)
 
 Btn_QuitImg= cargarImg("Btn_Quit.png")
 Btn_Quit=Button(Principal_Canvas, image=Btn_QuitImg, command=root.destroy, bg='#040521')
 Btn_Quit.place(x=10,y=480)
 
-Btn_PlayMusic=Button(Principal_Canvas, text='Music',font= ('Britannic Bold',12), command=play1,bg='#040521', fg='#8c9fc5')
+Btn_PlayMusic=Button(Principal_Canvas, text='Music',font= ('Britannic Bold',12), command=play,bg='#040521', fg='#8c9fc5')
 Btn_PlayMusic.place(x=480,y=530)
 
 Btn_Credits= cargarImg("Btn_Credits.png")
