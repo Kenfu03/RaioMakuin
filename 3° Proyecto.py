@@ -32,7 +32,6 @@ from tkinter import messagebox      # AskYesNo ()
 import random                   #Biblioteca Random
 from tkinter.ttk import Progressbar #Se utiliza para hacer una progressbar
 from tkinter import ttk
-global left, right
 #______________________________________________
 #Biblioteca para conectar con el carro
 import WiFiClient
@@ -47,13 +46,12 @@ Carrito.start()
 #Global
 left = False
 right = False
-gas = True
 reverseON = False
 L_rightON = False
 L_leftON = False
 L_frontON = False
 L_LRON = False
-stopON = False
+GasON = False
 NumGas=0
 NumGas_Re=0
 num_bar = 0
@@ -216,11 +214,15 @@ def ventana_TestDrive():
     Test_Canvas.create_image(110,90, image=Reverse_off, anchor = NW, tags = ("R-off","reverse"), state =NORMAL)
     Test_Canvas.create_image(110,90, image=Reverse_on, anchor = NW, tags = ("R-on","reverse"), state = HIDDEN)
 
+#__Funcionalidades principales del test drive
+
+#Control key press
     def Car_Control(event):
         key = event.char
+
         #Globales
-        global left, right, gas, NumGas,NumGas_Re, reverseON, L_rightON, L_leftON, L_frontON, L_LRON, stopON
-        
+        global left, right, NumGas,NumGas_Re, reverseON, L_rightON, L_leftON, L_frontON, L_LRON, GasON
+
 
         #Control de direccion izquierda
         if (key == "a") and not left:
@@ -228,7 +230,7 @@ def ventana_TestDrive():
             Test_Canvas.itemconfig("car", state=HIDDEN)
             Test_Canvas.itemconfig("left", state=NORMAL)
             send("dir:-1;")
-            
+
         #Control de direccion derecha
         elif(key=="d") and not right:
             right = True
@@ -236,24 +238,25 @@ def ventana_TestDrive():
             Test_Canvas.itemconfig("right", state=NORMAL)
             send("dir:1;")
 
-            
         #Control de aceleracion
-            
-            #Limite Reversa
+
+
+        # #Limite Reversa
         elif NumGas_Re ==-1000:
             return
             ##send("pwm:"+str(NumGas_Re)+";")
             print ("pwm:"+str(NumGas_Re)+";")
-            
+
             #Limite hacia adelante
         elif NumGas ==1000:
             return
             ##send("pwm:"+str(NumGas)+";")
             print ("pwm:"+str(NumGas)+";")
-            
+
+
             #Reversa
-        elif (key == "w") and gas and reverseON:
-            gas = True
+        elif (key == "w") and reverseON:
+            GasON = True
             time.sleep(1)
             NumGas_Re -= 100
             Test_Canvas.itemconfig("L_s2", state=HIDDEN)
@@ -262,11 +265,10 @@ def ventana_TestDrive():
             ##send("pwm:"+str(NumGas_Re)+";")
             print ("pwm:"+str(NumGas_Re)+";")
 
-            Thread_gasdown_reverse.stop()
-            
+
             #Hacia adelante
-        elif (key == "w") and gas:
-            gas = True
+        elif (key == "w"):
+            GasON = True
             time.sleep(1)
             NumGas += 100
             Test_Canvas.itemconfig("L_s2", state=HIDDEN)
@@ -275,18 +277,38 @@ def ventana_TestDrive():
             ##send("pwm:"+str(NumGas)+";")
             print ("pwm:"+str(NumGas)+";")
 
-            Thread_gasdown.stop()
 
         #Control boton de stop
-        elif (key == "s") and not stopON:
-            stopON = True
-            ##send("pwm:0;")
-            print ("pwm:0;")
-            
-            #Desactivar reversa
-        elif (key == "s") and stopON:
-            stopON = False
-            
+
+            #Limite 0
+        elif NumGas_Re ==0:
+            return
+            ##send("pwm:"+str(NumGas_Re)+";")
+            print ("pwm:"+str(NumGas_Re)+";")
+
+
+            #Limite 0
+        elif NumGas == 0:
+            return
+            ##send("pwm:"+str(NumGas)+";")
+            print ("pwm:"+str(NumGas)+";")
+
+
+        #Disminucion de velocidad
+              #Reversa down
+        elif (key == "s")  and reverseON and not GasON:
+            time.sleep(1)
+            NumGas_Re += 100
+            ##send("pwm:"+str(NumGas_Re)+";")
+            print ("pwm:"+str(NumGas_Re)+";")
+
+        elif (key == "s") and not GasON:
+            time.sleep(1)
+            NumGas -= 100
+            ##send("pwm:"+str(NumGas)+";")
+            print ("pwm:"+str(NumGas)+";")
+
+
         #Control del boton de reversa
             #Activar reversa
         elif (key == "r") and not reverseON:
@@ -298,19 +320,20 @@ def ventana_TestDrive():
             reverseON = False
             Test_Canvas.itemconfig("reverse", state=HIDDEN)
             Test_Canvas.itemconfig("R-off", state=NORMAL)
-            
-    #Control de luces direccionales
-        #Izquierda
+
+        #Control de luces direccionales
+            #Izquierda
         elif (key=="z") and not L_leftON:
             L_leftON = True
             Test_Canvas.itemconfig("L_dir", state=HIDDEN)
             Test_Canvas.itemconfig("L_left", state=NORMAL)
-            if L_leftON:
+            while L_leftON:
                 ##send("ll:1;")
                 print ("ll:1;")
                 time.sleep(0.5)
                 ##send("ll:0;")
                 print ("ll:0;")
+
         elif (key=="z") and L_leftON:
             L_leftON = False
             Test_Canvas.itemconfig("L_dir", state=NORMAL)
@@ -318,18 +341,19 @@ def ventana_TestDrive():
             if not L_leftON:
                 ##send("ll:0;")
                 print ("ll:0;")
-                
-        #Derecha
+
+            #Derecha
         elif (key=="c") and not L_rightON:
             L_rightON = True
             Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
             Test_Canvas.itemconfig("L_right", state=NORMAL)
-            if L_rightON:
+            while L_rightON:
                 ##send("ll:1;")
                 print ("lr:1;")
                 time.sleep(0.5)
                 ##send("ll:0;")
                 print ("lr:0;")
+
         elif (key=="c") and L_rightON:
             L_rightON = False
             Test_Canvas.itemconfig("L_dir2", state=NORMAL)
@@ -337,8 +361,8 @@ def ventana_TestDrive():
             if not L_rightON:
                 ##send("ll:0;")
                 print ("lr:0;")
-                
-        #Ambas
+
+            #Ambas
         elif (key=="x") and not L_LRON:
             L_LRON = True
             Test_Canvas.itemconfig("L_dir", state=HIDDEN)
@@ -353,7 +377,7 @@ def ventana_TestDrive():
                 ##send("ll:0;")
                 ##send("lr:0;")
                 print ("ll:0;")
-                
+
         elif (key=="x") and L_LRON:
             L_LRON = False
             Test_Canvas.itemconfig("L_dir", state=NORMAL)
@@ -364,7 +388,8 @@ def ventana_TestDrive():
                 ##send("ll:0;")
                 ##send("lr:0;")
                 print ("ll:0;")
-                
+
+
             #Frontales
         elif (key=="f") and not L_frontON:
             L_frontON = True
@@ -382,14 +407,147 @@ def ventana_TestDrive():
             Test_Canvas.itemconfig("L_f2", state=HIDDEN)
             ##send("lf:0;")
             print ("lf:0;")
+        elif(key=="d") and not right:
+            right = True
+            Test_Canvas.itemconfig("car", state=HIDDEN)
+            Test_Canvas.itemconfig("right", state=NORMAL)
+            send("dir:1;")
+        elif NumGas_Re ==-1000:
+            return
+            ##send("pwm:"+str(NumGas_Re)+";")
+            print ("pwm:"+str(NumGas_Re)+";")
+        elif NumGas ==1000:
+            return
+            ##send("pwm:"+str(NumGas)+";")
+            print ("pwm:"+str(NumGas)+";")
+        elif (key == "w") and reverseON:
+            GasON = True
+            time.sleep(1)
+            NumGas_Re -= 100
+            Test_Canvas.itemconfig("L_s2", state=HIDDEN)
+            Test_Canvas.itemconfig("L_s", state=HIDDEN)
+            progress_up(NumGas)
+            ##send("pwm:"+str(NumGas_Re)+";")
+            print ("pwm:"+str(NumGas_Re)+";")
+        elif (key == "w"):
+            GasON = True
+            time.sleep(1)
+            NumGas += 100
+            Test_Canvas.itemconfig("L_s2", state=HIDDEN)
+            Test_Canvas.itemconfig("L_s", state=HIDDEN)
+            progress_up(NumGas)
+            ##send("pwm:"+str(NumGas)+";")
+            print ("pwm:"+str(NumGas)+";")
+        elif NumGas_Re ==0:
+            return
+            ##send("pwm:"+str(NumGas_Re)+";")
+            print ("pwm:"+str(NumGas_Re)+";")
+        elif NumGas == 0:
+            return
+            ##send("pwm:"+str(NumGas)+";")
+            print ("pwm:"+str(NumGas)+";")
+        elif (key == "s")  and reverseON and not GasON:
+            time.sleep(1)
+            NumGas_Re += 100
+            ##send("pwm:"+str(NumGas_Re)+";")
+            print ("pwm:"+str(NumGas_Re)+";")
+        elif (key == "s") and not GasON:
+            time.sleep(1)
+            NumGas -= 100
+            ##send("pwm:"+str(NumGas)+";")
+            print ("pwm:"+str(NumGas)+";")
+        elif (key == "r") and not reverseON:
+            reverseON = True
+            Test_Canvas.itemconfig("reverse", state=HIDDEN)
+            Test_Canvas.itemconfig("R-on", state=NORMAL)
+        elif (key == "r") and reverseON:
+            reverseON = False
+            Test_Canvas.itemconfig("reverse", state=HIDDEN)
+            Test_Canvas.itemconfig("R-off", state=NORMAL)
+        elif (key=="z") and not L_leftON:
+            L_leftON = True
+            Test_Canvas.itemconfig("L_dir", state=HIDDEN)
+            Test_Canvas.itemconfig("L_left", state=NORMAL)
+            while L_leftON:
+                ##send("ll:1;")
+                print ("ll:1;")
+                time.sleep(0.5)
+                ##send("ll:0;")
+                print ("ll:0;")
+        elif (key=="z") and L_leftON:
+            L_leftON = False
+            Test_Canvas.itemconfig("L_dir", state=NORMAL)
+            Test_Canvas.itemconfig("L_left", state=HIDDEN)
+            if not L_leftON:
+                ##send("ll:0;")
+                print ("ll:0;")
+        elif (key=="c") and not L_rightON:
+            L_rightON = True
+            Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
+            Test_Canvas.itemconfig("L_right", state=NORMAL)
+            while L_rightON:
+                ##send("ll:1;")
+                print ("lr:1;")
+                time.sleep(0.5)
+                ##send("ll:0;")
+                print ("lr:0;")
+        elif (key=="c") and L_rightON:
+            L_rightON = False
+            Test_Canvas.itemconfig("L_dir2", state=NORMAL)
+            Test_Canvas.itemconfig("L_right", state=HIDDEN)
+            if not L_rightON:
+                ##send("ll:0;")
+                print ("lr:0;")
+        elif (key=="x") and not L_LRON:
+            L_LRON = True
+            Test_Canvas.itemconfig("L_dir", state=HIDDEN)
+            Test_Canvas.itemconfig("L_left", state=NORMAL)
+            Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
+            Test_Canvas.itemconfig("L_right", state=NORMAL)
+            if  L_LRON:
+                ##send("ll:1;")
+                ##send("lr:1;")
+                print ("ll:1;")
+                time.sleep(0.5)
+                ##send("ll:0;")
+                ##send("lr:0;")
+                print ("ll:0;")
+        elif (key=="x") and L_LRON:
+            L_LRON = False
+            Test_Canvas.itemconfig("L_dir", state=NORMAL)
+            Test_Canvas.itemconfig("L_left", state=HIDDEN)
+            Test_Canvas.itemconfig("L_dir2", state=NORMAL)
+            Test_Canvas.itemconfig("L_right", state=HIDDEN)
+            if not L_LRON:
+                ##send("ll:0;")
+                ##send("lr:0;")
+                print ("ll:0;")
+        elif (key=="f") and not L_frontON:
+            L_frontON = True
+            Test_Canvas.itemconfig("L_F", state=HIDDEN)
+            Test_Canvas.itemconfig("L_F", state=HIDDEN)
+            Test_Canvas.itemconfig("L_f", state=NORMAL)
+            Test_Canvas.itemconfig("L_f2", state=NORMAL)
+            ##send("lf:1;")
+            print ("lf:1;")
+        elif (key=="f") and L_frontON:
+            L_frontON = False
+            Test_Canvas.itemconfig("L_F", state=NORMAL)
+            Test_Canvas.itemconfig("L_F", state=NORMAL)
+            Test_Canvas.itemconfig("L_f", state=HIDDEN)
+            Test_Canvas.itemconfig("L_f2", state=HIDDEN)
+            ##send("lf:0;")
+            print ("lf:0;")
 
-        
+
     Test.bind("<KeyPress>", Car_Control)
+    
 
+    #Control key release
     def release_Control(event):
         key = event.char
-        global right, left, gas, NumGas,NumGas_Re, reverseON
-        
+        global right, left, GasON
+
         #Control de direccion
         if (key == "a") or (key == "d") and left or right:
             left = False
@@ -397,40 +555,9 @@ def ventana_TestDrive():
             Test_Canvas.itemconfig("car", state=HIDDEN)
             Test_Canvas.itemconfig("none", state=NORMAL)
             send("dir:0;")
-            
-        #Control de Reversa
-        elif (key == "w") and gas and reverseON:
-            gas = True
-            Test_Canvas.itemconfig("L_s2", state=NORMAL)
-            Test_Canvas.itemconfig("L_s", state=NORMAL)
-            def gasdown_reverse():
-                while NumGas_Re != 0:
-                    pressingW = False
-                    time.sleep(1)
-                    NumGas_Re += 100
-                    ##send("pwm:"+str(NumGas_Re)+";")
-                    print ("pwm:"+str(NumGas_Re)+";")
-                    progress_down(NumGas)
 
-                    Thread_gasdown_reverse = threading.Thread(target=wait)
-                    Thread_gasdown_reverse.start()
-                    
-                
-        #Control Hacia adelante
-        elif (key == "w") and gas:
-            gas = True
-            Test_Canvas.itemconfig("L_s2", state=NORMAL)
-            Test_Canvas.itemconfig("L_s", state=NORMAL)
-            def gasdown():
-                while NumGas != 0 and not pressingW:
-                    pressingW = False
-                    time.sleep(1)
-                    NumGas -= 100
-                    ##send("pwm:"+str(NumGas)+";")
-                    print ("pwm:"+str(NumGas)+";")
-                    
-                    Thread_gasdown = threading.Thread(target=gasdown)
-                    Thread_gasdown.start()
+        elif (key=="w"):
+            GasON = False
 
     Test.bind("<KeyRelease>", release_Control)
             
