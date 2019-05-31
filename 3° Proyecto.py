@@ -1,14 +1,19 @@
 InfoPer="""
 _______________________________________________
     Insituto Tecnologico de Costa Rica         
-            Computer Engineering                        
+            Computer Engineering 
+            
+            Formula E CE Tec
+    Energy Saving and Telemetry Part II
+                       
 
-    Kenneth Fuentes Martinez      
-    Carnet: 2019026305               
+    Kenneth Fuentes Martinez 2019026305 
+    Cristian Calvo Porras 2019205083              
     Curso: Taller de Programacion
     Año: 2019                             
     Prof: Milton Villegas Lemus    
-    Pais: Costa Rica                    
+    Pais: Costa Rica
+    Python 3.7.2                    
     Version: 1.0.0                        
 _________________________________________________
 Guia basica:
@@ -39,7 +44,7 @@ Carrito = NodeMCU()
 Carrito.start()
 
 #______________________________________________
-#Globale
+#Global
 left = False
 right = False
 gas = True
@@ -114,9 +119,13 @@ def ventana_about():
     Personal=Label(About_Canvas, image=PersonalImg,bg='white')
     Personal.photo=PersonalImg
     Personal.place(x=10,y=60)
+    ImgCris = cargarImg('fotoCris.gif')
+    Personal1 = Label(About_Canvas, image=ImgCris, bg='white')
+    Personal1.photo = ImgCris
+    Personal1.place(x=230, y=60)
 #__Se crea un label con informacion crucial
     Label_about=Label(About_Canvas, text=InfoPer ,font= ('Britannic Bold',16), fg='white', bg='#040521')
-    Label_about.place(x=410,y=10)
+    Label_about.place(x=500,y=10)
 #__Se crea una funcion para volver a la pantalla principal
     def atras_about():
         global pausa
