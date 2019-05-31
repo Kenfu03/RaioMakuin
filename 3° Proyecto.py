@@ -1,5 +1,3 @@
-"""Prueba GitHub"""
-
 InfoPer="""
 _______________________________________________
     Insituto Tecnologico de Costa Rica         
@@ -220,7 +218,9 @@ def ventana_TestDrive():
 
     def Car_Control(event):
         key = event.char
-        global left, right, gas, NumGas,NumGas_Re, reverseON, L_rightON, L_leftON, L_frontON, L_LRON, stopON #Globales
+        #Globales
+        global left, right, gas, NumGas,NumGas_Re, reverseON, L_rightON, L_leftON, L_frontON, L_LRON, stopON
+        
 
         #Control de direccion izquierda
         if (key == "a") and not left:
@@ -235,6 +235,7 @@ def ventana_TestDrive():
             Test_Canvas.itemconfig("car", state=HIDDEN)
             Test_Canvas.itemconfig("right", state=NORMAL)
             send("dir:1;")
+
             
         #Control de aceleracion
             
@@ -260,6 +261,8 @@ def ventana_TestDrive():
             progress_up(NumGas)
             ##send("pwm:"+str(NumGas_Re)+";")
             print ("pwm:"+str(NumGas_Re)+";")
+
+            Thread_gasdown_reverse.stop()
             
             #Hacia adelante
         elif (key == "w") and gas:
@@ -271,6 +274,8 @@ def ventana_TestDrive():
             progress_up(NumGas)
             ##send("pwm:"+str(NumGas)+";")
             print ("pwm:"+str(NumGas)+";")
+
+            Thread_gasdown.stop()
 
         #Control boton de stop
         elif (key == "s") and not stopON:
@@ -293,6 +298,7 @@ def ventana_TestDrive():
             reverseON = False
             Test_Canvas.itemconfig("reverse", state=HIDDEN)
             Test_Canvas.itemconfig("R-off", state=NORMAL)
+            
     #Control de luces direccionales
         #Izquierda
         elif (key=="z") and not L_leftON:
@@ -312,6 +318,7 @@ def ventana_TestDrive():
             if not L_leftON:
                 ##send("ll:0;")
                 print ("ll:0;")
+                
         #Derecha
         elif (key=="c") and not L_rightON:
             L_rightON = True
@@ -330,6 +337,7 @@ def ventana_TestDrive():
             if not L_rightON:
                 ##send("ll:0;")
                 print ("lr:0;")
+                
         #Ambas
         elif (key=="x") and not L_LRON:
             L_LRON = True
@@ -345,6 +353,7 @@ def ventana_TestDrive():
                 ##send("ll:0;")
                 ##send("lr:0;")
                 print ("ll:0;")
+                
         elif (key=="x") and L_LRON:
             L_LRON = False
             Test_Canvas.itemconfig("L_dir", state=NORMAL)
@@ -355,6 +364,7 @@ def ventana_TestDrive():
                 ##send("ll:0;")
                 ##send("lr:0;")
                 print ("ll:0;")
+                
             #Frontales
         elif (key=="f") and not L_frontON:
             L_frontON = True
@@ -379,6 +389,7 @@ def ventana_TestDrive():
     def release_Control(event):
         key = event.char
         global right, left, gas, NumGas,NumGas_Re, reverseON
+        
         #Control de direccion
         if (key == "a") or (key == "d") and left or right:
             left = False
@@ -386,28 +397,40 @@ def ventana_TestDrive():
             Test_Canvas.itemconfig("car", state=HIDDEN)
             Test_Canvas.itemconfig("none", state=NORMAL)
             send("dir:0;")
+            
         #Control de Reversa
         elif (key == "w") and gas and reverseON:
             gas = True
             Test_Canvas.itemconfig("L_s2", state=NORMAL)
             Test_Canvas.itemconfig("L_s", state=NORMAL)
-            while NumGas_Re != 0:
-                time.sleep(1)
-                NumGas_Re += 100
-                ##send("pwm:"+str(NumGas_Re)+";")
-                print ("pwm:"+str(NumGas_Re)+";")
-                progress_down(NumGas)
+            def gasdown_reverse():
+                while NumGas_Re != 0:
+                    pressingW = False
+                    time.sleep(1)
+                    NumGas_Re += 100
+                    ##send("pwm:"+str(NumGas_Re)+";")
+                    print ("pwm:"+str(NumGas_Re)+";")
+                    progress_down(NumGas)
+
+                    Thread_gasdown_reverse = threading.Thread(target=wait)
+                    Thread_gasdown_reverse.start()
+                    
                 
         #Control Hacia adelante
         elif (key == "w") and gas:
             gas = True
             Test_Canvas.itemconfig("L_s2", state=NORMAL)
             Test_Canvas.itemconfig("L_s", state=NORMAL)
-            while NumGas != 0:
-                time.sleep(1)
-                NumGas -= 100
-                ##send("pwm:"+str(NumGas)+";")
-                print ("pwm:"+str(NumGas)+";")
+            def gasdown():
+                while NumGas != 0 and not pressingW:
+                    pressingW = False
+                    time.sleep(1)
+                    NumGas -= 100
+                    ##send("pwm:"+str(NumGas)+";")
+                    print ("pwm:"+str(NumGas)+";")
+                    
+                    Thread_gasdown = threading.Thread(target=gasdown)
+                    Thread_gasdown.start()
 
     Test.bind("<KeyRelease>", release_Control)
             
