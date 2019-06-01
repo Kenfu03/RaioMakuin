@@ -1,3 +1,5 @@
+import pygame as pygame
+
 InfoPer = """
 _______________________________________________
     Insituto Tecnologico de Costa Rica         
@@ -32,16 +34,15 @@ from tkinter import messagebox  # AskYesNo ()
 import random  # Biblioteca Random
 from tkinter.ttk import Progressbar  # Se utiliza para hacer una progressbar
 from tkinter import ttk
+from pygame import mixer # Se importa mixer de pygame
+
+
 # ______________________________________________
 # Biblioteca para conectar con el carro
 import WiFiClient
 from WiFiClient import NodeMCU
 
 # ______________________________________________
-# Control del carrito por NodeMCU
-from pygame import mixer
-global left, right
-#______________________________________________
 #Biblioteca para conectar con el carro
 import WiFiClient
 from WiFiClient import NodeMCU
@@ -53,14 +54,22 @@ mixer.init()
 
 # ______________________________________________
 # Global
+global left, right, NumGas, NumGas_Re, reverseON, L_rightON, L_leftON, L_backON, GasON, L_DirON, pressTecla, L_frontON, front_press, left_press, right_press, Dir_press
 left = False
 right = False
 reverseON = False
 L_rightON = False
 L_leftON = False
 L_frontON = False
-L_LRON = False
-GasON = False
+L_DirON = False
+GasON = True
+L_backON = False
+pressTecla = False
+front_press = False
+reverse_press = False
+left_press = False
+right_press = False
+Dir_press = False
 NumGas = 0
 NumGas_Re = 0
 num_bar = 0
@@ -103,13 +112,13 @@ InicioBackup = cargarImg("backup.png")
 Principal_Canvas.create_image(0, 0, image=InicioBackup, anchor=NW)
 
 # _________/Se crea la funcion que ejecuta la cancion de fondo
-off()
+pause()
 Play = Thread(target=Song1, args=())
 Play.start()
 
 
 def play1():
-    off()
+    pause()
     Play = Thread(target=Song1, args=())
     Play.start()
 
@@ -162,29 +171,24 @@ def ventana_about():
                        fg='white')
     Btn_Atras.place(x=5, y=512)
 
+    about.mainloop()
 
 # __________ /Funcion para ventana de Pilotos
 def ventana_Pilots():
     # Esconder la pantalla principal sin destruirla
     root.withdraw()
-    # Pantalla About
+    # Pantalla pilots
     Pilots = Toplevel()
     Pilots.title('Pilots')
     Pilots.minsize(1000, 900)
     Pilots.resizable(width=NO, height=NO)
     # __Se crea un canvas
-    Pilots_Canvas = Canvas(Pilots, width=1000, height=900, bg='black')
+    Pilots_Canvas = Canvas(Pilots, width=1000, height=900, bg='white')
     Pilots_Canvas.place(x=0, y=0)
-    Pilots = Toplevel()
-    Pilots.title('Pilots')
-    Pilots.minsize(1000,900)
-    Pilots.resizable(width=NO,height=NO)
-#__Se crea un canvas
-    Pilots_Canvas=Canvas(Pilots, width=1000,height=900,bg = "black")
-    Pilots_Canvas.place(x=0,y=0)
-#__Se carga una imagen
-    jonathan = cargarImg("jonathan.gif")
-    Pilots_Canvas.create_image(0, 0, image=jonathan, anchor=NW)
+
+    #__Se carga una imagen
+    jonathan_Img = cargarImg('jonathan.gif')
+    Pilots_Canvas.create_image(100, 100, image=jonathan_Img, anchor=NW)
 
 
 #__Se abre el archivo de texto con la info. de los pilotos
@@ -220,12 +224,6 @@ def ventana_Pilots():
         else:
             return burbuja_aux(Lista, i, j + 1, n, Swap)'''
 
-
-
-    # __Se carga una imagen
-
-    # __Se crea un label con informacion crucial
-
     # __Se crea una funcion para volver a la pantalla principal
     def atras_Pilots():
         global pausa
@@ -237,6 +235,7 @@ def ventana_Pilots():
                        fg='white')
     Btn_Atras.place(x=5, y=640)
 
+    Pilots.mainloop()
 
 # ___________/Funcion de send, para enviar mensajes al Carrito
 
@@ -255,36 +254,46 @@ def ventana_TestDrive():
     # Pantalla About
     Test = Toplevel()
     Test.title('Test Drive')
-    Test.minsize(1000, 562)
+    Test.minsize(1000, 720)
     Test.resizable(width=NO, height=NO)
     # __Se crea un canvas
-    Test_Canvas = Canvas(Test, width=1000, height=562, bg='black')
+    Test_Canvas = Canvas(Test, width=1000, height=720, bg='black')
     Test_Canvas.place(x=0, y=0)
     # __Se carga una imagen de fondo
+
+    BackupVel = cargarImg('BackupVel.png')
+    Test_Canvas.create_image(0, 300, image = BackupVel, anchor = NW)
+
     BackupTD = cargarImg('BackupTD.png')
     Test_Canvas.create_image(0, 0, image=BackupTD, anchor=NW)
+
+    #__Se crea el control de vel
+    velocimetro = cargarImg('velocity.png')
+    Test_Canvas.create_image(200, 400, image = velocimetro, anchor = NW)
 
     # _Luces carrito
     # Luz front
     Luz_Front = cargarImg('luz_blanca.png')
-    Test_Canvas.create_image(-5, 30, image=Luz_Front, anchor=NW, tags=("L_f", "LF"), state=HIDDEN)
-    Test_Canvas.create_image(50, 30, image=Luz_Front, anchor=NW, tags=("L_f2", "LF"), state=HIDDEN)
+    Test_Canvas.create_image(605, 420, image=Luz_Front, anchor=NW, tags=("L_f", "LF"), state=HIDDEN)
+    Test_Canvas.create_image(650, 420, image=Luz_Front, anchor=NW, tags=("L_f2", "LF"), state=HIDDEN)
     # Luz direccion
     Luz_Direccion = cargarImg('luz_amarilla.png')
-    Test_Canvas.create_image(-125, 110, image=Luz_Direccion, anchor=NW, tags=("L_left", "L_dir"), state=HIDDEN)
-    Luz_Direccion2 = cargarImg('luz_amarilla2.png')
-    Test_Canvas.create_image(-40, 110, image=Luz_Direccion2, anchor=NW, tags=("L_right", "L_dir2"), state=HIDDEN)
+    Test_Canvas.create_image(490, 510, image=Luz_Direccion, anchor=NW, tags=("L_left", "L_dir"), state=HIDDEN)
+    Test_Canvas.create_image(568, 510, image=Luz_Direccion, anchor=NW, tags=("L_right", "L_dir2"), state=HIDDEN)
     # Luz stop
     Luz_Stop = cargarImg('luz_roja.png')
-    Test_Canvas.create_image(-42, 215, image=Luz_Stop, anchor=NW, tags=("L_s", "LS"), state=NORMAL)
-    Test_Canvas.create_image(9, 215, image=Luz_Stop, anchor=NW, tags=("L_s2", "LS"), state=NORMAL)
+    Test_Canvas.create_image(570, 610, image=Luz_Stop, anchor=NW, tags=("L_s", "LS"), state=NORMAL)
+    Test_Canvas.create_image(615, 610, image=Luz_Stop, anchor=NW, tags=("L_s2", "LS"), state=NORMAL)
     # __Se carga una imagen del estado del vehiculo
     CarNone = cargarImg('none.png')
     CarLeft = cargarImg('left.png')
     CarRight = cargarImg('right.png')
-    Test_Canvas.create_image(20, 60, image=CarNone, anchor=NW, tags=("none", "car"), state=NORMAL)
-    Test_Canvas.create_image(20, 60, image=CarLeft, anchor=NW, tags=("left", "car"), state=HIDDEN)
-    Test_Canvas.create_image(20, 60, image=CarRight, anchor=NW, tags=("right", "car"), state=HIDDEN)
+    Test_Canvas.create_image(630, 450, image=CarNone, anchor=NW, tags=("none", "car"), state=NORMAL)
+    Test_Canvas.create_image(630, 450, image=CarLeft, anchor=NW, tags=("left", "car"), state=HIDDEN)
+    Test_Canvas.create_image(630, 450, image=CarRight, anchor=NW, tags=("right", "car"), state=HIDDEN)
+
+    #__Se carga el texto de la velocidad
+    Test_Canvas.create_text(300, 600, anchor=NW, text="o", tags = "velocidad", font = ('Britannic Bold', 20), fill = "white")
 
     # _Boton de reversa
     Reverse_off = cargarImg('reverse-off.png')
@@ -297,339 +306,296 @@ def ventana_TestDrive():
     # Control key press
     def Car_Control(event):
         key = event.char
-
         # Globales
-        global left, right, NumGas, NumGas_Re, reverseON, L_rightON, L_leftON, L_frontON, L_LRON, GasON
+        global left, right, NumGas, NumGas_Re, reverseON, L_rightON, L_leftON, L_backON, GasON, L_DirON, pressTecla, L_frontON, front_press, reverse_press, left_press, right_press
+        global Dir_press
 
         # Control de direccion izquierda
         if (key == "a") and not left:
             left = True
             Test_Canvas.itemconfig("car", state=HIDDEN)
             Test_Canvas.itemconfig("left", state=NORMAL)
-            send("dir:-1;")
+            ##send("dir:-1;")
+            print ("dir:-1;")
 
         # Control de direccion derecha
         elif (key == "d") and not right:
             right = True
             Test_Canvas.itemconfig("car", state=HIDDEN)
             Test_Canvas.itemconfig("right", state=NORMAL)
-            send("dir:1;")
+            ##send("dir:1;")
+            print("dir:1;")
 
         # Control de aceleracion
 
-        # #Limite Reversa
-        elif NumGas_Re == -1000:
-            return
-            ##send("pwm:"+str(NumGas_Re)+";")
-            print("pwm:" + str(NumGas_Re) + ";")
-
-            # Limite hacia adelante
-        elif NumGas == 1000:
-            return
-            ##send("pwm:"+str(NumGas)+";")
-            print("pwm:" + str(NumGas) + ";")
-
             # Reversa
-        elif (key == "w") and reverseON:
-            GasON = True
-            time.sleep(1)
-            NumGas_Re -= 100
-            Test_Canvas.itemconfig("L_s2", state=HIDDEN)
-            Test_Canvas.itemconfig("L_s", state=HIDDEN)
-            progress_up(NumGas)
-            ##send("pwm:"+str(NumGas_Re)+";")
-            print("pwm:" + str(NumGas_Re) + ";")
+        elif key == "w" and reverseON:
+            if NumGas_Re < -1023:
+                return
+                ##send("pwm:-1023;")
+                print("pwm:-1023;")
+            else:
+                if pressTecla:
+                    return
+                else:
+                    pressTecla = True
+                    T_Pwm_Re = Thread(target=reverse_aceleration())
+                    T_Pwm_Re.start()
 
             # Hacia adelante
-        elif (key == "w"):
-            GasON = True
-            time.sleep(1)
-            NumGas += 100
-            Test_Canvas.itemconfig("L_s2", state=HIDDEN)
-            Test_Canvas.itemconfig("L_s", state=HIDDEN)
-            progress_up(NumGas)
-            ##send("pwm:"+str(NumGas)+";")
-            print("pwm:" + str(NumGas) + ";")
+        elif key == "w":
+            if NumGas > 1023:
+                return
+                ##send("pwm:1023;")
+                print("pwm:1023;")
+            else:
+                if pressTecla:
+                    return
+                else:
+                    pressTecla = True
+                    T_Pwm = Thread(target = aceleracion())
+                    T_Pwm.start()
 
 
         # Control boton de stop
 
-        # Limite 0
-        elif NumGas_Re == 0:
+        # Reversa
+        elif key == "s" and reverseON:
+            NumGas_Re = 0
+            Test_Canvas.itemconfig("velocidad", state=str(NumGas_Re))
+            Test_Canvas.itemconfig("L_s", state=NORMAL)
+            Test_Canvas.itemconfig("L_s2", state=NORMAL)
             return
             ##send("pwm:"+str(NumGas_Re)+";")
             print("pwm:" + str(NumGas_Re) + ";")
 
-            # Limite 0
-        elif NumGas == 0:
+        #Hacia adelante
+        elif key == "s":
+            NumGas = 0
+            Test_Canvas.itemconfig("velocidad", state=str(NumGas))
+            Test_Canvas.itemconfig("L_s", state=NORMAL)
+            Test_Canvas.itemconfig("L_s2", state=NORMAL)
             return
-            ##send("pwm:"+str(NumGas)+";")
-            print("pwm:" + str(NumGas) + ";")
-
-
-        # Disminucion de velocidad
-        # Reversa down
-        elif (key == "s") and reverseON and not GasON:
-            time.sleep(1)
-            NumGas_Re += 100
-            ##send("pwm:"+str(NumGas_Re)+";")
-            print("pwm:" + str(NumGas_Re) + ";")
-
-        elif (key == "s") and not GasON:
-            time.sleep(1)
-            NumGas -= 100
             ##send("pwm:"+str(NumGas)+";")
             print("pwm:" + str(NumGas) + ";")
 
 
         # Control del boton de reversa
+
         # Activar reversa
-        elif (key == "r") and not reverseON:
-            reverseON = True
-            Test_Canvas.itemconfig("reverse", state=HIDDEN)
-            Test_Canvas.itemconfig("R-on", state=NORMAL)
-            # Desactivar reversa
-        elif (key == "r") and reverseON:
-            reverseON = False
-            Test_Canvas.itemconfig("reverse", state=HIDDEN)
-            Test_Canvas.itemconfig("R-off", state=NORMAL)
+        elif key == "r":
+            if reverse_press:
+                return
+            else:
+                reverse_press = True
+                if reverseON:
+                    reverseON = False
+                    Test_Canvas.itemconfig("reverse", state=HIDDEN)
+                    Test_Canvas.itemconfig("R-off", state=NORMAL)
+                else:
+                    reverseON = True
+                    Test_Canvas.itemconfig("reverse", state=HIDDEN)
+                    Test_Canvas.itemconfig("R-on", state=NORMAL)
 
-        # Control de luces direccionales
-        # Izquierda
-        elif (key == "z") and not L_leftON:
-            L_leftON = True
-            Test_Canvas.itemconfig("L_dir", state=HIDDEN)
-            Test_Canvas.itemconfig("L_left", state=NORMAL)
-            while L_leftON:
-                ##send("ll:1;")
-                print("ll:1;")
-                time.sleep(0.5)
-                ##send("ll:0;")
-                print("ll:0;")
 
-        elif (key == "z") and L_leftON:
-            L_leftON = False
-            Test_Canvas.itemconfig("L_dir", state=NORMAL)
-            Test_Canvas.itemconfig("L_left", state=HIDDEN)
-            if not L_leftON:
-                ##send("ll:0;")
-                print("ll:0;")
-
-            # Derecha
-        elif (key == "c") and not L_rightON:
-            L_rightON = True
-            Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
-            Test_Canvas.itemconfig("L_right", state=NORMAL)
-            while L_rightON:
-                ##send("ll:1;")
-                print("lr:1;")
-                time.sleep(0.5)
-                ##send("ll:0;")
-                print("lr:0;")
-
-        elif (key == "c") and L_rightON:
-            L_rightON = False
-            Test_Canvas.itemconfig("L_dir2", state=NORMAL)
-            Test_Canvas.itemconfig("L_right", state=HIDDEN)
-            if not L_rightON:
-                ##send("ll:0;")
-                print("lr:0;")
-
-            # Ambas
-        elif (key == "x") and not L_LRON:
-            L_LRON = True
-            Test_Canvas.itemconfig("L_dir", state=HIDDEN)
-            Test_Canvas.itemconfig("L_left", state=NORMAL)
-            Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
-            Test_Canvas.itemconfig("L_right", state=NORMAL)
-            if L_LRON:
-                ##send("ll:1;")
-                ##send("lr:1;")
-                print("ll:1;")
-                time.sleep(0.5)
-                ##send("ll:0;")
-                ##send("lr:0;")
-                print("ll:0;")
-
-        elif (key == "x") and L_LRON:
-            L_LRON = False
-            Test_Canvas.itemconfig("L_dir", state=NORMAL)
-            Test_Canvas.itemconfig("L_left", state=HIDDEN)
-            Test_Canvas.itemconfig("L_dir2", state=NORMAL)
-            Test_Canvas.itemconfig("L_right", state=HIDDEN)
-            if not L_LRON:
-                ##send("ll:0;")
-                ##send("lr:0;")
-                print("ll:0;")
+        #Control de luces
 
             # Frontales
-        elif (key == "f") and not L_frontON:
-            L_frontON = True
-            Test_Canvas.itemconfig("L_F", state=HIDDEN)
-            Test_Canvas.itemconfig("L_F", state=HIDDEN)
-            Test_Canvas.itemconfig("L_f", state=NORMAL)
-            Test_Canvas.itemconfig("L_f2", state=NORMAL)
-            ##send("lf:1;")
-            print("lf:1;")
-        elif (key == "f") and L_frontON:
-            L_frontON = False
-            Test_Canvas.itemconfig("L_F", state=NORMAL)
-            Test_Canvas.itemconfig("L_F", state=NORMAL)
-            Test_Canvas.itemconfig("L_f", state=HIDDEN)
-            Test_Canvas.itemconfig("L_f2", state=HIDDEN)
-            ##send("lf:0;")
-            print("lf:0;")
-        elif (key == "d") and not right:
-            right = True
-            Test_Canvas.itemconfig("car", state=HIDDEN)
-            Test_Canvas.itemconfig("right", state=NORMAL)
-            send("dir:1;")
-        elif NumGas_Re == -1000:
-            return
-            ##send("pwm:"+str(NumGas_Re)+";")
-            print("pwm:" + str(NumGas_Re) + ";")
-        elif NumGas == 1000:
-            return
-            ##send("pwm:"+str(NumGas)+";")
-            print("pwm:" + str(NumGas) + ";")
-        elif (key == "w") and reverseON:
-            GasON = True
-            time.sleep(1)
-            NumGas_Re -= 100
-            Test_Canvas.itemconfig("L_s2", state=HIDDEN)
-            Test_Canvas.itemconfig("L_s", state=HIDDEN)
-            progress_up(NumGas)
-            ##send("pwm:"+str(NumGas_Re)+";")
-            print("pwm:" + str(NumGas_Re) + ";")
-        elif (key == "w"):
-            GasON = True
-            time.sleep(1)
+        elif key == "f":
+            if front_press:
+                return
+            else:
+                front_press = True
+                if L_frontON:
+                    Test_Canvas.itemconfig("L_f", state=HIDDEN)
+                    Test_Canvas.itemconfig("L_f2", state=HIDDEN)
+                    L_frontON = False
+                    ##send("lf:0;")
+                    print("lf:0;")
+                else:
+                    Test_Canvas.itemconfig("L_f", state=NORMAL)
+                    Test_Canvas.itemconfig("L_f2", state=NORMAL)
+                    L_frontON = True
+                    ##send("lf:1;")
+                    print("lf:1;")
+
+            # Izquierda
+        elif key == "z":
+            if left_press:
+                return
+            else:
+                left_press = True
+                if L_leftON:
+                    Test_Canvas.itemconfig("L_dir", state=HIDDEN)
+                    L_leftON = False
+                    T_blinking_stop(100, "ll")
+                else:
+                    Test_Canvas.itemconfig("L_dir", state=NORMAL)
+                    L_leftON = True
+                    T_blinking(1, "ll")
+
+            # Derecha
+        elif key == "c":
+            if right_press:
+                return
+            else:
+                right_press = True
+                if L_rightON:
+                    Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
+                    L_rightON = False
+                    T_blinking_stop(100, "lr")
+                else:
+                    Test_Canvas.itemconfig("L_dir2", state=NORMAL)
+                    L_rightON = True
+                    T_blinking(1, "lr")
+
+            # Ambas
+        elif key == "x":
+            if Dir_press:
+                return
+            else:
+                Dir_press = True
+                if L_DirON:
+                    Test_Canvas.itemconfig("L_dir", state=HIDDEN)
+                    Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
+                    L_DirON = False
+                    T_blinking_stop(100, "lr")
+                    T_blinking_stop(100, "ll")
+                else:
+                    Test_Canvas.itemconfig("L_dir", state=NORMAL)
+                    Test_Canvas.itemconfig("L_dir2", state=NORMAL)
+                    L_DirON = True
+                    T_blinking(1, "lr")
+                    T_blinking(1, "ll")
+
+        pressTecla = True
+
+    def T_blinking_stop(n, command):
+        global L_DirON, L_rightON, L_leftON
+        if L_DirON or L_leftON or L_rightON:
+            T_Blink_stop = Thread(target = direccionalesON, args = [n, command])
+            T_Blink_stop.start()
+
+    def T_blinking(n, command):
+        global L_DirON, L_rightON, L_leftON
+        if L_DirON or L_leftON or L_rightON:
+            T_Blink = Thread(target = direccionalesON, args = [n, command])
+            T_Blink.start()
+
+    def direccionalesON(n, command):
+        global L_DirON, L_rightON, L_leftON
+        if L_DirON or L_leftON or L_rightON:
+            if n >= 100:
+                Test_Canvas.itemconfig("L_dir", state=HIDDEN)
+                Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
+                L_DirON = False
+                L_rightON = False
+                L_leftON = False
+                return
+            else:
+                if n % 2 != 0:
+                    ##send(command + ":1;")
+                    print(command + ":1;")
+                    time.sleep(0.5)
+                    return direccionalesON(n+1, command)
+                else:
+                    ##send(command + ":0;")
+                    print (command + ":0;")
+                    time.sleep(0.5)
+                    return direccionalesON(n+1, command)
+
+    def aceleracion():
+        global NumGas, NumGas_Re, Reverse_on, GasON, pressTecla
+        GasON = True
+        Test_Canvas.itemconfig("L_s2", state=HIDDEN)
+        Test_Canvas.itemconfig("L_s", state=HIDDEN)
+        while NumGas <= 900 and pressTecla:
             NumGas += 100
-            Test_Canvas.itemconfig("L_s2", state=HIDDEN)
-            Test_Canvas.itemconfig("L_s", state=HIDDEN)
-            progress_up(NumGas)
-            ##send("pwm:"+str(NumGas)+";")
-            print("pwm:" + str(NumGas) + ";")
-        elif NumGas_Re == 0:
-            return
-            ##send("pwm:"+str(NumGas_Re)+";")
-            print("pwm:" + str(NumGas_Re) + ";")
-        elif NumGas == 0:
-            return
-            ##send("pwm:"+str(NumGas)+";")
-            print("pwm:" + str(NumGas) + ";")
-        elif (key == "s") and reverseON and not GasON:
+            ##send("pwm:"+str(NumGas)+":")
+            print ("pwm:"+str(NumGas)+";")
             time.sleep(1)
-            NumGas_Re += 100
-            ##send("pwm:"+str(NumGas_Re)+";")
+            Test_Canvas.itemconfig("velocidad", text=str(NumGas / 10))
+        ##send("pwm:"+str(NumGas)+":")
+        print("pwm:" + str(NumGas) + ";")
+
+    def reverse_aceleration():
+        global NumGas_Re, Reverse_on, GasON, pressTecla
+        GasON = True
+        Test_Canvas.itemconfig("L_s2", state=HIDDEN)
+        Test_Canvas.itemconfig("L_s", state=HIDDEN)
+        while NumGas_Re >= -900 and pressTecla:
+            NumGas_Re -= 100
+            ##send("pwm:"+str(NumGas_Re)+":")
             print("pwm:" + str(NumGas_Re) + ";")
-        elif (key == "s") and not GasON:
             time.sleep(1)
-            NumGas -= 100
-            ##send("pwm:"+str(NumGas)+";")
-            print("pwm:" + str(NumGas) + ";")
-        elif (key == "r") and not reverseON:
-            reverseON = True
-            Test_Canvas.itemconfig("reverse", state=HIDDEN)
-            Test_Canvas.itemconfig("R-on", state=NORMAL)
-        elif (key == "r") and reverseON:
-            reverseON = False
-            Test_Canvas.itemconfig("reverse", state=HIDDEN)
-            Test_Canvas.itemconfig("R-off", state=NORMAL)
-        elif (key == "z") and not L_leftON:
-            L_leftON = True
-            Test_Canvas.itemconfig("L_dir", state=HIDDEN)
-            Test_Canvas.itemconfig("L_left", state=NORMAL)
-            while L_leftON:
-                ##send("ll:1;")
-                print("ll:1;")
-                time.sleep(0.5)
-                ##send("ll:0;")
-                print("ll:0;")
-        elif (key == "z") and L_leftON:
-            L_leftON = False
-            Test_Canvas.itemconfig("L_dir", state=NORMAL)
-            Test_Canvas.itemconfig("L_left", state=HIDDEN)
-            if not L_leftON:
-                ##send("ll:0;")
-                print("ll:0;")
-        elif (key == "c") and not L_rightON:
-            L_rightON = True
-            Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
-            Test_Canvas.itemconfig("L_right", state=NORMAL)
-            while L_rightON:
-                ##send("ll:1;")
-                print("lr:1;")
-                time.sleep(0.5)
-                ##send("ll:0;")
-                print("lr:0;")
-        elif (key == "c") and L_rightON:
-            L_rightON = False
-            Test_Canvas.itemconfig("L_dir2", state=NORMAL)
-            Test_Canvas.itemconfig("L_right", state=HIDDEN)
-            if not L_rightON:
-                ##send("ll:0;")
-                print("lr:0;")
-        elif (key == "x") and not L_LRON:
-            L_LRON = True
-            Test_Canvas.itemconfig("L_dir", state=HIDDEN)
-            Test_Canvas.itemconfig("L_left", state=NORMAL)
-            Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
-            Test_Canvas.itemconfig("L_right", state=NORMAL)
-            if L_LRON:
-                ##send("ll:1;")
-                ##send("lr:1;")
-                print("ll:1;")
-                time.sleep(0.5)
-                ##send("ll:0;")
-                ##send("lr:0;")
-                print("ll:0;")
-        elif (key == "x") and L_LRON:
-            L_LRON = False
-            Test_Canvas.itemconfig("L_dir", state=NORMAL)
-            Test_Canvas.itemconfig("L_left", state=HIDDEN)
-            Test_Canvas.itemconfig("L_dir2", state=NORMAL)
-            Test_Canvas.itemconfig("L_right", state=HIDDEN)
-            if not L_LRON:
-                ##send("ll:0;")
-                ##send("lr:0;")
-                print("ll:0;")
-        elif (key == "f") and not L_frontON:
-            L_frontON = True
-            Test_Canvas.itemconfig("L_F", state=HIDDEN)
-            Test_Canvas.itemconfig("L_F", state=HIDDEN)
-            Test_Canvas.itemconfig("L_f", state=NORMAL)
-            Test_Canvas.itemconfig("L_f2", state=NORMAL)
-            ##send("lf:1;")
-            print("lf:1;")
-        elif (key == "f") and L_frontON:
-            L_frontON = False
-            Test_Canvas.itemconfig("L_F", state=NORMAL)
-            Test_Canvas.itemconfig("L_F", state=NORMAL)
-            Test_Canvas.itemconfig("L_f", state=HIDDEN)
-            Test_Canvas.itemconfig("L_f2", state=HIDDEN)
-            ##send("lf:0;")
-            print("lf:0;")
+            Test_Canvas.itemconfig("velocidad", text=str(NumGas_Re / 10))
+        ##send("pwm:"+str(NumGas_Re)+":")
+        print("pwm:" + str(NumGas_Re) + ";")
+
+    def dowm_velocity():
+        global NumGas, NumGas_Re, GasON
+        while NumGas > 0:
+            if NumGas <= 0:
+                NumGas = 0
+            else:
+                NumGas -= 100
+                ##send("pwm:"+str(NumGas)+";")
+                print ("pwm:"+str(NumGas)+";")
+                time.sleep(1)
+            Test_Canvas.itemconfig("velocidad", text = str(NumGas / 10))
+
+        GasON = False
+        NumGas = 0
+        ##send("pwm:0;")
+        print("pwm:0;")
+
+
 
     Test.bind("<KeyPress>", Car_Control)
 
     # Control key release
     def release_Control(event):
         key = event.char
-        global right, left, GasON
+        global right, left, GasON, reverse_press, front_press
 
         # Control de direccion
-        if (key == "a") or (key == "d") and left or right:
+        if key == "a" or key == "d" and left or right:
             left = False
             right = False
             Test_Canvas.itemconfig("car", state=HIDDEN)
             Test_Canvas.itemconfig("none", state=NORMAL)
-            send("dir:0;")
+            ##send("dir:0;")
+            print ("dir:0;")
+
+        elif key == "w":
+            Test_Canvas.itemconfig("L_s", state = NORMAL)
+            Test_Canvas.itemconfig("L_s2", state = NORMAL)
+            if GasON:
+                return
+            else:
+                T_pwm_stop = Thread(target=dowm_velocity)
+                T_pwm_stop.start()
+
+        elif key == "r":
+            reverse_press = False
+
+        elif key == "f":
+            front_press = False
+
+        elif key == "z":
+            reverse_press = False
+
+        elif key == "c":
+            front_press = False
+
+        elif key == "x":
+            reverse_press = False
+
 
 
     Test.bind("<KeyRelease>", release_Control)
 
-    # __Se crean labels con los datos inportantes
+    # __Se crean labels con los datos importantes
     Test_Canvas.create_text(485, 15, text="Batery Level", font=('Britannic Bold', 14), fill="red")
 
     Test_Canvas.create_text(45, 330, text="Pwm\nVelocity", font=('Britannic Bold', 14), fill="red")
@@ -640,7 +606,6 @@ def ventana_TestDrive():
     style.configure("darkblue.Vertical.TProgressbar", background='darkblue')
     progressbar1 = Progressbar(Test, length=200, style='darkblue.Vertical.TProgressbar', orient=tk.VERTICAL,
                                maximum=1000)
-    progressbar1['value'] = NumGas
     progressbar1.place(x=30, y=350)
 
     def progress_up(Progress):
@@ -685,7 +650,7 @@ def ventana_TestDrive():
 
 # __________/Botones de ventana principal
 
-Btn_mute = Button(Principal_Canvas, text='Mute', font=('Britannic Bold', 12), command=off, bg='#040521', fg='#8c9fc5')
+Btn_mute = Button(Principal_Canvas, text='Mute', font=('Britannic Bold', 12), command=pause, bg='#040521', fg='#8c9fc5')
 Btn_mute.place(x=483, y=490)
 
 Btn_QuitImg = cargarImg("Btn_Quit.png")
