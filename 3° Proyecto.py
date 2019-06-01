@@ -95,6 +95,10 @@ Principal_Canvas.place(x=0,y=0)
 InicioBackup=cargarImg("backup.png")
 Principal_Canvas.create_image(0,0, image = InicioBackup, anchor = NW)
 
+def quit():
+    mixer.music.stop()
+    root.destroy()
+
 #_________/Se crea la funcion que ejecuta la cancion de fondo
 Play=Thread(target=Song1,args=())
 Play.start()
@@ -142,7 +146,6 @@ def ventana_about():
 def ventana_Pilots():
     #Esconder la pantalla principal sin destruirla
     root.withdraw()
-    #Pantalla About
     Pilots = Toplevel()
     Pilots.title('Pilots')
     Pilots.minsize(1000,900)
@@ -151,10 +154,12 @@ def ventana_Pilots():
     Pilots_Canvas=Canvas(Pilots, width=1000,height=900,bg = "black")
     Pilots_Canvas.place(x=0,y=0)
 #__Se carga una imagen
+    jonathan = cargarImg("jonathan.gif")
+    Pilots_Canvas.create_image(0, 0, image=jonathan, anchor=NW)
 
 
 #__Se abre el archivo de texto con la info. de los pilotos
-    arch1 = open('Pilotos.txt','r+')
+    '''arch1 = open('Pilotos.txt','r+')
     Pil0 = arch1.readline().split('@')
     Pil1 = arch1.readline().split('@')
     Pil2 = arch1.readline().split('@')
@@ -166,12 +171,9 @@ def ventana_Pilots():
     Pil8 = arch1.readline().split('@')
     Pil9 = arch1.readline().split('@')
     print(Pil2)
-    Jonathan = cargarImg('jonathan.gif')
-    Pil1Img = Pilots_Canvas.create_image(100,0, image = Jonathan,anchor= NW)
 
-
-    def burbuja(Lista):
-        return burbuja_aux(Lista, 0, 0, len(Lista), False)
+    #def burbuja(Lista):
+     #   return burbuja_aux(Lista, 0, 0, len(Lista), False)
 
     def burbuja_aux(Lista, i, j, n, Swap):
         if i == n:
@@ -187,7 +189,7 @@ def ventana_Pilots():
             Lista[j + 1] = Tmp
             return burbuja_aux(Lista, i, j + 1, n, True)
         else:
-            return burbuja_aux(Lista, i, j + 1, n, Swap)
+            return burbuja_aux(Lista, i, j + 1, n, Swap)'''
 
 
 
@@ -506,7 +508,7 @@ Btn_mute=Button(Principal_Canvas,text='Mute',font= ('Britannic Bold',12),command
 Btn_mute.place(x=483,y=490)
 
 Btn_QuitImg= cargarImg("Btn_Quit.png")
-Btn_Quit=Button(Principal_Canvas, image=Btn_QuitImg, command=root.destroy, bg='#040521')
+Btn_Quit=Button(Principal_Canvas, image=Btn_QuitImg, command=quit, bg='#040521')
 Btn_Quit.place(x=10,y=480)
 
 Btn_PlayMusic=Button(Principal_Canvas, text='Music',font= ('Britannic Bold',12), command=play,bg='#040521', fg='#8c9fc5')
