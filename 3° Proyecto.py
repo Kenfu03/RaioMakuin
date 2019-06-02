@@ -526,6 +526,18 @@ def ventana_TestDrive():
     Test_Canvas.create_image(570, 450, image=Reverse_off, anchor=NW, tags=("R-off", "reverse"), state=NORMAL)
     Test_Canvas.create_image(570, 450, image=Reverse_on, anchor=NW, tags=("R-on", "reverse"), state=HIDDEN)
 
+    #__Sol
+    sol_off = cargarImg('sol_off.png')
+    sol_on = cargarImg('sol.png')
+    Test_Canvas.create_image(517, 480, image = sol_off, anchor = NW, tags = ('s-off', 'sol'), state = NORMAL)
+    Test_Canvas.create_image(517, 480, image=sol_on, anchor=NW, tags=('s-on', 'sol'), state=HIDDEN)
+
+    #__Luna
+    luna_off = cargarImg('luna_off.png')
+    luna_on = cargarImg('luna.png')
+    Test_Canvas.create_image(458, 480, image=luna_off, anchor=NW, tags=('l-off', 'luna'), state=NORMAL)
+    Test_Canvas.create_image(458, 480, image=luna_on, anchor=NW, tags=('l-on', 'luna'), state=HIDDEN)
+
     # __Funcionalidades principales del test drive
 
     # Control key press
