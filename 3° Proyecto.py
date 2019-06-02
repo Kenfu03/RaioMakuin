@@ -195,16 +195,9 @@ def ventana_Pilots():
     Pilots_Canvas = Canvas(Pilots, width=900, height=700, bg='white')
     scroll_y = Scrollbar(Pilots,orient = 'vertical', command = Pilots_Canvas.yview)
     Pilots_frame = Frame(Pilots_Canvas)
-    Frame1 = Frame(Pilots_Canvas)
-    Frame2 = Frame(Pilots_Canvas)
-    Frame3 = Frame(Pilots_Canvas)
-    Frame4 = Frame(Pilots_Canvas)
-    Frame5 = Frame(Pilots_Canvas)
-    Frame6 = Frame(Pilots_Canvas)
-    Frame7 = Frame(Pilots_Canvas)
-    Frame8 = Frame(Pilots_Canvas)
-    Frame9 = Frame(Pilots_Canvas)
-    Frame10 = Frame(Pilots_Canvas)
+    listaframes = []
+    for i in range(0,10):
+        listaframes.append(Frame(Pilots_Canvas))
 
     Y1 = 40
     Y2 = 145
@@ -217,7 +210,7 @@ def ventana_Pilots():
     Y9 = 880
     Y10 =985
     #Se cargan las banderas
-    britanico = cargarImg("britanico.png")
+    britanico = cargarImg("britanico.png")#en la lista cargar la imagen
     japones = cargarImg("japones.png")
     italiano = cargarImg("italiano.png")
     frances = cargarImg("frances.png")
@@ -233,198 +226,105 @@ def ventana_Pilots():
     polnareff = cargarImg('polnareff.png')
     caesar = cargarImg('caesar.png')
 
+    ListaPilotos = []
+    listaY = [Y1, Y2, Y3, Y4, Y5, Y6, Y7, Y8, Y9, Y10]
+    listaimg = [jonathan,joseph,jotaro,josuke,giorno,dio,kira,bruno,polnareff,caesar]
     # __Se abre el archivo de texto con la info. de los pilotos
     arch1 = open('Pilotos.txt', 'r+')
-    Pil0 = arch1.readline().split('@')
-    Pil1 = arch1.readline().split('@')
-    Pil2 = arch1.readline().split('@')
-    Pil3 = arch1.readline().split('@')
-    Pil4 = arch1.readline().split('@')
-    Pil5 = arch1.readline().split('@')
-    Pil6 = arch1.readline().split('@')
-    Pil7 = arch1.readline().split('@')
-    Pil8 = arch1.readline().split('@')
-    Pil9 = arch1.readline().split('@')
-    print(Y)
+    for i in range(0,10):
+        ListaPilotos.append(arch1.readline().split('@'))
 
     #Se calculan los RGP de los pilotos y se agregan a la lista de cada piloto
-    RGPjon = str(int(((int(Pil0[5])+int(Pil0[6]))/(int(Pil0[4])-int(Pil0[7]))*100)))
-    Pil0.append(RGPjon)
-    RGPjsp = str(int(((int(Pil1[5])+int(Pil1[6]))/(int(Pil1[4])-int(Pil1[7]))*100)))
-    Pil1.append(RGPjsp)
-    RGPjot = str(int(((int(Pil2[5])+int(Pil2[6]))/(int(Pil2[4])-int(Pil2[7]))*100)))
-    Pil2.append(RGPjot)
-    RGPjsk = str(int(((int(Pil3[5])+int(Pil3[6]))/(int(Pil3[4])-int(Pil3[7]))*100)))
-    Pil3.append(RGPjsk)
-    RGPgio = str(int(((int(Pil4[5])+int(Pil4[6]))/(int(Pil4[4])-int(Pil4[7]))*100)))
-    Pil4.append(RGPgio)
-    RGPdio = str(int(((int(Pil5[5])+int(Pil5[6]))/(int(Pil5[4])-int(Pil5[7]))*100)))
-    Pil5.append(RGPdio)
-    RGPkra = str(int(((int(Pil6[5])+int(Pil6[6]))/(int(Pil6[4])-int(Pil6[7]))*100)))
-    Pil6.append(RGPkra)
-    RGPbrn = str(int(((int(Pil7[5])+int(Pil7[6]))/(int(Pil7[4])-int(Pil7[7]))*100)))
-    Pil7.append(RGPbrn)
-    RGPpol = str(int(((int(Pil8[5])+int(Pil8[6]))/(int(Pil8[4])-int(Pil8[7]))*100)))
-    Pil8.append(RGPpol)
-    RGPcsz = str(int(((int(Pil9[5])+int(Pil9[6]))/(int(Pil9[4])-int(Pil9[7]))*100)))
-    Pil9.append(RGPcsz)
+    for i in range(0,10):
+        ListaPilotos[i].append(str(int(((int(ListaPilotos[i][5])+int(ListaPilotos[i][6]))/(int(ListaPilotos[i][4])-int(ListaPilotos[i][7]))*100))))
 
-    #Se calculan los REP de los pilotos
-    REPjon = (int(((int(Pil0[5]))/(int(Pil0[4])-int(Pil0[7]))*100)))
-    Pil0.append(REPjon)
-    REPjsp = (int(((int(Pil1[5]))/(int(Pil1[4])-int(Pil1[7]))*100)))
-    Pil1.append(REPjsp)
-    REPjot = (int(((int(Pil2[5]))/(int(Pil2[4])-int(Pil2[7]))*100)))
-    Pil2.append(REPjot)
-    REPjsk = (int(((int(Pil3[5]))/(int(Pil3[4])-int(Pil3[7]))*100)))
-    Pil3.append(REPjsk)
-    REPgio = (int(((int(Pil4[5]))/(int(Pil4[4])-int(Pil4[7]))*100)))
-    Pil4.append(REPgio)
-    REPdio = (int(((int(Pil5[5]))/(int(Pil5[4])-int(Pil5[7]))*100)))
-    Pil5.append(REPdio)
-    REPkra = (int(((int(Pil6[5]))/(int(Pil6[4])-int(Pil6[7]))*100)))
-    Pil6.append(REPkra)
-    REPbrn = (int(((int(Pil7[5]))/(int(Pil7[4])-int(Pil7[7]))*100)))
-    Pil7.append(REPbrn)
-    REPpol = (int(((int(Pil8[5]))/(int(Pil8[4])-int(Pil8[7]))*100)))
-    Pil8.append(REPpol)
-    REPcsz = (int(((int(Pil9[5]))/(int(Pil9[4])-int(Pil9[7]))*100)))
-    Pil9.append(REPcsz)
-    #Luego se asignan las alturas a la lista de cada piloto
-    Pil0.append(Y1)
-    Pil1.append(Y2)
-    Pil2.append(Y3)
-    Pil3.append(Y4)
-    Pil4.append(Y5)
-    Pil5.append(Y6)
-    Pil6.append(Y7)
-    Pil7.append(Y8)
-    Pil8.append(Y9)
-    Pil9.append(Y10)
-    print(Pil0)
-    print(Pil0[7])
+    for i in range(0,10):
+        ListaPilotos[i].append(int(((int(ListaPilotos[i][5]))/(int(ListaPilotos[i][4])-int(ListaPilotos[i][7]))*100)))
+    #la lista de cada piloto
+    for i in range(0,10):
+        ListaPilotos[i].append(listaY[i])
+
+    print(ListaPilotos)
+
+    ListaPilotos[0][2] = britanico
+    ListaPilotos[1][2] = americano
+    ListaPilotos[2][2] = japones
+    ListaPilotos[3][2] = japones
+    ListaPilotos[4][2] = italiano
+    ListaPilotos[5][2] = britanico
+    ListaPilotos[6][2] = japones
+    ListaPilotos[7][2] = italiano
+    ListaPilotos[8][2] = frances
+    ListaPilotos[9][2] = italiano
+
+    #ListaPilotos=(Pil0,Pil1,Pil2,Pil3,Pil4,Pil5,Pil6,Pil7,Pil8,Pil9)
     # RGP = ((V+P)/(T-A))*100
     # REP =(V/(T-A))*100
     # V = VICTORIAS, P = 2 Y 3 LUGAR, T=PARTICIPACIONES, A=ABANDONOS
     # Altura de las imagenes x = 72, y=85
-    Num1 = Pilots_Canvas.create_text(5,Y1,anchor=NW,text ='1',font=('Britannic Bold', 16))
-    Num2 = Pilots_Canvas.create_text(5,Y2,anchor=NW,text ='2',font=('Britannic Bold', 16))
-    Num3 = Pilots_Canvas.create_text(5,Y3,anchor=NW,text ='3',font=('Britannic Bold', 16))
-    Num4 = Pilots_Canvas.create_text(5,Y4,anchor=NW,text ='4',font=('Britannic Bold', 16))
-    Num5 = Pilots_Canvas.create_text(5,Y5,anchor=NW,text ='5',font=('Britannic Bold', 16))
-    Num6 = Pilots_Canvas.create_text(5,Y6, anchor=NW, text='6', font=('Britannic Bold', 16))
-    Num7 = Pilots_Canvas.create_text(5,Y7, anchor=NW, text='7', font=('Britannic Bold', 16))
-    Num8 = Pilots_Canvas.create_text(5,Y8, anchor=NW, text='8', font=('Britannic Bold', 16))
-    Num9 = Pilots_Canvas.create_text(5,Y9, anchor=NW, text='9', font=('Britannic Bold', 16))
-    Num10 = Pilots_Canvas.create_text(5,Y10, anchor=NW, text='10', font=('Britannic Bold', 16))
+    listatext = []
+    listaflags = []
+    listanom = []
+    listaedad = []
+    listatmp = []
+    listargp = []
+    listarep = []
+    listacomp = []
+
+    for i in range(0,10):
+        listatext.append(Pilots_Canvas.create_text(5, listaY[i], anchor=NW, text=i+1, font=('Britannic Bold', 16)))
+
     Nombre = Pilots_Canvas.create_text(182,2,anchor=NW,text ='Nombre/Edad',font=('Britannic Bold', 16))
     Temp = Pilots_Canvas.create_text(380, 2, anchor=NW, text='Temporada', font=('Britannic Bold', 16))
     RGP = Pilots_Canvas.create_text(500, 2, anchor=NW, text='RGP', font=('Britannic Bold', 16))
     REP = Pilots_Canvas.create_text(555,2,anchor=NW,text ='REP',font=('Britannic Bold', 16))
     Comp = Pilots_Canvas.create_text(610,2,anchor=NW,text ='Competencias',font=('Britannic Bold', 16))
 
-    # __Se coloca la informacion de los pilotos en la pantalla
-    flag1 = Pilots_Canvas.create_image(108,Pil0[10],image=britanico,anchor=NW)
-    nompil1 = Pilots_Canvas.create_text(182,Pil0[10],anchor=NW,text =Pil0[0],font=('Britannic Bold', 16))
-    edadpil1 = Pilots_Canvas.create_text(182,Pil0[10]+25,anchor=NW,text =Pil0[1],font=('Britannic Bold', 16))
-    tmppil1 = Pilots_Canvas.create_text(380,Pil0[10],anchor=NW,text =Pil0[3],font=('Britannic Bold', 16))
-    rgppil1 = Pilots_Canvas.create_text(500,Pil0[10],anchor=NW,text =RGPjon,font=('Britannic Bold', 16))
-    reppil1 = Pilots_Canvas.create_text(555,Pil0[10],anchor=NW,text =REPjon,font=('Britannic Bold', 16))
-    comp1 = Pilots_Canvas.create_text(610,Pil0[10],anchor=NW,text =Pil0[4],font=('Britannic Bold', 16))
+    for i in range(0,10):
+        listaflags.append(Pilots_Canvas.create_image(108,ListaPilotos[i][10],image=ListaPilotos[i][2],anchor=NW))
 
-    flag2 = Pilots_Canvas.create_image(108, Pil1[10], image=americano, anchor=NW)
-    nompil2 = Pilots_Canvas.create_text(182,Pil1[10],anchor=NW,text =Pil1[0],font=('Britannic Bold', 16))
-    edadpil2 = Pilots_Canvas.create_text(182,Pil1[10]+25,anchor=NW,text =Pil1[1],font=('Britannic Bold', 16))
-    tmppil2 = Pilots_Canvas.create_text(380,Pil1[10],anchor=NW,text =Pil1[3],font=('Britannic Bold', 16))
-    rgppil2 = Pilots_Canvas.create_text(500,Pil1[10],anchor=NW,text =RGPjsp,font=('Britannic Bold', 16))
-    reppil2 = Pilots_Canvas.create_text(555,Pil1[10],anchor=NW,text =REPjsp,font=('Britannic Bold', 16))
-    comp2 = Pilots_Canvas.create_text(610,Pil1[10],anchor=NW,text =Pil1[4],font=('Britannic Bold', 16))
+    for i in range(0,10):
+        listanom.append(Pilots_Canvas.create_text(182,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][0],font=('Britannic Bold', 16)))
 
-    flag3 = Pilots_Canvas.create_image(108,Pil2[10], image=japones, anchor=NW)
-    nompil3 = Pilots_Canvas.create_text(182,Pil2[10], anchor=NW, text=Pil2[0], font=('Britannic Bold', 16))
-    edadpil3 = Pilots_Canvas.create_text(182, Pil2[10] + 25, anchor=NW, text=Pil2[1], font=('Britannic Bold', 16))
-    tmppil3 = Pilots_Canvas.create_text(380,Pil2[10], anchor=NW, text=Pil2[3], font=('Britannic Bold', 16))
-    rgppil3 = Pilots_Canvas.create_text(500,Pil2[10], anchor=NW, text=RGPjot, font=('Britannic Bold', 16))
-    reppil3 = Pilots_Canvas.create_text(555,Pil2[10], anchor=NW, text=REPjot, font=('Britannic Bold', 16))
-    comp3 = Pilots_Canvas.create_text(610,Pil2[10], anchor=NW, text=Pil2[4], font=('Britannic Bold', 16))
+    for i in range(0,10):
+        listaedad.append(Pilots_Canvas.create_text(182,ListaPilotos[i][10]+25,anchor=NW,text =ListaPilotos[i][1],font=('Britannic Bold', 16)))
 
-    flag4 = Pilots_Canvas.create_image(108, Pil3[10], image=japones, anchor=NW)
-    nompil4 = Pilots_Canvas.create_text(182, Pil3[10], anchor=NW, text=Pil3[0], font=('Britannic Bold', 16))
-    edadpil4 = Pilots_Canvas.create_text(182, Pil3[10] + 25, anchor=NW, text=Pil3[1], font=('Britannic Bold', 16))
-    tmppil4 = Pilots_Canvas.create_text(380, Pil3[10], anchor=NW, text=Pil3[3], font=('Britannic Bold', 16))
-    rgppil4 = Pilots_Canvas.create_text(500, Pil3[10], anchor=NW, text=RGPjsk, font=('Britannic Bold', 16))
-    reppil4 = Pilots_Canvas.create_text(555, Pil3[10], anchor=NW, text=REPjsk, font=('Britannic Bold', 16))
-    comp4 = Pilots_Canvas.create_text(610, Pil3[10], anchor=NW, text=Pil3[4], font=('Britannic Bold', 16))
+    for i in range(0,10):
+        listatmp.append(Pilots_Canvas.create_text(380,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][3],font=('Britannic Bold', 16)))
 
-    flag5 = Pilots_Canvas.create_image(108, Pil4[10], image=italiano, anchor=NW)
-    nompil5 = Pilots_Canvas.create_text(182, Pil4[10], anchor=NW, text=Pil4[0], font=('Britannic Bold', 16))
-    edadpil5 = Pilots_Canvas.create_text(182, Pil4[10] + 25, anchor=NW, text=Pil4[1], font=('Britannic Bold', 16))
-    tmppil5 = Pilots_Canvas.create_text(380, Pil4[10], anchor=NW, text=Pil4[3], font=('Britannic Bold', 16))
-    rgppil5 = Pilots_Canvas.create_text(500, Pil4[10], anchor=NW, text=RGPgio, font=('Britannic Bold', 16))
-    reppil5 = Pilots_Canvas.create_text(555, Pil4[10], anchor=NW, text=REPgio, font=('Britannic Bold', 16))
-    comp5 = Pilots_Canvas.create_text(610, Pil4[10], anchor=NW, text=Pil4[4], font=('Britannic Bold', 16))
+    for i in range(0,10):
+        listargp.append(Pilots_Canvas.create_text(500,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][8],font=('Britannic Bold', 16)))
 
-    flag6 = Pilots_Canvas.create_image(108, Pil5[10], image=britanico, anchor=NW)
-    nompil6 = Pilots_Canvas.create_text(182, Pil5[10], anchor=NW, text=Pil5[0], font=('Britannic Bold', 16))
-    edadpil6 = Pilots_Canvas.create_text(182, Pil5[10] + 25, anchor=NW, text=Pil5[1], font=('Britannic Bold', 16))
-    tmppil6 = Pilots_Canvas.create_text(380, Pil5[10], anchor=NW, text=Pil5[3], font=('Britannic Bold', 16))
-    rgppil6 = Pilots_Canvas.create_text(500, Pil5[10], anchor=NW, text=RGPdio, font=('Britannic Bold', 16))
-    reppil6 = Pilots_Canvas.create_text(555, Pil5[10], anchor=NW, text=REPdio, font=('Britannic Bold', 16))
-    comp6 = Pilots_Canvas.create_text(610, Pil5[10], anchor=NW, text=Pil5[4], font=('Britannic Bold', 16))
+    for i in range(0,10):
+        listarep.append(Pilots_Canvas.create_text(555,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][9],font=('Britannic Bold', 16)))
 
-    flag7 = Pilots_Canvas.create_image(108, Pil6[10], image=japones, anchor=NW)
-    nompil7 = Pilots_Canvas.create_text(182, Pil6[10], anchor=NW, text=Pil6[0], font=('Britannic Bold', 16))
-    edadpil7 = Pilots_Canvas.create_text(182, Pil6[10]+ 25, anchor=NW, text=Pil6[1], font=('Britannic Bold', 16))
-    tmppil7 = Pilots_Canvas.create_text(380, Pil6[10], anchor=NW, text=Pil6[3], font=('Britannic Bold', 16))
-    rgppil7 = Pilots_Canvas.create_text(500, Pil6[10], anchor=NW, text=RGPkra, font=('Britannic Bold', 16))
-    reppil7 = Pilots_Canvas.create_text(555, Pil6[10], anchor=NW, text=REPkra, font=('Britannic Bold', 16))
-    comp7 = Pilots_Canvas.create_text(610, Pil6[10], anchor=NW, text=Pil6[4], font=('Britannic Bold', 16))
+    for i in range(0,10):
+        listacomp.append(Pilots_Canvas.create_text(610,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][4],font=('Britannic Bold', 16)))
 
-    flag8 = Pilots_Canvas.create_image(108, Pil7[10], image=italiano, anchor=NW)
-    nompil8 = Pilots_Canvas.create_text(182, Pil7[10], anchor=NW, text=Pil7[0], font=('Britannic Bold', 16))
-    edadpil8 = Pilots_Canvas.create_text(182, Pil7[10] + 25, anchor=NW, text=Pil7[1], font=('Britannic Bold', 16))
-    tmppil8 = Pilots_Canvas.create_text(380, Pil7[10], anchor=NW, text=Pil7[3], font=('Britannic Bold', 16))
-    rgppil8 = Pilots_Canvas.create_text(500, Pil7[10], anchor=NW, text=RGPbrn, font=('Britannic Bold', 16))
-    reppil8 = Pilots_Canvas.create_text(555, Pil7[10], anchor=NW, text=REPbrn, font=('Britannic Bold', 16))
-    comp8 = Pilots_Canvas.create_text(610, Pil7[10], anchor=NW, text=Pil7[4], font=('Britannic Bold', 16))
-
-    flag9 = Pilots_Canvas.create_image(108, Pil8[10], image=frances, anchor=NW)
-    nompil9 = Pilots_Canvas.create_text(182, Pil8[10], anchor=NW, text=Pil8[0], font=('Britannic Bold', 16))
-    edadpil9 = Pilots_Canvas.create_text(182, Pil8[10] + 25, anchor=NW, text=Pil8[1], font=('Britannic Bold', 16))
-    tmppil9 = Pilots_Canvas.create_text(380, Pil8[10], anchor=NW, text=Pil8[3], font=('Britannic Bold', 16))
-    rgppil9 = Pilots_Canvas.create_text(500, Pil8[10], anchor=NW, text=RGPpol, font=('Britannic Bold', 16))
-    reppil9 = Pilots_Canvas.create_text(555, Pil8[10], anchor=NW, text=REPpol, font=('Britannic Bold', 16))
-    comp9 = Pilots_Canvas.create_text(610, Pil8[10], anchor=NW, text=Pil8[4], font=('Britannic Bold', 16))
-
-    flag10 = Pilots_Canvas.create_image(108, Pil9[10], image=italiano, anchor=NW)
-    nompil10 = Pilots_Canvas.create_text(182, Pil9[10], anchor=NW, text=Pil9[0], font=('Britannic Bold', 16))
-    edadpil10 = Pilots_Canvas.create_text(182, Pil9[10] + 25, anchor=NW, text=Pil9[1], font=('Britannic Bold', 16))
-    tmppil10 = Pilots_Canvas.create_text(380, Pil9[10], anchor=NW, text=Pil9[3], font=('Britannic Bold', 16))
-    rgppil10 = Pilots_Canvas.create_text(500, Pil9[10], anchor=NW, text=RGPcsz, font=('Britannic Bold', 16))
-    reppil10 = Pilots_Canvas.create_text(555, Pil9[10], anchor=NW, text=REPcsz, font=('Britannic Bold', 16))
-    comp10 = Pilots_Canvas.create_text(610, Pil9[10], anchor=NW, text=Pil9[4], font=('Britannic Bold', 16))
 
     #Pilots_Canvas.delete(nomp)
     #Boton.destroy()
 
+    def borrar():
+        for flags in listaflags:
+            Pilots_Canvas.delete(flags)
+        for nom in listanom:
+            Pilots_Canvas.delete(nom)
+        for edad in listaedad:
+            Pilots_Canvas.delete(edad)
+        for tmp in listatmp:
+            Pilots_Canvas.delete(tmp)
+        for rgp in listargp:
+            Pilots_Canvas.delete(rgp)
+        for rep in listarep:
+            Pilots_Canvas.delete(rep)
+        for comp in listacomp:
+            Pilots_Canvas.delete(comp)
+        for btn in listabtn:
+            btn.destroy()
+        #Pilots_Canvas.delete(listatext)
     def mayor_RGP():
-        Pilots_Canvas.delete(flag1,flag2,flag3,flag4,flag5,flag6,flag7,flag8,flag9,flag10)
-        Pilots_Canvas.delete(nompil1,nompil2,nompil3,nompil4,nompil5,nompil6,nompil7,nompil8,nompil9,nompil10)
-        Pilots_Canvas.delete(edadpil1,edadpil2,edadpil3,edadpil4,edadpil5,edadpil6,edadpil7,edadpil8,edadpil9,edadpil10)
-        Pilots_Canvas.delete(tmppil1,tmppil2,tmppil3,tmppil4,tmppil5,tmppil6,tmppil7,tmppil8,tmppil9,tmppil10)
-        Pilots_Canvas.delete(rgppil1,rgppil2,rgppil3,rgppil4,rgppil5,rgppil6,rgppil7,rgppil8,rgppil9,rgppil10)
-        Pilots_Canvas.delete(reppil1,reppil2,reppil3,reppil4,reppil5,reppil6,reppil7,reppil8,reppil9,reppil10)
-        Pilots_Canvas.delete(comp1,comp2,comp3,comp4,comp5,comp6,comp7,comp8,comp8,comp9,comp10)
-        Btn_jon.destroy()
-        Btn_jsp.destroy()
-        Btn_jsk.destroy()
-        Btn_jot.destroy()
-        Btn_gio.destroy()
-        Btn_dio.destroy()
-        Btn_kra.destroy()
-        Btn_brn.destroy()
-        Btn_pol.destroy()
-        Btn_czs.destroy()
+      borrar()
 
     def burbuja(Lista):
         return burbuja_aux(Lista, 0, 0, len(Lista), False)
@@ -469,40 +369,35 @@ def ventana_Pilots():
     Btn_OrdenREPm = Button(Pilots_frame, text='Menor REP', font=('Britannic Bold', 14), bg='black', fg='white')
     Btn_OrdenREPm.pack()
     #Botones de los pilotos
-    Btn_jon = Button(Frame1,image = jonathan)
+    listabtn = []
+    for i in range(0,10):
+        listabtn.append(Button(listaframes[i],image=listaimg[i]))
+        listabtn[i].pack()
+    '''Btn_jon = Button(listaframes[0],image=jonathan)
     Btn_jon.pack()
-    Btn_jsp = Button(Frame2, image=joseph)
+    Btn_jsp = Button(listaframes[1], image=joseph)
     Btn_jsp.pack()
-    Btn_jot = Button(Frame3, image=jotaro)
+    Btn_jot = Button(listaframes[2], image=jotaro)
     Btn_jot.pack()
-    Btn_jsk = Button(Frame4, image=josuke)
+    Btn_jsk = Button(listaframes[3], image=josuke)
     Btn_jsk.pack()
-    Btn_gio = Button(Frame5, image=giorno)
+    Btn_gio = Button(listaframes[4], image=giorno)
     Btn_gio.pack()
-    Btn_dio = Button(Frame6, image=dio)
+    Btn_dio = Button(listaframes[5], image=dio)
     Btn_dio.pack()
-    Btn_kra = Button(Frame7, image=kira)
+    Btn_kra = Button(listaframes[6], image=kira)
     Btn_kra.pack()
-    Btn_brn = Button(Frame8, image=bruno)
+    Btn_brn = Button(listaframes[7], image=bruno)
     Btn_brn.pack()
-    Btn_pol = Button(Frame9, image=polnareff)
+    Btn_pol = Button(listaframes[8], image=polnareff)
     Btn_pol.pack()
-    Btn_czs = Button(Frame10, image=caesar)
-    Btn_czs.pack()
+    Btn_czs = Button(listaframes[9], image=caesar)
+    Btn_czs.pack()'''
 
+    for i in range(0,10):
+        Pilots_Canvas.create_window(30, ListaPilotos[i][10], anchor=NW, window=listaframes[i])
 
-    Pilots_Canvas.create_window(760, 5, anchor=NW, window=Pilots_frame)
-    Pilots_Canvas.create_window(30, Pil0[10], anchor=NW, window=Frame1)
-    Pilots_Canvas.create_window(30, Pil1[10], anchor=NW, window=Frame2)
-    Pilots_Canvas.create_window(30, Pil2[10], anchor=NW, window=Frame3)
-    Pilots_Canvas.create_window(30, Pil3[10], anchor=NW, window=Frame4)
-    Pilots_Canvas.create_window(30, Pil4[10], anchor=NW, window=Frame5)
-    Pilots_Canvas.create_window(30, Pil5[10], anchor=NW, window=Frame6)
-    Pilots_Canvas.create_window(30, Pil6[10], anchor=NW, window=Frame7)
-    Pilots_Canvas.create_window(30, Pil7[10], anchor=NW, window=Frame8)
-    Pilots_Canvas.create_window(30, Pil8[10], anchor=NW, window=Frame9)
-    Pilots_Canvas.create_window(30, Pil9[10], anchor=NW, window=Frame10)
-
+    Pilots_Canvas.create_window(780,30,anchor=NW,window=Pilots_frame)
     Pilots_Canvas.update_idletasks()
     Pilots_Canvas.configure(scrollregion = Pilots_Canvas.bbox('all'),yscrollcommand = scroll_y.set)
     Pilots_Canvas.pack(fill =BOTH, expand = True,side = LEFT)
