@@ -272,7 +272,7 @@ def ventana_Pilots():
     REPcsz = (int(((int(Pil9[5]))/(int(Pil9[4])-int(Pil9[7]))*100)))
     Pil9.append(REPcsz)
     #Luego se asignan las alturas a la lista de cada piloto
-    Pil0.append()
+    Pil0.append(Y1)
     Pil1.append(Y2)
     Pil2.append(Y3)
     Pil3.append(Y4)
@@ -305,7 +305,7 @@ def ventana_Pilots():
     Comp = Pilots_Canvas.create_text(610,2,anchor=NW,text ='Competencias',font=('Britannic Bold', 16))
 
     # __Se coloca la informacion de los pilotos en la pantalla
-    jonathan = cargarImg("jonathan.gif")
+    jonathan = cargarImg("jonathan.png")
     pil1img = Pilots_Canvas.create_image(30, Pil0[10], image=jonathan, anchor=NW)
     flag1 = Pilots_Canvas.create_image(108,Pil0[10],image=britanico,anchor=NW)
     nompil1 = Pilots_Canvas.create_text(182,Pil0[10],anchor=NW,text =Pil0[0],font=('Britannic Bold', 16))
@@ -315,7 +315,7 @@ def ventana_Pilots():
     reppil1 = Pilots_Canvas.create_text(555,Pil0[10],anchor=NW,text =REPjon,font=('Britannic Bold', 16))
     comp1 = Pilots_Canvas.create_text(610,Pil0[10],anchor=NW,text =Pil0[4],font=('Britannic Bold', 16))
 
-    joseph = cargarImg("joseph.gif")
+    joseph = cargarImg("joseph.png")
     pil2img = Pilots_Canvas.create_image(30, Pil1[10], image=joseph, anchor=NW)
     flag2 = Pilots_Canvas.create_image(108, Pil1[10], image=americano, anchor=NW)
     nompil2 = Pilots_Canvas.create_text(182,Pil1[10],anchor=NW,text =Pil1[0],font=('Britannic Bold', 16))
@@ -325,7 +325,7 @@ def ventana_Pilots():
     reppil2 = Pilots_Canvas.create_text(555,Pil1[10],anchor=NW,text =REPjsp,font=('Britannic Bold', 16))
     comp2 = Pilots_Canvas.create_text(610,Pil1[10],anchor=NW,text =Pil1[4],font=('Britannic Bold', 16))
 
-    jotaro = cargarImg("jotaro.gif")
+    jotaro = cargarImg("jotaro.png")
     pil3img = Pilots_Canvas.create_image(30,Pil2[10], image=jotaro, anchor=NW)
     flag3 = Pilots_Canvas.create_image(108,Pil2[10], image=japones, anchor=NW)
     nompil3 = Pilots_Canvas.create_text(182,Pil2[10], anchor=NW, text=Pil2[0], font=('Britannic Bold', 16))
@@ -336,7 +336,7 @@ def ventana_Pilots():
     comp2 = Pilots_Canvas.create_text(610,Pil2[10], anchor=NW, text=Pil2[4], font=('Britannic Bold', 16))
 
 
-    josuke = cargarImg("josuke.gif")
+    josuke = cargarImg("josuke.png")
     pil4img = Pilots_Canvas.create_image(30, Pil3[10], image=josuke, anchor=NW)
     flag4 = Pilots_Canvas.create_image(108, Pil3[10], image=japones, anchor=NW)
     nompil4 = Pilots_Canvas.create_text(182, Pil3[10], anchor=NW, text=Pil3[0], font=('Britannic Bold', 16))
@@ -347,7 +347,7 @@ def ventana_Pilots():
     comp4 = Pilots_Canvas.create_text(610, Pil3[10], anchor=NW, text=Pil3[4], font=('Britannic Bold', 16))
     #nompil4.destroy()
 
-    giorno = cargarImg("giorno.gif")
+    giorno = cargarImg("giorno.png")
     pil5img = Pilots_Canvas.create_image(30, Pil4[10], image=giorno, anchor=NW)
     flag5 = Pilots_Canvas.create_image(108, Pil4[10], image=italiano, anchor=NW)
     nompil5 = Pilots_Canvas.create_text(182, Pil4[10], anchor=NW, text=Pil4[0], font=('Britannic Bold', 16))
@@ -357,7 +357,7 @@ def ventana_Pilots():
     reppil5 = Pilots_Canvas.create_text(555, Pil4[10], anchor=NW, text=REPgio, font=('Britannic Bold', 16))
     comp5 = Pilots_Canvas.create_text(610, Pil4[10], anchor=NW, text=Pil4[4], font=('Britannic Bold', 16))
 
-    dio = cargarImg('dio.gif')
+    dio = cargarImg('dio.png')
     pil6img = Pilots_Canvas.create_image(30, Pil5[10], image=dio, anchor=NW)
     flag6 = Pilots_Canvas.create_image(108, Pil5[10], image=britanico, anchor=NW)
     nompil6 = Pilots_Canvas.create_text(182, Pil5[10], anchor=NW, text=Pil5[0], font=('Britannic Bold', 16))
@@ -367,7 +367,7 @@ def ventana_Pilots():
     reppil6 = Pilots_Canvas.create_text(555, Pil5[10], anchor=NW, text=REPdio, font=('Britannic Bold', 16))
     comp6 = Pilots_Canvas.create_text(610, Pil5[10], anchor=NW, text=Pil5[4], font=('Britannic Bold', 16))
 
-    kira = cargarImg('kira.gif')
+    kira = cargarImg('kira.png')
     pil7img = Pilots_Canvas.create_image(30, Pil6[10], image=kira, anchor=NW)
     flag7 = Pilots_Canvas.create_image(108, Pil6[10], image=japones, anchor=NW)
     nompil7 = Pilots_Canvas.create_text(182, Pil6[10], anchor=NW, text=Pil6[0], font=('Britannic Bold', 16))
@@ -377,7 +377,7 @@ def ventana_Pilots():
     reppil7 = Pilots_Canvas.create_text(555, Pil6[10], anchor=NW, text=REPkra, font=('Britannic Bold', 16))
     comp7 = Pilots_Canvas.create_text(610, Pil6[10], anchor=NW, text=Pil6[4], font=('Britannic Bold', 16))
 
-    bruno = cargarImg('bruno.gif')
+    bruno = cargarImg('bruno.png')
     pil8img = Pilots_Canvas.create_image(30, Pil7[10], image=bruno, anchor=NW)
     flag8 = Pilots_Canvas.create_image(108, Pil7[10], image=italiano, anchor=NW)
     nompil8 = Pilots_Canvas.create_text(182, Pil7[10], anchor=NW, text=Pil7[0], font=('Britannic Bold', 16))
@@ -387,7 +387,7 @@ def ventana_Pilots():
     reppil8 = Pilots_Canvas.create_text(555, Pil7[10], anchor=NW, text=REPbrn, font=('Britannic Bold', 16))
     comp8 = Pilots_Canvas.create_text(610, Pil7[10], anchor=NW, text=Pil7[4], font=('Britannic Bold', 16))
 
-    polnareff = cargarImg('polnareff.gif')
+    polnareff = cargarImg('polnareff.png')
     pil9img = Pilots_Canvas.create_image(30, Pil8[10], image=polnareff, anchor=NW)
     flag9 = Pilots_Canvas.create_image(108, Pil8[10], image=frances, anchor=NW)
     nompil9 = Pilots_Canvas.create_text(182, Pil8[10], anchor=NW, text=Pil8[0], font=('Britannic Bold', 16))
@@ -397,7 +397,7 @@ def ventana_Pilots():
     reppil9 = Pilots_Canvas.create_text(555, Pil8[10], anchor=NW, text=REPpol, font=('Britannic Bold', 16))
     comp9 = Pilots_Canvas.create_text(610, Pil8[10], anchor=NW, text=Pil8[4], font=('Britannic Bold', 16))
 
-    caesar = cargarImg('caesar.gif')
+    caesar = cargarImg('caesar.png')
     pil6img = Pilots_Canvas.create_image(30, Pil9[10], image=caesar, anchor=NW)
     flag10 = Pilots_Canvas.create_image(108, Pil9[10], image=italiano, anchor=NW)
     nompil10 = Pilots_Canvas.create_text(182, Pil9[10], anchor=NW, text=Pil9[0], font=('Britannic Bold', 16))
