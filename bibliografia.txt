@@ -1,1 +1,5 @@
 https://www.mathworks.com/help/matlab/ref/break.html
+http://effbot.org/tkinterbook/canvas.htm
+http://effbot.org/tkinterbook/scrollbar.htm
+http://effbot.org/tkinterbook/label.htm
+http://www.mclibre.org/consultar/python/lecciones/python-listas.html
