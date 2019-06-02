@@ -293,13 +293,13 @@ def ventana_TestDrive():
     Test_Canvas.create_image(630, 450, image=CarRight, anchor=NW, tags=("right", "car"), state=HIDDEN)
 
     #__Se carga el texto de la velocidad
-    Test_Canvas.create_text(300, 600, anchor=NW, text="o", tags = "velocidad", font = ('Britannic Bold', 20), fill = "white")
+    Test_Canvas.create_text(300, 560, anchor=NW, text="o", tags = "velocidad", font = ('Britannic Bold', 20), fill = "white")
 
     # _Boton de reversa
     Reverse_off = cargarImg('reverse-off.png')
     Reverse_on = cargarImg('reverse-on.png')
-    Test_Canvas.create_image(110, 90, image=Reverse_off, anchor=NW, tags=("R-off", "reverse"), state=NORMAL)
-    Test_Canvas.create_image(110, 90, image=Reverse_on, anchor=NW, tags=("R-on", "reverse"), state=HIDDEN)
+    Test_Canvas.create_image(570, 450, image=Reverse_off, anchor=NW, tags=("R-off", "reverse"), state=NORMAL)
+    Test_Canvas.create_image(570, 450, image=Reverse_on, anchor=NW, tags=("R-on", "reverse"), state=HIDDEN)
 
     # __Funcionalidades principales del test drive
 
@@ -330,31 +330,24 @@ def ventana_TestDrive():
 
             # Reversa
         elif key == "w" and reverseON:
-            if NumGas_Re < -1023:
-                return
-                ##send("pwm:-1023;")
-                print("pwm:-1023;")
+            if not pressTecla:
+                pressTecla = True
+                time.sleep(1)
+                T_Pwm_Re = Thread(target=reverse_aceleration)
+                T_Pwm_Re.start()
             else:
-                if pressTecla:
-                    return
-                else:
-                    pressTecla = True
-                    T_Pwm_Re = Thread(target=reverse_aceleration())
-                    T_Pwm_Re.start()
+                return
+
 
             # Hacia adelante
         elif key == "w":
-            if NumGas > 1023:
-                return
-                ##send("pwm:1023;")
-                print("pwm:1023;")
+            if not pressTecla:
+                pressTecla = True
+                time.sleep(1)
+                T_pwm = Thread(target=aceleracion)
+                T_pwm.start()
             else:
-                if pressTecla:
-                    return
-                else:
-                    pressTecla = True
-                    T_Pwm = Thread(target = aceleracion())
-                    T_Pwm.start()
+                return
 
 
         # Control boton de stop
@@ -362,7 +355,7 @@ def ventana_TestDrive():
         # Reversa
         elif key == "s" and reverseON:
             NumGas_Re = 0
-            Test_Canvas.itemconfig("velocidad", state=str(NumGas_Re))
+            Test_Canvas.itemconfig("velocidad", text=str(NumGas_Re))
             Test_Canvas.itemconfig("L_s", state=NORMAL)
             Test_Canvas.itemconfig("L_s2", state=NORMAL)
             return
@@ -394,6 +387,11 @@ def ventana_TestDrive():
                     Test_Canvas.itemconfig("R-off", state=NORMAL)
                 else:
                     reverseON = True
+                    NumGas = 0
+                    NumGas_Re = 0
+                    ##send("pwm:0;")
+                    print ("pwm:0;")
+                    Test_Canvas.itemconfig("velocidad", text="0")
                     Test_Canvas.itemconfig("reverse", state=HIDDEN)
                     Test_Canvas.itemconfig("R-on", state=NORMAL)
 
@@ -444,10 +442,12 @@ def ventana_TestDrive():
                     Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
                     L_rightON = False
                     T_blinking_stop(100, "lr")
+                    print (L_rightON)
                 else:
                     Test_Canvas.itemconfig("L_dir2", state=NORMAL)
                     L_rightON = True
                     T_blinking(1, "lr")
+                    print(L_rightON)
 
             # Ambas
         elif key == "x":
@@ -468,7 +468,6 @@ def ventana_TestDrive():
                     T_blinking(1, "lr")
                     T_blinking(1, "ll")
 
-        pressTecla = True
 
     def T_blinking_stop(n, command):
         global L_DirON, L_rightON, L_leftON
@@ -505,58 +504,63 @@ def ventana_TestDrive():
                     return direccionalesON(n+1, command)
 
     def aceleracion():
-        global NumGas, NumGas_Re, Reverse_on, GasON, pressTecla
-        GasON = True
+        global NumGas, NumGas_Re, Reverse_on, pressTecla, GasON
         Test_Canvas.itemconfig("L_s2", state=HIDDEN)
         Test_Canvas.itemconfig("L_s", state=HIDDEN)
-        while NumGas <= 900 and pressTecla:
-            NumGas += 100
-            ##send("pwm:"+str(NumGas)+":")
-            print ("pwm:"+str(NumGas)+";")
-            time.sleep(1)
-            Test_Canvas.itemconfig("velocidad", text=str(NumGas / 10))
-        ##send("pwm:"+str(NumGas)+":")
-        print("pwm:" + str(NumGas) + ";")
+        if 500 <= NumGas <= 950 and pressTecla:
+            if pressTecla:
+                NumGas += 50
+                ##send("pwm:"+str(NumGas)+":")
+                print("pwm:" + str(NumGas) + ";")
+                time.sleep(1)
+                Test_Canvas.itemconfig("velocidad", text=str(NumGas / 10))
+                aceleracion()
+            else:
+                return
+
+        elif 400 >= NumGas and pressTecla:
+            if pressTecla:
+                NumGas += 100
+                ##send("pwm:"+str(NumGas)+":")
+                print ("pwm:"+str(NumGas)+";")
+                time.sleep(1)
+                Test_Canvas.itemconfig("velocidad", text=str(NumGas / 10))
+                aceleracion()
+            else:
+                return
 
     def reverse_aceleration():
         global NumGas_Re, Reverse_on, GasON, pressTecla
-        GasON = True
-        Test_Canvas.itemconfig("L_s2", state=HIDDEN)
-        Test_Canvas.itemconfig("L_s", state=HIDDEN)
-        while NumGas_Re >= -900 and pressTecla:
-            NumGas_Re -= 100
-            ##send("pwm:"+str(NumGas_Re)+":")
-            print("pwm:" + str(NumGas_Re) + ";")
-            time.sleep(1)
-            Test_Canvas.itemconfig("velocidad", text=str(NumGas_Re / 10))
-        ##send("pwm:"+str(NumGas_Re)+":")
-        print("pwm:" + str(NumGas_Re) + ";")
-
-    def dowm_velocity():
-        global NumGas, NumGas_Re, GasON
-        while NumGas > 0:
-            if NumGas <= 0:
-                NumGas = 0
-            else:
-                NumGas -= 100
-                ##send("pwm:"+str(NumGas)+";")
-                print ("pwm:"+str(NumGas)+";")
+        Test_Canvas.itemconfig("L_s2", state=NORMAL)
+        Test_Canvas.itemconfig("L_s", state=NORMAL)
+        if -500 >= NumGas_Re >= -950 and pressTecla:
+            if pressTecla:
+                NumGas_Re -= 50
+                ##send("pwm:"+str(NumGas_Re)+":")
+                print("pwm:" + str(NumGas_Re) + ";")
                 time.sleep(1)
-            Test_Canvas.itemconfig("velocidad", text = str(NumGas / 10))
+                Test_Canvas.itemconfig("velocidad", text=str(NumGas_Re / 10))
+                reverse_aceleration()
+            else:
+                return
 
-        GasON = False
-        NumGas = 0
-        ##send("pwm:0;")
-        print("pwm:0;")
-
-
+        elif -400 <= NumGas_Re and pressTecla:
+            if pressTecla:
+                NumGas_Re -= 100
+                ##send("pwm:"+str(NumGas_Re)+":")
+                print("pwm:" + str(NumGas_Re) + ";")
+                time.sleep(1)
+                Test_Canvas.itemconfig("velocidad", text=str(NumGas_Re / 10))
+                reverse_aceleration()
+            else:
+                return
 
     Test.bind("<KeyPress>", Car_Control)
 
     # Control key release
     def release_Control(event):
         key = event.char
-        global right, left, GasON, reverse_press, front_press
+        global right, left, GasON, reverse_press, front_press, left_press, right_press, Dir_press, pressTecla
 
         # Control de direccion
         if key == "a" or key == "d" and left or right:
@@ -568,13 +572,7 @@ def ventana_TestDrive():
             print ("dir:0;")
 
         elif key == "w":
-            Test_Canvas.itemconfig("L_s", state = NORMAL)
-            Test_Canvas.itemconfig("L_s2", state = NORMAL)
-            if GasON:
-                return
-            else:
-                T_pwm_stop = Thread(target=dowm_velocity)
-                T_pwm_stop.start()
+            pressTecla = False
 
         elif key == "r":
             reverse_press = False
@@ -583,54 +581,17 @@ def ventana_TestDrive():
             front_press = False
 
         elif key == "z":
-            reverse_press = False
+            left_press = False
 
         elif key == "c":
-            front_press = False
+            right_press = False
 
         elif key == "x":
-            reverse_press = False
+            Dir_press = False
 
 
 
     Test.bind("<KeyRelease>", release_Control)
-
-    # __Se crean labels con los datos importantes
-    Test_Canvas.create_text(485, 15, text="Batery Level", font=('Britannic Bold', 14), fill="red")
-
-    Test_Canvas.create_text(45, 330, text="Pwm\nVelocity", font=('Britannic Bold', 14), fill="red")
-
-    # Se crea una funcion para crear una barra de progreso, para cuando se esta acelerando
-    style = ttk.Style()
-    style.theme_use('default')
-    style.configure("darkblue.Vertical.TProgressbar", background='darkblue')
-    progressbar1 = Progressbar(Test, length=200, style='darkblue.Vertical.TProgressbar', orient=tk.VERTICAL,
-                               maximum=1000)
-    progressbar1.place(x=30, y=350)
-
-    def progress_up(Progress):
-        Num_Bar = Progress
-        progressbar1['value'] = Num_Bar
-        if Num_Bar == 1000:
-            return
-        else:
-            Num_Bar += 100
-
-    def progress_down(Progress):
-        Num_Bar = Progress
-        progressbar1['value'] = Num_Bar
-        if Num_Bar == 0:
-            return
-        else:
-            Num_Bar -= 100
-
-    # Se crea una funcion para crear una barra de progreso, para el nivel de la bateria
-    style = ttk.Style()
-    style.theme_use('default')
-    style.configure("green.Horizontal.TProgressbar", background='green')
-    progressbar2 = Progressbar(Test, length=200, style='green.Horizontal.TProgressbar', maximum=1023)
-    progressbar2['value'] = 500
-    progressbar2.place(x=390, y=30)
 
     # __Se crea un label con informacion crucial
 
