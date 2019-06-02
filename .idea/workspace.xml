@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5fd0cb57-e10b-4ce1-b65e-58f61e626e17" name="Default Changelist" comment="">
@@ -21,6 +21,8 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-3067">
               <caret line="724" selection-start-line="724" selection-end-line="724" />
+            <state relative-caret-position="170">
+              <caret line="326" column="14" lean-forward="true" selection-start-line="326" selection-start-column="14" selection-end-line="326" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -30,11 +32,20 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="126">
               <caret line="2577" selection-start-line="2577" selection-end-line="2577" />
+        <entry file="file://D:/Python/Lib/tkinter/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="2513" selection-start-line="2513" selection-end-line="2513" />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>britanico.png</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="ROOT_SYNC" value="DONT_SYNC" />
@@ -65,7 +76,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
+    <property name="last_opened_file_path" value="$USER_HOME$/AppData/Local/GitHubDesktop/GitHubDesktop.exe" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -175,7 +186,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
@@ -191,7 +202,7 @@
       <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="Run" order="10" sideWeight="0.49848714" weight="0.31239936" />
+      <window_info active="true" anchor="bottom" id="Run" order="10" sideWeight="0.49848714" visible="true" weight="0.31096563" />
       <window_info anchor="bottom" id="Debug" order="11" weight="0.3993559" />
       <window_info anchor="bottom" id="TODO" order="12" weight="0.32850242" />
       <window_info anchor="right" id="Database" order="0" />
@@ -232,10 +243,13 @@
     <SUITE FILE_PATH="coverage/RaioMakuin$3__Proyecto.coverage" NAME="3° Proyecto Coverage Results" MODIFIED="1559462145416" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Desktop/RaioMakuin/3° Proyecto.py">
+    <entry file="file://$USER_HOME$/Desktop/RaioMakuin/3° Proyecto.py" />
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python37-32/Lib/tkinter/__init__.py" />
+    <entry file="file://$USER_HOME$/Desktop/ola/TelemetryP2.py" />
+    <entry file="file://D:/Python/Lib/tkinter/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="16">
-          <caret line="220" column="24" selection-start-line="220" selection-start-column="24" selection-end-line="220" selection-end-column="24" />
+        <state relative-caret-position="132">
+          <caret line="2513" selection-start-line="2513" selection-end-line="2513" />
         </state>
       </provider>
     </entry>
@@ -255,6 +269,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3067">
           <caret line="724" selection-start-line="724" selection-end-line="724" />
+    <entry file="file://$PROJECT_DIR$/3° Proyecto.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="326" column="14" lean-forward="true" selection-start-line="326" selection-start-column="14" selection-end-line="326" selection-end-column="14" />
         </state>
       </provider>
     </entry>
