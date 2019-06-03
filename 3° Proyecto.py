@@ -470,25 +470,47 @@ def ventana_TestDrive():
     vel30 = cargarImg('30vel.png')
     vel40 = cargarImg('40vel.png')
     vel50 = cargarImg('50vel.png')
+    vel55 = cargarImg('55vel.png')
     vel60 = cargarImg('60vel.png')
+    vel65 = cargarImg('65vel.png')
     vel70 = cargarImg('70vel.png')
+    vel75 = cargarImg('75vel.png')
     vel80 = cargarImg('80vel.png')
+    vel85 = cargarImg('85vel.png')
     vel90 = cargarImg('90vel.png')
+    vel95 = cargarImg('95vel.png')
     vel100 = cargarImg('100vel.png')
-    Test_Canvas.create_image(283, 553, image=vel0, anchor = NW, tags = ('vel0', 'vel'), state = HIDDEN)
+    Test_Canvas.create_image(283, 553, image=vel0, anchor = NW, tags = ('vel0', 'vel'), state = NORMAL)
     Test_Canvas.create_image(263, 553, image=vel10, anchor=NW, tags=('vel10', 'vel'), state=HIDDEN)
     Test_Canvas.create_image(248, 552, image=vel20, anchor=NW, tags=('vel20', 'vel'), state=HIDDEN)
     Test_Canvas.create_image(253, 526, image=vel30, anchor=NW, tags=('vel30', 'vel'), state=HIDDEN)
     Test_Canvas.create_image(286, 495, image=vel40, anchor=NW, tags=('vel40', 'vel'), state=HIDDEN)
     Test_Canvas.create_image(320, 480, image=vel50, anchor=NW, tags=('vel50', 'vel'), state=HIDDEN)
+    Test_Canvas.create_image(320, 480, image=vel55, anchor=NW, tags=('vel55', 'vel'), state=HIDDEN)
     Test_Canvas.create_image(318, 490, image=vel60, anchor=NW, tags=('vel60', 'vel'), state=HIDDEN)
+    Test_Canvas.create_image(318, 510, image=vel65, anchor=NW, tags=('vel65', 'vel'), state=HIDDEN)
     Test_Canvas.create_image(316, 530, image=vel70, anchor=NW, tags=('vel70', 'vel'), state=HIDDEN)
+    Test_Canvas.create_image(316, 548, image=vel75, anchor=NW, tags=('vel75', 'vel'), state=HIDDEN)
     Test_Canvas.create_image(316, 550, image=vel80, anchor=NW, tags=('vel80', 'vel'), state=HIDDEN)
+    Test_Canvas.create_image(316, 550, image=vel85, anchor=NW, tags=('vel85', 'vel'), state=HIDDEN)
     Test_Canvas.create_image(319, 551, image=vel90, anchor=NW, tags=('vel90', 'vel'), state=HIDDEN)
+    Test_Canvas.create_image(315, 551, image=vel95, anchor=NW, tags=('vel95', 'vel'), state=HIDDEN)
     Test_Canvas.create_image(319, 553, image=vel100, anchor=NW, tags=('vel100', 'vel'), state=HIDDEN)
 
     middlecircle = cargarImg('center.png')
     Test_Canvas.create_image(317, 550, image=middlecircle, anchor=NW, state=NORMAL)
+
+    #Se cargan las img para el estado de la bateria
+    lvl0= cargarImg('lvl0.png')
+    lvl1 = cargarImg('lvl1.png')
+    lvl2 = cargarImg('lvl2.png')
+    lvl3 = cargarImg('lvl3.png')
+    lvl4 = cargarImg('lvl4.png')
+    Test_Canvas.create_image(460, 517, image=lvl0, anchor=NW, tags=('lvl0', 'vel'), state=NORMAL)
+    Test_Canvas.create_image(475, 517, image=lvl1, anchor=NW, tags=('lvl1', 'vel'), state=NORMAL)
+    Test_Canvas.create_image(490, 517, image=lvl2, anchor=NW, tags=('lvl2', 'vel'), state=NORMAL)
+    Test_Canvas.create_image(515, 517, image=lvl3, anchor=NW, tags=('lvl3', 'vel'), state=NORMAL)
+    Test_Canvas.create_image(530, 517, image=lvl4, anchor=NW, tags=('lvl4', 'vel'), state=NORMAL)
 
 
     #__Se carga el texto de la velocidad
@@ -515,6 +537,49 @@ def ventana_TestDrive():
 
     # __Funcionalidades principales del test drive
 
+    #Funcion para obtener el nivel de bateria y la iluminacion de ambiente
+    def GetSense():
+        global carrito
+        #Obtencion de la bateria
+        SenseGet = carrito.send("sense;")
+        time.sleep(3);
+        BatlvlGet= carrito.readById(SenseGet)
+        BatLvlObtenido=int(BatlvlGet[0][-2:])
+        BatLvl%= BatLvlObtenido-60
+        BatLvlFinal=int((BatLvl*100)/12)
+        BatImage(BatLvlFinal)
+        Test_Canvas.itemconfig("FinalBatLvl", text=str(BatLvlFinal)+"%")
+        #Obtencion de la Luz
+        LuzGet=carrito.readById(SenseGet)
+        LuzObtenida=int(LuzGet[1][-1])
+        iluminacion_actual(LuzObtenida)
+        time.sleep(15)
+        return GetSense()
+
+    def GetSenseThread():
+        T_GetSense = Thread(target=GetSense)
+        T_GetSense.start()
+
+    #GetSenseThread()
+
+    # Control de la iluminacion del ambiente
+    def iluminacion_actual(luz):
+        if luz == 1:
+            Test_Canvas.itemconfig('l-on', state = HIDDEN)
+            Test_Canvas.itemconfig('sol', state = HIDDEN)
+            Test_Canvas.itemconfig('s-on', state = NORMAL)
+            Test_Canvas.itemconfig('l-off', state= NORMAL)
+        elif luz == 0:
+            Test_Canvas.itemconfig('s-on', state=HIDDEN)
+            Test_Canvas.itemconfig('luna', state=HIDDEN)
+            Test_Canvas.itemconfig('l-on', state=NORMAL)
+            Test_Canvas.itemconfig('s-off', state=NORMAL)
+
+    # Nivel de bateria, presente en el test drive
+    def BatImage(BatLevel):
+        if BatLevel == 100:
+            BatLevel = 0
+
     # Control key press
     def Car_Control(event):
         key = event.char
@@ -527,7 +592,7 @@ def ventana_TestDrive():
             left = True
             Test_Canvas.itemconfig("car", state=HIDDEN)
             Test_Canvas.itemconfig("left", state=NORMAL)
-            ##send("dir:-1;")
+            send("dir:-1;")
             print ("dir:-1;")
 
         # Control de direccion derecha
@@ -535,7 +600,7 @@ def ventana_TestDrive():
             right = True
             Test_Canvas.itemconfig("car", state=HIDDEN)
             Test_Canvas.itemconfig("right", state=NORMAL)
-            ##send("dir:1;")
+            send("dir:1;")
             print("dir:1;")
 
         # Control de aceleracion
@@ -603,7 +668,7 @@ def ventana_TestDrive():
                     NumGas_Re = 0
                     Test_Canvas.itemconfig("L_s", state=NORMAL)
                     Test_Canvas.itemconfig("L_s2", state=NORMAL)
-                    ##send("pwm:0;")
+                    send("pwm:0;")
                     print ("pwm:0;")
                     Test_Canvas.itemconfig("velocidad", text="0")
                     Test_Canvas.itemconfig("reverse", state=HIDDEN)
@@ -622,13 +687,13 @@ def ventana_TestDrive():
                     Test_Canvas.itemconfig("L_f", state=HIDDEN)
                     Test_Canvas.itemconfig("L_f2", state=HIDDEN)
                     L_frontON = False
-                    ##send("lf:0;")
+                    send("lf:0;")
                     print("lf:0;")
                 else:
                     Test_Canvas.itemconfig("L_f", state=NORMAL)
                     Test_Canvas.itemconfig("L_f2", state=NORMAL)
                     L_frontON = True
-                    ##send("lf:1;")
+                    send("lf:1;")
                     print("lf:1;")
 
             # Izquierda
@@ -707,12 +772,12 @@ def ventana_TestDrive():
                 return
             else:
                 if n % 2 != 0:
-                    ##send(command + ":1;")
+                    send(command + ":1;")
                     print(command + ":1;")
                     time.sleep(0.5)
                     return direccionalesON(n+1, command)
                 else:
-                    ##send(command + ":0;")
+                    send(command + ":0;")
                     print (command + ":0;")
                     time.sleep(0.5)
                     return direccionalesON(n+1, command)
@@ -724,10 +789,11 @@ def ventana_TestDrive():
         if 500 <= NumGas <= 950 and pressTecla:
             if pressTecla:
                 NumGas += 50
-                ##send("pwm:"+str(NumGas)+":")
+                send("pwm:"+str(NumGas)+";")
                 print("pwm:" + str(NumGas) + ";")
                 time.sleep(1)
                 Test_Canvas.itemconfig("velocidad", text=str(int(NumGas / 10)))
+                velocimetro()
                 aceleracion()
             else:
                 return
@@ -735,10 +801,11 @@ def ventana_TestDrive():
         elif 400 >= NumGas and pressTecla:
             if pressTecla:
                 NumGas += 100
-                ##send("pwm:"+str(NumGas)+":")
+                send("pwm:"+str(NumGas)+";")
                 print ("pwm:"+str(NumGas)+";")
                 time.sleep(1)
                 Test_Canvas.itemconfig("velocidad", text=str(int(NumGas / 10)))
+                velocimetro()
                 aceleracion()
             else:
                 return
@@ -750,10 +817,11 @@ def ventana_TestDrive():
         if -500 >= NumGas_Re >= -950 and pressTecla:
             if pressTecla:
                 NumGas_Re -= 50
-                ##send("pwm:"+str(NumGas_Re)+":")
+                send("pwm:"+str(NumGas_Re)+";")
                 print("pwm:" + str(NumGas_Re) + ";")
                 time.sleep(1)
                 Test_Canvas.itemconfig("velocidad", text=str(int(NumGas_Re / 10)))
+                velocimetro()
                 reverse_aceleration()
             else:
                 return
@@ -761,10 +829,11 @@ def ventana_TestDrive():
         elif -400 <= NumGas_Re and pressTecla:
             if pressTecla:
                 NumGas_Re -= 100
-                ##send("pwm:"+str(NumGas_Re)+":")
+                send("pwm:"+str(NumGas_Re)+";")
                 print("pwm:" + str(NumGas_Re) + ";")
                 time.sleep(1)
                 Test_Canvas.itemconfig("velocidad", text=str(int(NumGas_Re / 10)))
+                velocimetro()
                 reverse_aceleration()
             else:
                 return
@@ -773,123 +842,104 @@ def ventana_TestDrive():
         global NumGas, pressS
         Test_Canvas.itemconfig("L_s2", state=HIDDEN)
         Test_Canvas.itemconfig("L_s", state=HIDDEN)
-        if NumGas <= 0:
-            return
+        if NumGas <= 450:
             Test_Canvas.itemconfig("L_s2", state=NORMAL)
             Test_Canvas.itemconfig("L_s", state=NORMAL)
-        elif 500 <= NumGas <= 950 and pressS:
+            NumGas = 0
+            send("pwm:"+str(NumGas)+";")
+            print("pwm:" + str(NumGas) + ";")
+            time.sleep(1)
+            Test_Canvas.itemconfig("velocidad", text=str(int(NumGas / 10)))
+            velocimetro()
+        elif NumGas <= 1000 and pressS:
             if pressS:
-                NumGas -= 50
-                ##send("pwm:"+str(NumGas)+":")
+                NumGas -= 100
+                send("pwm:"+str(NumGas)+";")
                 print("pwm:" + str(NumGas) + ";")
                 time.sleep(1)
                 Test_Canvas.itemconfig("velocidad", text=str(int(NumGas / 10)))
-                desaceleracion()
-            else:
-                return
-
-        elif 400 >= NumGas and pressS:
-            if pressS:
-                NumGas -= 100
-                ##send("pwm:"+str(NumGas)+":")
-                print ("pwm:"+str(NumGas)+";")
-                time.sleep(1)
-                Test_Canvas.itemconfig("velocidad", text=str(int(NumGas / 10)))
+                velocimetro()
                 desaceleracion()
             else:
                 return
 
     def reverse_desaceleracion():
         global NumGas_Re, Reverse_on, pressS
-        Test_Canvas.itemconfig("L_s2", state=HIDDEN)
-        Test_Canvas.itemconfig("L_s", state=HIDDEN)
-        if NumGas_Re >= 0:
-            return
-        elif -500 >= NumGas_Re >= -950 and pressS:
-            if pressS:
-                NumGas_Re += 50
-                ##send("pwm:"+str(NumGas_Re)+":")
-                print("pwm:" + str(NumGas_Re) + ";")
-                time.sleep(1)
-                Test_Canvas.itemconfig("velocidad", text=str(int(NumGas_Re / 10)))
-                reverse_desaceleracion()
-            else:
-                return
-
-        elif -400 <= NumGas_Re and pressS:
+        Test_Canvas.itemconfig("L_s2", state=NORMAL)
+        Test_Canvas.itemconfig("L_s", state=NORMAL)
+        if NumGas_Re >= -450:
+            Test_Canvas.itemconfig("L_s2", state=NORMAL)
+            Test_Canvas.itemconfig("L_s", state=NORMAL)
+            NumGas_Re = 0
+            send("pwm:"+str(NumGas_Re)+";")
+            print("pwm:" + str(NumGas_Re) + ";")
+            time.sleep(1)
+            Test_Canvas.itemconfig("velocidad", text=str(int(NumGas_Re / 10)))
+            velocimetro()
+        elif NumGas_Re >= -1000 and pressS:
             if pressS:
                 NumGas_Re += 100
-                ##send("pwm:"+str(NumGas_Re)+":")
+                send("pwm:"+str(NumGas_Re)+";")
                 print("pwm:" + str(NumGas_Re) + ";")
                 time.sleep(1)
                 Test_Canvas.itemconfig("velocidad", text=str(int(NumGas_Re / 10)))
+                velocimetro()
                 reverse_desaceleracion()
             else:
                 return
 
+
     def velocimetro():
-        global NumGas_Re, NumGas
+        global NumGas_Re, NumGas, pressTecla, pressS
         if NumGas_Re == -100 or NumGas == 100:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
             Test_Canvas.itemconfig('vel10', state = NORMAL)
-            time.sleep(0.5)
-            velocimetro()
         elif NumGas_Re == -200 or NumGas == 200:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
             Test_Canvas.itemconfig('vel20', state = NORMAL)
-            time.sleep(0.5)
-            velocimetro()
         elif NumGas_Re == -300 or NumGas == 300:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
             Test_Canvas.itemconfig('vel30', state = NORMAL)
-            time.sleep(0.5)
-            velocimetro()
         elif NumGas_Re == -400 or NumGas == 400:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
             Test_Canvas.itemconfig('vel40', state = NORMAL)
-            time.sleep(0.5)
-            velocimetro()
         elif NumGas_Re == -500 or NumGas == 500:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
             Test_Canvas.itemconfig('vel50', state = NORMAL)
-            time.sleep(0.5)
-            velocimetro()
+        elif NumGas_Re == -550 or NumGas == 550:
+            Test_Canvas.itemconfig('vel', state=HIDDEN)
+            Test_Canvas.itemconfig('vel55', state = NORMAL)
         elif NumGas_Re == -600 or NumGas == 600:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
             Test_Canvas.itemconfig('vel60', state = NORMAL)
-            time.sleep(0.5)
-            velocimetro()
+        elif NumGas_Re == -650 or NumGas == 650:
+            Test_Canvas.itemconfig('vel', state=HIDDEN)
+            Test_Canvas.itemconfig('vel65', state = NORMAL)
         elif NumGas_Re == -700 or NumGas == 700:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
             Test_Canvas.itemconfig('vel70', state = NORMAL)
-            time.sleep(0.5)
-            velocimetro()
+        elif NumGas_Re == -750 or NumGas == 750:
+            Test_Canvas.itemconfig('vel', state=HIDDEN)
+            Test_Canvas.itemconfig('vel75', state = NORMAL)
         elif NumGas_Re == -800 or NumGas == 800:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
             Test_Canvas.itemconfig('vel80', state = NORMAL)
-            time.sleep(0.5)
-            velocimetro()
+        elif NumGas_Re == -850 or NumGas == 850:
+            Test_Canvas.itemconfig('vel', state=HIDDEN)
+            Test_Canvas.itemconfig('vel85', state = NORMAL)
         elif NumGas_Re == -900 or NumGas == 900:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
             Test_Canvas.itemconfig('vel90', state = NORMAL)
-            time.sleep(0.5)
-            velocimetro()
+        elif NumGas_Re == -950 or NumGas == 950:
+            Test_Canvas.itemconfig('vel', state=HIDDEN)
+            Test_Canvas.itemconfig('vel95', state = NORMAL)
         elif NumGas_Re == -1000 or NumGas == 1000:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
             Test_Canvas.itemconfig('vel100', state = NORMAL)
-            time.sleep(0.5)
-            velocimetro()
         elif NumGas_Re == 0 or NumGas == 0:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
             Test_Canvas.itemconfig('vel0', state = NORMAL)
             time.sleep(0.5)
-            velocimetro()
-        else:
-            time.sleep(0.5)
-            velocimetro()
-
-    T_velocimetro = Thread(target= velocimetro)
-    T_velocimetro.start()
 
     Test.bind("<KeyPress>", Car_Control)
 
