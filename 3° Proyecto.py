@@ -464,54 +464,31 @@ def ventana_TestDrive():
     Test_Canvas.create_image(630, 450, image=CarRight, anchor=NW, tags=("right", "car"), state=HIDDEN)
 
     #__Se cargan flechas para el velocimetro
+    listapng = ['10vel.png','20vel.png','30vel.png','40vel.png','50vel.png','55vel.png','60vel.png','65vel.png','70vel.png',
+                '75vel.png','80vel.png','85vel.png','90vel.png','95vel.png','100vel.png']
+    listavel = []
+    listaX = [263, 248, 253, 286, 320, 320, 318, 318, 316, 316, 316, 316, 319, 315, 319]
+    listaY = [553, 552, 526, 495, 480, 480, 490, 510, 530, 548, 550, 550, 551, 551, 553]
+    for png in listapng:
+        listavel.append(cargarImg(png))
+    listatags = ['vel10','vel20','vel30','vel40','vel50','vel55','vel60','vel65','vel70','vel75','vel80','vel85','vel90','vel95','vel100']
+    for i in range(0,15):
+        Test_Canvas.create_image(listaX[i], listaY[i], image=listavel[i], anchor=NW, tags=(listatags[i], 'vel'), state=HIDDEN)
     vel0 = cargarImg('0vel.png')
-    vel10 = cargarImg('10vel.png')
-    vel20 = cargarImg('20vel.png')
-    vel30 = cargarImg('30vel.png')
-    vel40 = cargarImg('40vel.png')
-    vel50 = cargarImg('50vel.png')
-    vel55 = cargarImg('55vel.png')
-    vel60 = cargarImg('60vel.png')
-    vel65 = cargarImg('65vel.png')
-    vel70 = cargarImg('70vel.png')
-    vel75 = cargarImg('75vel.png')
-    vel80 = cargarImg('80vel.png')
-    vel85 = cargarImg('85vel.png')
-    vel90 = cargarImg('90vel.png')
-    vel95 = cargarImg('95vel.png')
-    vel100 = cargarImg('100vel.png')
-    Test_Canvas.create_image(283, 553, image=vel0, anchor = NW, tags = ('vel0', 'vel'), state = NORMAL)
-    Test_Canvas.create_image(263, 553, image=vel10, anchor=NW, tags=('vel10', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(248, 552, image=vel20, anchor=NW, tags=('vel20', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(253, 526, image=vel30, anchor=NW, tags=('vel30', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(286, 495, image=vel40, anchor=NW, tags=('vel40', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(320, 480, image=vel50, anchor=NW, tags=('vel50', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(320, 480, image=vel55, anchor=NW, tags=('vel55', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(318, 490, image=vel60, anchor=NW, tags=('vel60', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(318, 510, image=vel65, anchor=NW, tags=('vel65', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(316, 530, image=vel70, anchor=NW, tags=('vel70', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(316, 548, image=vel75, anchor=NW, tags=('vel75', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(316, 550, image=vel80, anchor=NW, tags=('vel80', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(316, 550, image=vel85, anchor=NW, tags=('vel85', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(319, 551, image=vel90, anchor=NW, tags=('vel90', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(315, 551, image=vel95, anchor=NW, tags=('vel95', 'vel'), state=HIDDEN)
-    Test_Canvas.create_image(319, 553, image=vel100, anchor=NW, tags=('vel100', 'vel'), state=HIDDEN)
+    Test_Canvas.create_image(283, 553, image=vel0, anchor=NW, tags=('vel0', 'vel'), state=NORMAL)
 
     middlecircle = cargarImg('center.png')
     Test_Canvas.create_image(317, 550, image=middlecircle, anchor=NW, state=NORMAL)
 
     #Se cargan las img para el estado de la bateria
-    lvl0= cargarImg('lvl0.png')
-    lvl1 = cargarImg('lvl1.png')
-    lvl2 = cargarImg('lvl2.png')
-    lvl3 = cargarImg('lvl3.png')
-    lvl4 = cargarImg('lvl4.png')
-    Test_Canvas.create_image(460, 517, image=lvl0, anchor=NW, tags=('lvl0', 'vel'), state=NORMAL)
-    Test_Canvas.create_image(475, 517, image=lvl1, anchor=NW, tags=('lvl1', 'vel'), state=NORMAL)
-    Test_Canvas.create_image(490, 517, image=lvl2, anchor=NW, tags=('lvl2', 'vel'), state=NORMAL)
-    Test_Canvas.create_image(515, 517, image=lvl3, anchor=NW, tags=('lvl3', 'vel'), state=NORMAL)
-    Test_Canvas.create_image(530, 517, image=lvl4, anchor=NW, tags=('lvl4', 'vel'), state=NORMAL)
-
+    listapng2 = ['lvl0.png','lvl1.png','lvl2.png','lvl3.png','lvl4.png']
+    listatext = ['lvl0','lvl1','lvl2','lvl3','lvl4']
+    listalvl = []
+    listaX2 = [460,475,490,515,530]
+    for png in listapng2:
+        listalvl.append(cargarImg(png))
+    for i in range(0,5):
+        Test_Canvas.create_image(listaX2[i], 517, image=listalvl[i], anchor=NW, tags=(listatext[i], 'vel'), state=NORMAL)
 
     #__Se carga el texto de la velocidad
     Test_Canvas.create_text(308,602,anchor=NW, text="Km/h", font = ('Britannic Bold', 12), fill = "white")
