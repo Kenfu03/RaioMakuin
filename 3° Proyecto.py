@@ -507,7 +507,7 @@ def send(mensaje):
 def ventana_TestDrive():
     # Esconder la pantalla principal sin destruirla
     root.withdraw()
-    # Pantalla About
+    # Pantalla Test_drive
     Test = Toplevel()
     Test.title('Test Drive')
     Test.minsize(1000, 720)
