@@ -130,6 +130,10 @@ def quit():
     root.destroy()
 
 
+#Imagen para los botones de Atras de todas las ventanas
+Btn_AtrasImg = cargarImg('Btn_Atras.png')
+
+
 # _________/Se crea la funcion que ejecuta la cancion de fondo
 Play = Thread(target=Song1, args=())
 Play.start()
@@ -172,9 +176,8 @@ def ventana_about():
         about.destroy()
         root.deiconify()
 
-    Btn_Atras = Button(About_Canvas, text='Atras', font=('Britannic Bold', 18), command=atras_about, bg='black',
-                       fg='white')
-    Btn_Atras.place(x=5, y=512)
+    Btn_Atras_about = Button(About_Canvas, image=Btn_AtrasImg, command=atras_about, bg='#2d2d2e')
+    Btn_Atras_about.place(x=10, y=570)
 
     about.mainloop()
 
@@ -419,6 +422,40 @@ def ventana_Pilots():
 
     Pilots.mainloop()
 
+#_____________/Ventana Carros
+def ventana_Carros():
+    # Esconder la pantalla principal sin destruirla
+    root.withdraw()
+    # Pantalla Carros
+    Carros = Toplevel()
+    Carros.title('Test Drive')
+    Carros.minsize(1000, 626)
+    Carros.resizable(width=NO, height=NO)
+    # __Se crea un canvas
+    Carros_Canvas = Canvas(Carros, width=1000, height=626, bg='#2d2d2e')
+    Carros_Canvas.place(x=0, y=0)
+    # __Se carga una imagen de fondo
+    BackupCars = cargarImg('backup_about.png')
+    Carros_Canvas.create_image(0, 0, image=BackupCars, anchor=NW)
+
+    # __Se crea una funcion para volver a la pantalla principal
+    def atras_Carros():
+        global pausa
+        pausa = True
+        Carros.destroy()
+        root.deiconify()
+
+    Btn_Atras_cars = Button(Carros_Canvas, image=Btn_AtrasImg, command=atras_Carros, bg='#2d2d2e')
+    Btn_Atras_cars.place(x=5, y=5)
+
+    listacarrospng = ["car0.png", "car1.png", "car2.png", "car3.png", "car4.png", "car5.png", "car6.png",
+                "car7.png", "car8.png", "car9.png"]
+    listacarimg = []
+    for car in listacarrospng:
+        listacarimg.append(cargarImg(car))
+
+
+    Carros.mainloop()
 
 # ___________/Funcion de send, para enviar mensajes al Carrito
 
@@ -428,13 +465,13 @@ def send(mensaje):
     else:
         messagebox.showwarning("Error del mensaje", "Mensaje sin caracter de finalización (';')")
 
-    # __________ /Funcion para ventana de TestDrive
 
+    # __________ /Funcion para ventana de TestDrive
 
 def ventana_TestDrive():
     # Esconder la pantalla principal sin destruirla
     root.withdraw()
-    # Pantalla About
+    # Pantalla Test_drive
     Test = Toplevel()
     Test.title('Test Drive')
     Test.minsize(1000, 720)
@@ -986,9 +1023,21 @@ def ventana_TestDrive():
 
 
 # __________/Botones de ventana principal
-Btn_pause = cargarImg("Btn_pause.png")
-Btn_mute = Button(Principal_Canvas, image=Btn_pause, command=pause, bg='#2d2d2e')
-Btn_mute.place(x=50, y=586)
+Btn_Test = cargarImg("Btn_Test.png")
+Btn_Test_Driver = Button(Principal_Canvas, image=Btn_Test, command=ventana_TestDrive, bg='#2d2d2e')
+Btn_Test_Driver.place(x=10, y=60)
+
+Btn_PilotsImg = cargarImg("Btn_Pilots.png")
+Btn_Pilots = Button(Principal_Canvas, image=Btn_PilotsImg, command=ventana_Pilots, bg='#2d2d2e')
+Btn_Pilots.place(x=10, y=126)
+
+Btn_CarrosImg = cargarImg('Btn_Cars.png')
+Btn_Carros = Button(Principal_Canvas, image=Btn_CarrosImg, command=ventana_Carros, bg='#2d2d2e')
+Btn_Carros.place(x=10, y=192)
+
+Btn_Credits = cargarImg("Btn_Credits.png")
+Btn_About = Button(Principal_Canvas, image=Btn_Credits, command=ventana_about, bg='#2d2d2e')
+Btn_About.place(x=10, y=258)
 
 Btn_QuitImg = cargarImg("Btn_Quit.png")
 Btn_Quit = Button(Principal_Canvas, image=Btn_QuitImg, command=quit, bg='#2d2d2e')
@@ -998,16 +1047,14 @@ Btn_play = cargarImg("Btn_play.png")
 Btn_PlayMusic = Button(Principal_Canvas, image=Btn_play, command=play, bg='#2d2d2e')
 Btn_PlayMusic.place(x=10, y=586)
 
-Btn_Credits = cargarImg("Btn_Credits.png")
-Btn_About = Button(Principal_Canvas, image=Btn_Credits, command=ventana_about, bg='#2d2d2e')
-Btn_About.place(x=10, y=258)
+Btn_pause = cargarImg("Btn_pause.png")
+Btn_mute = Button(Principal_Canvas, image=Btn_pause, command=pause, bg='#2d2d2e')
+Btn_mute.place(x=50, y=586)
 
-Btn_Pilots = cargarImg("Btn_Pilots.png")
-Btn_Puntajes = Button(Principal_Canvas, image=Btn_Pilots, command=ventana_Pilots, bg='#2d2d2e')
-Btn_Puntajes.place(x=10, y=126)
 
-Btn_Test = cargarImg("Btn_Test.png")
-Btn_Test_Driver = Button(Principal_Canvas, image=Btn_Test, command=ventana_TestDrive, bg='#2d2d2e')
-Btn_Test_Driver.place(x=10, y=60)
+
+
+
+
 
 root.mainloop()
