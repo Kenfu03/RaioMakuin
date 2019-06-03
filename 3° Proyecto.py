@@ -1,4 +1,3 @@
-
 InfoPer = """
 _______________________________________________
     Insituto Tecnologico de Costa Rica         
@@ -34,10 +33,10 @@ import random  # Biblioteca Random
 from tkinter.ttk import Progressbar  # Se utiliza para hacer una progressbar
 from tkinter import ttk
 import pygame as pygame
-from pygame import mixer # Se importa mixer de pygame
+from pygame import mixer  # Se importa mixer de pygame
 
 # ______________________________________________
-#Biblioteca para conectar con el carro
+# Biblioteca para conectar con el carro
 # Control del carrito por NodeMCU
 from pygame import mixer
 
@@ -104,11 +103,11 @@ def play():
 # __________/Ventana Principal
 root = tk.Tk()
 root.title('Raio Makuin')
-root.minsize(1000, 562)
+root.minsize(1000, 626)
 root.resizable(width=NO, height=NO)
 
 # __________/Se crea un lienzo para objetos
-Principal_Canvas = Canvas(root, width=1000, height=562, bg='black')
+Principal_Canvas = Canvas(root, width=1000, height=626, bg='#2e2e2e')
 Principal_Canvas.place(x=0, y=0)
 
 # __________/Cargar una imagen
@@ -125,6 +124,7 @@ def play1():
     Play = Thread(target=Song1, args=())
     Play.start()
 
+
 def quit():
     mixer.music.stop()
     root.destroy()
@@ -134,6 +134,7 @@ def quit():
 Play = Thread(target=Song1, args=())
 Play.start()
 
+
 # __________ /Funcion para ventana about
 def ventana_about():
     # Esconder la pantalla principal sin destruirla
@@ -141,10 +142,10 @@ def ventana_about():
     # Pantalla About
     about = Toplevel()
     about.title('About')
-    about.minsize(1000, 562)
+    about.minsize(1000, 626)
     about.resizable(width=NO, height=NO)
     # __Se crea un canvas
-    About_Canvas = Canvas(about, width=1000, height=562, bg='black')
+    About_Canvas = Canvas(about, width=1000, height=626, bg='#2d2d2e')
     About_Canvas.place(x=0, y=0)
     # __Se crea un fondo
     Backup_aboutImg = cargarImg('backup_about.png')
@@ -161,7 +162,7 @@ def ventana_about():
     Personal1.photo = ImgCris
     Personal1.place(x=230, y=60)
     # __Se crea un label con informacion crucial
-    Label_about = Label(About_Canvas, text=InfoPer, font=('Britannic Bold', 16), fg='white', bg='#040521')
+    Label_about = Label(About_Canvas, text=InfoPer, font=('Britannic Bold', 16), fg='white', bg='#2d2d2e')
     Label_about.place(x=500, y=10)
 
     # __Se crea una funcion para volver a la pantalla principal
@@ -177,6 +178,7 @@ def ventana_about():
 
     about.mainloop()
 
+
 # __________ /Funcion para ventana de Pilotos
 def ventana_Pilots():
     # Esconder la pantalla principal sin destruirla
@@ -187,19 +189,20 @@ def ventana_Pilots():
     Pilots.minsize(900, 700)
     Pilots.resizable(width=NO, height=NO)
     # __Se crea un canvas y un scrollbar
-    Pilots_Canvas = Canvas(Pilots, width=900, height=700, bg='white')
-    scroll_y = Scrollbar(Pilots,orient = 'vertical', command = Pilots_Canvas.yview)
+    Pilots_Canvas = Canvas(Pilots, width=900, height=700, bg='#2d2d2e')
+    scroll_y = Scrollbar(Pilots, orient='vertical', command=Pilots_Canvas.yview)
     Pilots_frame = Frame(Pilots_Canvas)
     listaframes = []
-    for i in range(0,10):
+    for i in range(0, 10):
         listaframes.append(Frame(Pilots_Canvas))
 
-    #Se cargan las imagenes
-    listapng = ["jonathan.png","joseph.png","jotaro.png","josuke.png","giorno.png","dio.png","kira.png","bruno.png","polnareff.png","caesar.png"]
+    # Se cargan las imagenes
+    listapng = ["jonathan.png", "joseph.png", "jotaro.png", "josuke.png", "giorno.png", "dio.png", "kira.png",
+                "bruno.png", "polnareff.png", "caesar.png"]
     listaimg = []
     for nombre in listapng:
         listaimg.append(cargarImg(nombre))
-    britanico = cargarImg("britanico.png")#en la lista cargar la imagen
+    britanico = cargarImg("britanico.png")  # en la lista cargar la imagen
     japones = cargarImg("japones.png")
     italiano = cargarImg("italiano.png")
     frances = cargarImg("frances.png")
@@ -210,20 +213,22 @@ def ventana_Pilots():
     ListaY = [40, 145, 250, 355, 460, 565, 670, 775, 880, 985]
     # __Se abre el archivo de texto con la info. de los pilotos
     arch1 = open('Pilotos.txt', 'r+')
-    for i in range(0,10):
+    for i in range(0, 10):
         ListaPilotos.append(arch1.readline().split('@'))
 
-    #Se calculan los RGP de los pilotos y se agregan a la lista de cada piloto
-    for i in range(0,10):
-        ListaPilotos[i].append(int(((int(ListaPilotos[i][5])+int(ListaPilotos[i][6]))/(int(ListaPilotos[i][4])-int(ListaPilotos[i][7]))*100)))
+    # Se calculan los RGP de los pilotos y se agregan a la lista de cada piloto
+    for i in range(0, 10):
+        ListaPilotos[i].append(int(((int(ListaPilotos[i][5]) + int(ListaPilotos[i][6])) / (
+                    int(ListaPilotos[i][4]) - int(ListaPilotos[i][7])) * 100)))
 
-    for i in range(0,10):
-        ListaPilotos[i].append(int(((int(ListaPilotos[i][5]))/(int(ListaPilotos[i][4])-int(ListaPilotos[i][7]))*100)))
+    for i in range(0, 10):
+        ListaPilotos[i].append(
+            int(((int(ListaPilotos[i][5])) / (int(ListaPilotos[i][4]) - int(ListaPilotos[i][7])) * 100)))
 
-    for i in range(0,10):
+    for i in range(0, 10):
         ListaPilotos[i].append(ListaY[i])
 
-    for i in range(0,10):
+    for i in range(0, 10):
         ListaPilotos[i].append(listaimg[i])
 
     print(ListaPilotos)
@@ -239,7 +244,7 @@ def ventana_Pilots():
     ListaPilotos[8][2] = frances
     ListaPilotos[9][2] = italiano
 
-    #ListaPilotos=(Pil0,Pil1,Pil2,Pil3,Pil4,Pil5,Pil6,Pil7,Pil8,Pil9)
+    # ListaPilotos=(Pil0,Pil1,Pil2,Pil3,Pil4,Pil5,Pil6,Pil7,Pil8,Pil9)
     # RGP = ((V+P)/(T-A))*100
     # REP =(V/(T-A))*100
     # V = VICTORIAS, P = 2 Y 3 LUGAR, T=PARTICIPACIONES, A=ABANDONOS
@@ -255,80 +260,93 @@ def ventana_Pilots():
     for i in range(0, 10):
         listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
 
-    Nombre = Pilots_Canvas.create_text(182,2,anchor=NW,text ='Nombre/Edad',font=('Britannic Bold', 16))
+    Nombre = Pilots_Canvas.create_text(182, 2, anchor=NW, text='Nombre/Edad', font=('Britannic Bold', 16))
     Temp = Pilots_Canvas.create_text(380, 2, anchor=NW, text='Temporada', font=('Britannic Bold', 16))
     RGP = Pilots_Canvas.create_text(500, 2, anchor=NW, text='RGP', font=('Britannic Bold', 16))
-    REP = Pilots_Canvas.create_text(555,2,anchor=NW,text ='REP',font=('Britannic Bold', 16))
-    Comp = Pilots_Canvas.create_text(610,2,anchor=NW,text ='Competencias',font=('Britannic Bold', 16))
+    REP = Pilots_Canvas.create_text(555, 2, anchor=NW, text='REP', font=('Britannic Bold', 16))
+    Comp = Pilots_Canvas.create_text(610, 2, anchor=NW, text='Competencias', font=('Britannic Bold', 16))
 
     def pilotos():
         for i in range(0, 10):
-            listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
-        for i in range(0,10):
-            listaflags.append(Pilots_Canvas.create_image(108,ListaPilotos[i][10],image=ListaPilotos[i][2],anchor=NW))
-        for i in range(0,10):
-            listanom.append(Pilots_Canvas.create_text(182,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][0],font=('Britannic Bold', 16)))
-        for i in range(0,10):
-            listaedad.append(Pilots_Canvas.create_text(182,ListaPilotos[i][10]+25,anchor=NW,text =ListaPilotos[i][1],font=('Britannic Bold', 16)))
-        for i in range(0,10):
-            listatmp.append(Pilots_Canvas.create_text(380,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][3],font=('Britannic Bold', 16)))
-        for i in range(0,10):
-            listargp.append(Pilots_Canvas.create_text(500,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][8],font=('Britannic Bold', 16)))
-        for i in range(0,10):
-            listarep.append(Pilots_Canvas.create_text(555,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][9],font=('Britannic Bold', 16)))
-        for i in range(0,10):
-            listacomp.append(Pilots_Canvas.create_text(610,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][4],font=('Britannic Bold', 16)))
-    #Pilots_Canvas.delete(nomp)
-    #Boton.destroy()
+            listatext.append(
+                Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
+        for i in range(0, 10):
+            listaflags.append(Pilots_Canvas.create_image(108, ListaPilotos[i][10], image=ListaPilotos[i][2], anchor=NW))
+        for i in range(0, 10):
+            listanom.append(Pilots_Canvas.create_text(182, ListaPilotos[i][10], anchor=NW, text=ListaPilotos[i][0],
+                                                      font=('Britannic Bold', 16)))
+        for i in range(0, 10):
+            listaedad.append(
+                Pilots_Canvas.create_text(182, ListaPilotos[i][10] + 25, anchor=NW, text=ListaPilotos[i][1],
+                                          font=('Britannic Bold', 16)))
+        for i in range(0, 10):
+            listatmp.append(Pilots_Canvas.create_text(380, ListaPilotos[i][10], anchor=NW, text=ListaPilotos[i][3],
+                                                      font=('Britannic Bold', 16)))
+        for i in range(0, 10):
+            listargp.append(Pilots_Canvas.create_text(500, ListaPilotos[i][10], anchor=NW, text=ListaPilotos[i][8],
+                                                      font=('Britannic Bold', 16)))
+        for i in range(0, 10):
+            listarep.append(Pilots_Canvas.create_text(555, ListaPilotos[i][10], anchor=NW, text=ListaPilotos[i][9],
+                                                      font=('Britannic Bold', 16)))
+        for i in range(0, 10):
+            listacomp.append(Pilots_Canvas.create_text(610, ListaPilotos[i][10], anchor=NW, text=ListaPilotos[i][4],
+                                                       font=('Britannic Bold', 16)))
+
+    # Pilots_Canvas.delete(nomp)
+    # Boton.destroy()
 
     def borrar(k):
         if k:
-        for texts in listatext:
-            Pilots_Canvas.delete(texts)
-        for flags in listaflags:
-            Pilots_Canvas.delete(flags)
-        for nom in listanom:
-            Pilots_Canvas.delete(nom)
-        for edad in listaedad:
-            Pilots_Canvas.delete(edad)
-        for tmp in listatmp:
-            Pilots_Canvas.delete(tmp)
-        for rgp in listargp:
-            Pilots_Canvas.delete(rgp)
-        for rep in listarep:
-            Pilots_Canvas.delete(rep)
-        for comp in listacomp:
-            Pilots_Canvas.delete(comp)
-        for btn in listabtn:
-            btn.destroy()
-        #Pilots_Canvas.delete(listatext)
+            for texts in listatext:
+                Pilots_Canvas.delete(texts)
+            for flags in listaflags:
+                Pilots_Canvas.delete(flags)
+            for nom in listanom:
+                Pilots_Canvas.delete(nom)
+            for edad in listaedad:
+                Pilots_Canvas.delete(edad)
+            for tmp in listatmp:
+                Pilots_Canvas.delete(tmp)
+            for rgp in listargp:
+                Pilots_Canvas.delete(rgp)
+            for rep in listarep:
+                Pilots_Canvas.delete(rep)
+            for comp in listacomp:
+                Pilots_Canvas.delete(comp)
+            for btn in listabtn:
+                btn.destroy()
+        # Pilots_Canvas.delete(listatext)
+
     def mayor_RGP():
         global ListaPilotos
         borrar(True)
-        ListaRGP = burbuja(ListaPilotos,8)
+        ListaRGP = burbuja(ListaPilotos, 8)
         ListaPilotos = ListaRGP[::-1]
-        for i in range(0,10):
+        for i in range(0, 10):
             ListaPilotos[i][10] = ListaY[i]
         pilotos()
         botones()
+
     def menor_RGP():
         global ListaPilotos
         borrar(False)
-        ListaRGP = burbuja(ListaPilotos,8)
+        ListaRGP = burbuja(ListaPilotos, 8)
         ListaPilotos = ListaRGP
         for i in range(0, 10):
             ListaPilotos[i][10] = ListaY[i]
         pilotos()
         botones()
+
     def mayor_REP():
         global ListaPilotos
         borrar(True)
-        ListaREP = burbuja(ListaPilotos,9)
+        ListaREP = burbuja(ListaPilotos, 9)
         ListaPilotos = ListaREP[::-1]
         for i in range(0, 10):
             ListaPilotos[i][10] = ListaY[i]
         pilotos()
         botones()
+
     def menor_REP():
         global ListaPilotos
         borrar(False)
@@ -339,27 +357,26 @@ def ventana_Pilots():
         pilotos()
         botones()
 
-    #def mod_gio
+    # def mod_gio
 
+    def burbuja(Lista, k):
+        return burbuja_aux(Lista, 0, 0, len(Lista), False, k)
 
-    def burbuja(Lista,k):
-        return burbuja_aux(Lista, 0, 0, len(Lista), False,k)
-
-    def burbuja_aux(Lista, i, j, n, Swap,k):
+    def burbuja_aux(Lista, i, j, n, Swap, k):
         if i == n:
             return Lista
         if j == n - i - 1:
             if Swap:
-                return burbuja_aux(Lista, i + 1, 0, n, False,k)
+                return burbuja_aux(Lista, i + 1, 0, n, False, k)
             else:
                 return Lista
         if Lista[j][k] > Lista[j + 1][k]:
             Tmp = Lista[j]
             Lista[j] = Lista[j + 1]
             Lista[j + 1] = Tmp
-            return burbuja_aux(Lista, i, j + 1, n, True,k)
+            return burbuja_aux(Lista, i, j + 1, n, True, k)
         else:
-            return burbuja_aux(Lista, i, j + 1, n, Swap,k)
+            return burbuja_aux(Lista, i, j + 1, n, Swap, k)
 
     # __Se carga una imagen
 
@@ -371,32 +388,37 @@ def ventana_Pilots():
         pausa = True
         Pilots.destroy()
         root.deiconify()
+
     listabotones2 = []
-    listatext2 = ['Atras','Mayor RGP','Menor RGP','Mayor REP','Menor REP']
-    listacomandos = [atras_Pilots,mayor_RGP,menor_RGP,mayor_REP,menor_REP]
-    for i in range(0,5):
-        listabotones2.append(Button(Pilots_frame, text=listatext2[i], font=('Britannic Bold', 14), command=listacomandos[i], bg='black',fg='white'))
+    listatext2 = ['Atras', 'Mayor RGP', 'Menor RGP', 'Mayor REP', 'Menor REP']
+    listacomandos = [atras_Pilots, mayor_RGP, menor_RGP, mayor_REP, menor_REP]
+    for i in range(0, 5):
+        listabotones2.append(
+            Button(Pilots_frame, text=listatext2[i], font=('Britannic Bold', 14), command=listacomandos[i], bg='black',
+                   fg='white'))
         listabotones2[i].pack()
-    #Botones de los pilotos
-    listabtn = [0,1,2,3,4,5,6,7,8,9]
+    # Botones de los pilotos
+    listabtn = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
     def botones():
-        for i in range(0,10):
-            listabtn[i] = (Button(listaframes[i],image=ListaPilotos[i][11]))
+        for i in range(0, 10):
+            listabtn[i] = (Button(listaframes[i], image=ListaPilotos[i][11]))
             listabtn[i].pack()
 
-    for i in range(0,10):
+    for i in range(0, 10):
         Pilots_Canvas.create_window(30, ListaPilotos[i][10], anchor=NW, window=listaframes[i])
 
-    Pilots_Canvas.create_window(780,30,anchor=NW,window=Pilots_frame)
+    Pilots_Canvas.create_window(780, 30, anchor=NW, window=Pilots_frame)
     Pilots_Canvas.update_idletasks()
-    Pilots_Canvas.configure(scrollregion = (0,0,500,1100),yscrollcommand = scroll_y.set)
-    Pilots_Canvas.pack(fill =BOTH, expand = True,side = LEFT)
-    scroll_y.pack(fill = Y, side= RIGHT)
+    Pilots_Canvas.configure(scrollregion=(0, 0, 500, 1100), yscrollcommand=scroll_y.set)
+    Pilots_Canvas.pack(fill=BOTH, expand=True, side=LEFT)
+    scroll_y.pack(fill=Y, side=RIGHT)
     pilotos()
     botones()
     Pilots.mainloop()
 
     Pilots.mainloop()
+
 
 # ___________/Funcion de send, para enviar mensajes al Carrito
 
@@ -423,14 +445,14 @@ def ventana_TestDrive():
     # __Se carga una imagen de fondo
 
     BackupVel = cargarImg('BackupVel.png')
-    Test_Canvas.create_image(0, 300, image = BackupVel, anchor = NW)
+    Test_Canvas.create_image(0, 300, image=BackupVel, anchor=NW)
 
     BackupTD = cargarImg('BackupTD.png')
     Test_Canvas.create_image(0, 0, image=BackupTD, anchor=NW)
 
-    #__Se crea el control de vel
+    # __Se crea el control de vel
     velocimetroImg = cargarImg('velocity.png')
-    Test_Canvas.create_image(200, 400, image = velocimetroImg, anchor = NW)
+    Test_Canvas.create_image(200, 400, image=velocimetroImg, anchor=NW)
 
     # _Luces carrito
     # Luz front
@@ -453,36 +475,41 @@ def ventana_TestDrive():
     Test_Canvas.create_image(630, 450, image=CarLeft, anchor=NW, tags=("left", "car"), state=HIDDEN)
     Test_Canvas.create_image(630, 450, image=CarRight, anchor=NW, tags=("right", "car"), state=HIDDEN)
 
-    #__Se cargan flechas para el velocimetro
-    listapng = ['10vel.png','20vel.png','30vel.png','40vel.png','50vel.png','55vel.png','60vel.png','65vel.png','70vel.png',
-                '75vel.png','80vel.png','85vel.png','90vel.png','95vel.png','100vel.png']
+    # __Se cargan flechas para el velocimetro
+    listapng = ['10vel.png', '20vel.png', '30vel.png', '40vel.png', '50vel.png', '55vel.png', '60vel.png', '65vel.png',
+                '70vel.png',
+                '75vel.png', '80vel.png', '85vel.png', '90vel.png', '95vel.png', '100vel.png']
     listavel = []
     listaX = [263, 248, 253, 286, 320, 320, 318, 318, 316, 316, 316, 316, 319, 315, 319]
     listaY = [553, 552, 526, 495, 480, 480, 490, 510, 530, 548, 550, 550, 551, 551, 553]
     for png in listapng:
         listavel.append(cargarImg(png))
-    listatags = ['vel10','vel20','vel30','vel40','vel50','vel55','vel60','vel65','vel70','vel75','vel80','vel85','vel90','vel95','vel100']
-    for i in range(0,15):
-        Test_Canvas.create_image(listaX[i], listaY[i], image=listavel[i], anchor=NW, tags=(listatags[i], 'vel'), state=HIDDEN)
+    listatags = ['vel10', 'vel20', 'vel30', 'vel40', 'vel50', 'vel55', 'vel60', 'vel65', 'vel70', 'vel75', 'vel80',
+                 'vel85', 'vel90', 'vel95', 'vel100']
+    for i in range(0, 15):
+        Test_Canvas.create_image(listaX[i], listaY[i], image=listavel[i], anchor=NW, tags=(listatags[i], 'vel'),
+                                 state=HIDDEN)
     vel0 = cargarImg('0vel.png')
     Test_Canvas.create_image(283, 553, image=vel0, anchor=NW, tags=('vel0', 'vel'), state=NORMAL)
 
     middlecircle = cargarImg('center.png')
     Test_Canvas.create_image(317, 550, image=middlecircle, anchor=NW, state=NORMAL)
 
-    #Se cargan las img para el estado de la bateria
-    listapng2 = ['lvl0.png','lvl1.png','lvl2.png','lvl3.png','lvl4.png']
-    listatext = ['lvl0','lvl1','lvl2','lvl3','lvl4']
+    # Se cargan las img para el estado de la bateria
+    listapng2 = ['lvl0.png', 'lvl1.png', 'lvl2.png', 'lvl3.png', 'lvl4.png']
+    listatext = ['lvl0', 'lvl1', 'lvl2', 'lvl3', 'lvl4']
     listalvl = []
-    listaX2 = [460,475,490,515,530]
+    listaX2 = [460, 477, 495, 513, 532]
+    listaY2 = [541, 535, 529, 523, 517]
     for png in listapng2:
         listalvl.append(cargarImg(png))
-    for i in range(0,5):
-        Test_Canvas.create_image(listaX2[i], 517, image=listalvl[i], anchor=NW, tags=(listatext[i], 'vel'), state=NORMAL)
+    for i in range(0, 5):
+        Test_Canvas.create_image(listaX2[i], listaY2[i], image=listalvl[i], anchor=NW, tags=(listatext[i], 'lvlbat'),
+                                 state=NORMAL)
 
-    #__Se carga el texto de la velocidad
-    Test_Canvas.create_text(308,602,anchor=NW, text="Km/h", font = ('Britannic Bold', 12), fill = "white")
-    Test_Canvas.create_text(297, 617, anchor=NW, text="o", tags = "velocidad", font = ('Britannic Bold', 18), fill = "white")
+    # __Se carga el texto de la velocidad
+    Test_Canvas.create_text(308, 602, anchor=NW, text="Km/h", font=('Britannic Bold', 12), fill="white")
+    Test_Canvas.create_text(297, 617, anchor=NW, text="o", tags="velocidad", font=('Britannic Bold', 18), fill="white")
 
     # _Boton de reversa
     Reverse_off = cargarImg('reverse-off.png')
@@ -490,13 +517,13 @@ def ventana_TestDrive():
     Test_Canvas.create_image(570, 450, image=Reverse_off, anchor=NW, tags=("R-off", "reverse"), state=NORMAL)
     Test_Canvas.create_image(570, 450, image=Reverse_on, anchor=NW, tags=("R-on", "reverse"), state=HIDDEN)
 
-    #__Sol
+    # __Sol
     sol_off = cargarImg('sol_off.png')
     sol_on = cargarImg('sol.png')
-    Test_Canvas.create_image(517, 480, image = sol_off, anchor = NW, tags = ('s-off', 'sol'), state = NORMAL)
+    Test_Canvas.create_image(517, 480, image=sol_off, anchor=NW, tags=('s-off', 'sol'), state=NORMAL)
     Test_Canvas.create_image(517, 480, image=sol_on, anchor=NW, tags=('s-on', 'sol'), state=HIDDEN)
 
-    #__Luna
+    # __Luna
     luna_off = cargarImg('luna_off.png')
     luna_on = cargarImg('luna.png')
     Test_Canvas.create_image(458, 480, image=luna_off, anchor=NW, tags=('l-off', 'luna'), state=NORMAL)
@@ -504,21 +531,21 @@ def ventana_TestDrive():
 
     # __Funcionalidades principales del test drive
 
-    #Funcion para obtener el nivel de bateria y la iluminacion de ambiente
+    # Funcion para obtener el nivel de bateria y la iluminacion de ambiente
     def GetSense():
         global carrito
-        #Obtencion de la bateria
+        # Obtencion de la bateria
         SenseGet = carrito.send("sense;")
-        time.sleep(3);
-        BatlvlGet= carrito.readById(SenseGet)
-        BatLvlObtenido=int(BatlvlGet[0][-2:])
-        BatLvl%= BatLvlObtenido-60
-        BatLvlFinal=int((BatLvl*100)/12)
+        time.sleep(3)
+        BatlvlGet = carrito.readById(SenseGet)
+        BatLvlObtenido = int(BatlvlGet[0][-2:])
+        BatLvl = BatLvlObtenido - 60
+        BatLvlFinal = int((BatLvl * 100) / 12)
         BatImage(BatLvlFinal)
-        Test_Canvas.itemconfig("FinalBatLvl", text=str(BatLvlFinal)+"%")
-        #Obtencion de la Luz
-        LuzGet=carrito.readById(SenseGet)
-        LuzObtenida=int(LuzGet[1][-1])
+        Test_Canvas.itemconfig("FinalBatLvl", text=str(BatLvlFinal) + "%")
+        # Obtencion de la Luz
+        LuzGet = carrito.readById(SenseGet)
+        LuzObtenida = int(LuzGet[1][-1])
         iluminacion_actual(LuzObtenida)
         time.sleep(15)
         return GetSense()
@@ -527,15 +554,15 @@ def ventana_TestDrive():
         T_GetSense = Thread(target=GetSense)
         T_GetSense.start()
 
-    #GetSenseThread()
+    # GetSenseThread()
 
     # Control de la iluminacion del ambiente
     def iluminacion_actual(luz):
         if luz == 1:
-            Test_Canvas.itemconfig('l-on', state = HIDDEN)
-            Test_Canvas.itemconfig('sol', state = HIDDEN)
-            Test_Canvas.itemconfig('s-on', state = NORMAL)
-            Test_Canvas.itemconfig('l-off', state= NORMAL)
+            Test_Canvas.itemconfig('l-on', state=HIDDEN)
+            Test_Canvas.itemconfig('sol', state=HIDDEN)
+            Test_Canvas.itemconfig('s-on', state=NORMAL)
+            Test_Canvas.itemconfig('l-off', state=NORMAL)
         elif luz == 0:
             Test_Canvas.itemconfig('s-on', state=HIDDEN)
             Test_Canvas.itemconfig('luna', state=HIDDEN)
@@ -560,7 +587,7 @@ def ventana_TestDrive():
             Test_Canvas.itemconfig("car", state=HIDDEN)
             Test_Canvas.itemconfig("left", state=NORMAL)
             send("dir:-1;")
-            print ("dir:-1;")
+            print("dir:-1;")
 
         # Control de direccion derecha
         elif (key == "d") and not right:
@@ -572,7 +599,7 @@ def ventana_TestDrive():
 
         # Control de aceleracion
 
-            # Reversa
+        # Reversa
         elif key == "w" and reverseON:
             if not pressTecla:
                 pressTecla = True
@@ -581,7 +608,6 @@ def ventana_TestDrive():
                 T_Pwm_Re.start()
             else:
                 return
-
 
             # Hacia adelante
         elif key == "w":
@@ -601,12 +627,12 @@ def ventana_TestDrive():
             if not pressS:
                 pressS = True
                 time.sleep(1)
-                T_pwm_dowm_Re = Thread(target = reverse_desaceleracion)
+                T_pwm_dowm_Re = Thread(target=reverse_desaceleracion)
                 T_pwm_dowm_Re.start()
             else:
                 return
 
-        #Hacia adelante
+        # Hacia adelante
         elif key == "s":
             if not pressS:
                 pressS = True
@@ -636,15 +662,15 @@ def ventana_TestDrive():
                     Test_Canvas.itemconfig("L_s", state=NORMAL)
                     Test_Canvas.itemconfig("L_s2", state=NORMAL)
                     send("pwm:0;")
-                    print ("pwm:0;")
+                    print("pwm:0;")
                     Test_Canvas.itemconfig("velocidad", text="0")
                     Test_Canvas.itemconfig("reverse", state=HIDDEN)
                     Test_Canvas.itemconfig("R-on", state=NORMAL)
 
 
-        #Control de luces
+        # Control de luces
 
-            # Frontales
+        # Frontales
         elif key == "f":
             if front_press:
                 return
@@ -688,12 +714,10 @@ def ventana_TestDrive():
                     Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
                     L_rightON = False
                     T_blinking_stop(100, "lr")
-                    print (L_rightON)
                 else:
                     Test_Canvas.itemconfig("L_dir2", state=NORMAL)
                     L_rightON = True
                     T_blinking(1, "lr")
-                    print(L_rightON)
 
             # Ambas
         elif key == "x":
@@ -714,17 +738,16 @@ def ventana_TestDrive():
                     T_blinking(1, "lr")
                     T_blinking(1, "ll")
 
-
     def T_blinking_stop(n, command):
         global L_DirON, L_rightON, L_leftON
         if L_DirON or L_leftON or L_rightON:
-            T_Blink_stop = Thread(target = direccionalesON, args = [n, command])
+            T_Blink_stop = Thread(target=direccionalesON, args=[n, command])
             T_Blink_stop.start()
 
     def T_blinking(n, command):
         global L_DirON, L_rightON, L_leftON
         if L_DirON or L_leftON or L_rightON:
-            T_Blink = Thread(target = direccionalesON, args = [n, command])
+            T_Blink = Thread(target=direccionalesON, args=[n, command])
             T_Blink.start()
 
     def direccionalesON(n, command):
@@ -742,12 +765,12 @@ def ventana_TestDrive():
                     send(command + ":1;")
                     print(command + ":1;")
                     time.sleep(0.5)
-                    return direccionalesON(n+1, command)
+                    return direccionalesON(n + 1, command)
                 else:
                     send(command + ":0;")
-                    print (command + ":0;")
+                    print(command + ":0;")
                     time.sleep(0.5)
-                    return direccionalesON(n+1, command)
+                    return direccionalesON(n + 1, command)
 
     def aceleracion():
         global NumGas, pressTecla
@@ -756,7 +779,7 @@ def ventana_TestDrive():
         if 500 <= NumGas <= 950 and pressTecla:
             if pressTecla:
                 NumGas += 50
-                send("pwm:"+str(NumGas)+";")
+                send("pwm:" + str(NumGas) + ";")
                 print("pwm:" + str(NumGas) + ";")
                 time.sleep(1)
                 Test_Canvas.itemconfig("velocidad", text=str(int(NumGas / 10)))
@@ -768,8 +791,8 @@ def ventana_TestDrive():
         elif 400 >= NumGas and pressTecla:
             if pressTecla:
                 NumGas += 100
-                send("pwm:"+str(NumGas)+";")
-                print ("pwm:"+str(NumGas)+";")
+                send("pwm:" + str(NumGas) + ";")
+                print("pwm:" + str(NumGas) + ";")
                 time.sleep(1)
                 Test_Canvas.itemconfig("velocidad", text=str(int(NumGas / 10)))
                 velocimetro()
@@ -784,7 +807,7 @@ def ventana_TestDrive():
         if -500 >= NumGas_Re >= -950 and pressTecla:
             if pressTecla:
                 NumGas_Re -= 50
-                send("pwm:"+str(NumGas_Re)+";")
+                send("pwm:" + str(NumGas_Re) + ";")
                 print("pwm:" + str(NumGas_Re) + ";")
                 time.sleep(1)
                 Test_Canvas.itemconfig("velocidad", text=str(int(NumGas_Re / 10)))
@@ -796,7 +819,7 @@ def ventana_TestDrive():
         elif -400 <= NumGas_Re and pressTecla:
             if pressTecla:
                 NumGas_Re -= 100
-                send("pwm:"+str(NumGas_Re)+";")
+                send("pwm:" + str(NumGas_Re) + ";")
                 print("pwm:" + str(NumGas_Re) + ";")
                 time.sleep(1)
                 Test_Canvas.itemconfig("velocidad", text=str(int(NumGas_Re / 10)))
@@ -813,7 +836,7 @@ def ventana_TestDrive():
             Test_Canvas.itemconfig("L_s2", state=NORMAL)
             Test_Canvas.itemconfig("L_s", state=NORMAL)
             NumGas = 0
-            send("pwm:"+str(NumGas)+";")
+            send("pwm:" + str(NumGas) + ";")
             print("pwm:" + str(NumGas) + ";")
             time.sleep(1)
             Test_Canvas.itemconfig("velocidad", text=str(int(NumGas / 10)))
@@ -821,7 +844,7 @@ def ventana_TestDrive():
         elif NumGas <= 1000 and pressS:
             if pressS:
                 NumGas -= 100
-                send("pwm:"+str(NumGas)+";")
+                send("pwm:" + str(NumGas) + ";")
                 print("pwm:" + str(NumGas) + ";")
                 time.sleep(1)
                 Test_Canvas.itemconfig("velocidad", text=str(int(NumGas / 10)))
@@ -838,7 +861,7 @@ def ventana_TestDrive():
             Test_Canvas.itemconfig("L_s2", state=NORMAL)
             Test_Canvas.itemconfig("L_s", state=NORMAL)
             NumGas_Re = 0
-            send("pwm:"+str(NumGas_Re)+";")
+            send("pwm:" + str(NumGas_Re) + ";")
             print("pwm:" + str(NumGas_Re) + ";")
             time.sleep(1)
             Test_Canvas.itemconfig("velocidad", text=str(int(NumGas_Re / 10)))
@@ -846,7 +869,7 @@ def ventana_TestDrive():
         elif NumGas_Re >= -1000 and pressS:
             if pressS:
                 NumGas_Re += 100
-                send("pwm:"+str(NumGas_Re)+";")
+                send("pwm:" + str(NumGas_Re) + ";")
                 print("pwm:" + str(NumGas_Re) + ";")
                 time.sleep(1)
                 Test_Canvas.itemconfig("velocidad", text=str(int(NumGas_Re / 10)))
@@ -855,57 +878,56 @@ def ventana_TestDrive():
             else:
                 return
 
-
     def velocimetro():
         global NumGas_Re, NumGas, pressTecla, pressS
         if NumGas_Re == -100 or NumGas == 100:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel10', state = NORMAL)
+            Test_Canvas.itemconfig('vel10', state=NORMAL)
         elif NumGas_Re == -200 or NumGas == 200:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel20', state = NORMAL)
+            Test_Canvas.itemconfig('vel20', state=NORMAL)
         elif NumGas_Re == -300 or NumGas == 300:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel30', state = NORMAL)
+            Test_Canvas.itemconfig('vel30', state=NORMAL)
         elif NumGas_Re == -400 or NumGas == 400:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel40', state = NORMAL)
+            Test_Canvas.itemconfig('vel40', state=NORMAL)
         elif NumGas_Re == -500 or NumGas == 500:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel50', state = NORMAL)
+            Test_Canvas.itemconfig('vel50', state=NORMAL)
         elif NumGas_Re == -550 or NumGas == 550:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel55', state = NORMAL)
+            Test_Canvas.itemconfig('vel55', state=NORMAL)
         elif NumGas_Re == -600 or NumGas == 600:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel60', state = NORMAL)
+            Test_Canvas.itemconfig('vel60', state=NORMAL)
         elif NumGas_Re == -650 or NumGas == 650:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel65', state = NORMAL)
+            Test_Canvas.itemconfig('vel65', state=NORMAL)
         elif NumGas_Re == -700 or NumGas == 700:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel70', state = NORMAL)
+            Test_Canvas.itemconfig('vel70', state=NORMAL)
         elif NumGas_Re == -750 or NumGas == 750:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel75', state = NORMAL)
+            Test_Canvas.itemconfig('vel75', state=NORMAL)
         elif NumGas_Re == -800 or NumGas == 800:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel80', state = NORMAL)
+            Test_Canvas.itemconfig('vel80', state=NORMAL)
         elif NumGas_Re == -850 or NumGas == 850:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel85', state = NORMAL)
+            Test_Canvas.itemconfig('vel85', state=NORMAL)
         elif NumGas_Re == -900 or NumGas == 900:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel90', state = NORMAL)
+            Test_Canvas.itemconfig('vel90', state=NORMAL)
         elif NumGas_Re == -950 or NumGas == 950:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel95', state = NORMAL)
+            Test_Canvas.itemconfig('vel95', state=NORMAL)
         elif NumGas_Re == -1000 or NumGas == 1000:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel100', state = NORMAL)
+            Test_Canvas.itemconfig('vel100', state=NORMAL)
         elif NumGas_Re == 0 or NumGas == 0:
             Test_Canvas.itemconfig('vel', state=HIDDEN)
-            Test_Canvas.itemconfig('vel0', state = NORMAL)
+            Test_Canvas.itemconfig('vel0', state=NORMAL)
             time.sleep(0.5)
 
     Test.bind("<KeyPress>", Car_Control)
@@ -922,7 +944,7 @@ def ventana_TestDrive():
             Test_Canvas.itemconfig("car", state=HIDDEN)
             Test_Canvas.itemconfig("none", state=NORMAL)
             ##send("dir:0;")
-            print ("dir:0;")
+            print("dir:0;")
 
         elif key == "w":
             pressTecla = False
@@ -945,8 +967,6 @@ def ventana_TestDrive():
         elif key == "x":
             Dir_press = False
 
-
-
     Test.bind("<KeyRelease>", release_Control)
 
     # __Se crea un label con informacion crucial
@@ -966,38 +986,28 @@ def ventana_TestDrive():
 
 
 # __________/Botones de ventana principal
-
-Btn_mute = Button(Principal_Canvas, text='Mute', font=('Britannic Bold', 12), command=pause, bg='#040521', fg='#8c9fc5')
-Btn_mute.place(x=483, y=490)
-
-Btn_QuitImg = cargarImg("Btn_Quit.png")
-Btn_Quit = Button(Principal_Canvas, image=Btn_QuitImg, command=root.destroy, bg='#040521')
-Btn_Quit.place(x=10, y=480)
-
-Btn_PlayMusic = Button(Principal_Canvas, text='Music', font=('Britannic Bold', 12), command=play1, bg='#040521',
-                       fg='#8c9fc5')
-Btn_PlayMusic.place(x=480, y=530)
-Btn_mute = Button(Principal_Canvas, text='Mute', font=('Britannic Bold', 12), command=pause, bg='#040521', fg='#8c9fc5')
-Btn_mute.place(x=483, y=490)
+Btn_pause = cargarImg("Btn_pause.png")
+Btn_mute = Button(Principal_Canvas, image=Btn_pause, command=pause, bg='#2d2d2e')
+Btn_mute.place(x=50, y=586)
 
 Btn_QuitImg = cargarImg("Btn_Quit.png")
-Btn_Quit = Button(Principal_Canvas, image=Btn_QuitImg, command=quit, bg='#040521')
-Btn_Quit.place(x=10, y=480)
+Btn_Quit = Button(Principal_Canvas, image=Btn_QuitImg, command=quit, bg='#2d2d2e')
+Btn_Quit.place(x=10, y=324)
 
-Btn_PlayMusic = Button(Principal_Canvas, text='Music', font=('Britannic Bold', 12), command=play, bg='#040521',
-                       fg='#8c9fc5')
-Btn_PlayMusic.place(x=480, y=530)
+Btn_play = cargarImg("Btn_play.png")
+Btn_PlayMusic = Button(Principal_Canvas, image=Btn_play, command=play, bg='#2d2d2e')
+Btn_PlayMusic.place(x=10, y=586)
 
 Btn_Credits = cargarImg("Btn_Credits.png")
-Btn_About = Button(Principal_Canvas, image=Btn_Credits, command=ventana_about, bg='#040521')
-Btn_About.place(x=850, y=480)
+Btn_About = Button(Principal_Canvas, image=Btn_Credits, command=ventana_about, bg='#2d2d2e')
+Btn_About.place(x=10, y=258)
 
 Btn_Pilots = cargarImg("Btn_Pilots.png")
-Btn_Puntajes = Button(Principal_Canvas, image=Btn_Pilots, command=ventana_Pilots, bg='#040521')
-Btn_Puntajes.place(x=10, y=10)
+Btn_Puntajes = Button(Principal_Canvas, image=Btn_Pilots, command=ventana_Pilots, bg='#2d2d2e')
+Btn_Puntajes.place(x=10, y=126)
 
 Btn_Test = cargarImg("Btn_Test.png")
-Btn_Test_Driver = Button(Principal_Canvas, image=Btn_Test, command=ventana_TestDrive, bg='#040521')
-Btn_Test_Driver.place(x=850, y=10)
+Btn_Test_Driver = Button(Principal_Canvas, image=Btn_Test, command=ventana_TestDrive, bg='#2d2d2e')
+Btn_Test_Driver.place(x=10, y=60)
 
 root.mainloop()
