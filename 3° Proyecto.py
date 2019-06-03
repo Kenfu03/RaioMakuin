@@ -1,4 +1,3 @@
-import pygame as pygame
 
 InfoPer = """
 _______________________________________________
@@ -34,13 +33,8 @@ from tkinter import messagebox  # AskYesNo ()
 import random  # Biblioteca Random
 from tkinter.ttk import Progressbar  # Se utiliza para hacer una progressbar
 from tkinter import ttk
+import pygame as pygame
 from pygame import mixer # Se importa mixer de pygame
-
-
-# ______________________________________________
-# Biblioteca para conectar con el carro
-import WiFiClient
-from WiFiClient import NodeMCU
 
 # ______________________________________________
 #Biblioteca para conectar con el carro
