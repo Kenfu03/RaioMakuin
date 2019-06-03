@@ -258,9 +258,8 @@ def ventana_Pilots():
     listargp = []
     listarep = []
     listacomp = []
-
-    for i in range(0,10):
-        listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i+1, font=('Britannic Bold', 16)))
+    for i in range(0, 10):
+        listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
 
     Nombre = Pilots_Canvas.create_text(182,2,anchor=NW,text ='Nombre/Edad',font=('Britannic Bold', 16))
     Temp = Pilots_Canvas.create_text(380, 2, anchor=NW, text='Temporada', font=('Britannic Bold', 16))
@@ -269,32 +268,29 @@ def ventana_Pilots():
     Comp = Pilots_Canvas.create_text(610,2,anchor=NW,text ='Competencias',font=('Britannic Bold', 16))
 
     def pilotos():
+        for i in range(0, 10):
+            listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
         for i in range(0,10):
             listaflags.append(Pilots_Canvas.create_image(108,ListaPilotos[i][10],image=ListaPilotos[i][2],anchor=NW))
-
         for i in range(0,10):
             listanom.append(Pilots_Canvas.create_text(182,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][0],font=('Britannic Bold', 16)))
-
         for i in range(0,10):
             listaedad.append(Pilots_Canvas.create_text(182,ListaPilotos[i][10]+25,anchor=NW,text =ListaPilotos[i][1],font=('Britannic Bold', 16)))
-
         for i in range(0,10):
             listatmp.append(Pilots_Canvas.create_text(380,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][3],font=('Britannic Bold', 16)))
-
         for i in range(0,10):
             listargp.append(Pilots_Canvas.create_text(500,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][8],font=('Britannic Bold', 16)))
-
         for i in range(0,10):
             listarep.append(Pilots_Canvas.create_text(555,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][9],font=('Britannic Bold', 16)))
-
         for i in range(0,10):
             listacomp.append(Pilots_Canvas.create_text(610,ListaPilotos[i][10],anchor=NW,text =ListaPilotos[i][4],font=('Britannic Bold', 16)))
-
-
     #Pilots_Canvas.delete(nomp)
     #Boton.destroy()
 
-    def borrar():
+    def borrar(k):
+        if k:
+        for texts in listatext:
+            Pilots_Canvas.delete(texts)
         for flags in listaflags:
             Pilots_Canvas.delete(flags)
         for nom in listanom:
@@ -314,7 +310,7 @@ def ventana_Pilots():
         #Pilots_Canvas.delete(listatext)
     def mayor_RGP():
         global ListaPilotos
-        borrar()
+        borrar(True)
         ListaRGP = burbuja(ListaPilotos,8)
         ListaPilotos = ListaRGP[::-1]
         for i in range(0,10):
@@ -323,7 +319,7 @@ def ventana_Pilots():
         botones()
     def menor_RGP():
         global ListaPilotos
-        borrar()
+        borrar(False)
         ListaRGP = burbuja(ListaPilotos,8)
         ListaPilotos = ListaRGP
         for i in range(0, 10):
@@ -332,7 +328,7 @@ def ventana_Pilots():
         botones()
     def mayor_REP():
         global ListaPilotos
-        borrar()
+        borrar(True)
         ListaREP = burbuja(ListaPilotos,9)
         ListaPilotos = ListaREP[::-1]
         for i in range(0, 10):
@@ -341,7 +337,7 @@ def ventana_Pilots():
         botones()
     def menor_REP():
         global ListaPilotos
-        borrar()
+        borrar(False)
         ListaREP = burbuja(ListaPilotos, 9)
         ListaPilotos = ListaREP
         for i in range(0, 10):
