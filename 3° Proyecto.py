@@ -196,7 +196,7 @@ def ventana_Pilots():
     for i in range(0, 10):
         ListaPilotos.append(arch1.readline().split('@'))
 
-    def flag0():
+    '''def flag0():
         ListaPilotos[0].append(britanico)
 
     def flag1():
@@ -235,7 +235,7 @@ def ventana_Pilots():
     flag6()
     flag7()
     flag8()
-    flag9()
+    flag9()'''
     # Se calculan los RGP de los pilotos y se agregan a la lista de cada piloto
     for i in range(0, 10):
         ListaPilotos[i].append(int(((int(ListaPilotos[i][5]) + int(ListaPilotos[i][6])) / (int(ListaPilotos[i][4]) - int(ListaPilotos[i][7])) * 100)))
@@ -299,38 +299,38 @@ def ventana_Pilots():
     Comp = Pilots_Canvas.create_text(610, 2, anchor=NW, text='Competencias', font=('Britannic Bold', 16))
 
     def pilotos():
+        #for i in range(0,10):
+         #   listaflags.append(Pilots_Canvas.create_image(108,ListaPilotos[i][13],image=ListaPilotos[i][10],anchor=NW))
         for i in range(0,10):
-            listaflags.append(Pilots_Canvas.create_image(108,ListaPilotos[i][13],image=ListaPilotos[i][10],anchor=NW))
+            listanom.append(Pilots_Canvas.create_text(182,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][0],font=('Britannic Bold', 16)))
         for i in range(0,10):
-            listanom.append(Pilots_Canvas.create_text(182,ListaPilotos[i][13],anchor=NW,text =ListaPilotos[i][0],font=('Britannic Bold', 16)))
+            listanacion.append(Pilots_Canvas.create_text(182,ListaPilotos[i][12]+50,anchor=NW,text =ListaPilotos[i][2],font=('Britannic Bold', 16)))
         for i in range(0,10):
-            listanacion.append(Pilots_Canvas.create_text(182,ListaPilotos[i][13]+50,anchor=NW,text =ListaPilotos[i][2],font=('Britannic Bold', 16)))
+            listaedad.append(Pilots_Canvas.create_text(182,ListaPilotos[i][12]+25,anchor=NW,text =ListaPilotos[i][1],font=('Britannic Bold', 16)))
         for i in range(0,10):
-            listaedad.append(Pilots_Canvas.create_text(182,ListaPilotos[i][13]+25,anchor=NW,text =ListaPilotos[i][1],font=('Britannic Bold', 16)))
+            listatmp.append(Pilots_Canvas.create_text(380,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][3],font=('Britannic Bold', 16)))
         for i in range(0,10):
-            listatmp.append(Pilots_Canvas.create_text(380,ListaPilotos[i][13],anchor=NW,text =ListaPilotos[i][3],font=('Britannic Bold', 16)))
+            listargp.append(Pilots_Canvas.create_text(500,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][10],font=('Britannic Bold', 16)))
         for i in range(0,10):
-            listargp.append(Pilots_Canvas.create_text(500,ListaPilotos[i][13],anchor=NW,text =ListaPilotos[i][11],font=('Britannic Bold', 16)))
+            listarep.append(Pilots_Canvas.create_text(555,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][11],font=('Britannic Bold', 16)))
         for i in range(0,10):
-            listarep.append(Pilots_Canvas.create_text(555,ListaPilotos[i][13],anchor=NW,text =ListaPilotos[i][12],font=('Britannic Bold', 16)))
-        for i in range(0,10):
-            listacomp.append(Pilots_Canvas.create_text(610,ListaPilotos[i][13],anchor=NW,text =ListaPilotos[i][4],font=('Britannic Bold', 16)))
+            listacomp.append(Pilots_Canvas.create_text(610,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][4],font=('Britannic Bold', 16)))
     #Pilots_Canvas.delete(nomp)
     #Boton.destroy()
 
     def nuevoRGP():
         for i in range(0, 10):
-            ListaPilotos[i][11] = (int(((int(ListaPilotos[i][5]) + int(ListaPilotos[i][6])) / (
+            ListaPilotos[i][10] = (int(((int(ListaPilotos[i][5]) + int(ListaPilotos[i][6])) / (
                     int(ListaPilotos[i][4]) - int(ListaPilotos[i][7])) * 100)))
         for i in range(0, 10):
-            ListaPilotos[i][12]= (int(((int(ListaPilotos[i][5])) / (int(ListaPilotos[i][4]) - int(ListaPilotos[i][7])) * 100)))
+            ListaPilotos[i][11]= (int(((int(ListaPilotos[i][5])) / (int(ListaPilotos[i][4]) - int(ListaPilotos[i][7])) * 100)))
 
     def borrar(k):
         if k:
             for texts in listatext:
                 Pilots_Canvas.delete(texts)
-        for flags in listaflags:
-            Pilots_Canvas.delete(flags)
+        #for flags in listaflags:
+         #   Pilots_Canvas.delete(flags)
         for nacion in listanacion:
             Pilots_Canvas.delete(nacion)
         for nom in listanom:
@@ -354,10 +354,10 @@ def ventana_Pilots():
     def mayor_RGP():
         global ListaPilotos
         borrar(True)
-        ListaRGP = burbuja(ListaPilotos,11)
+        ListaRGP = burbuja(ListaPilotos,10)
         ListaPilotos = ListaRGP[::-1]
         for i in range(0,10):
-            ListaPilotos[i][13] = ListaY[i]
+            ListaPilotos[i][12] = ListaY[i]
             ListaPilotos[i][8] = str(i)
         for i in range(0, 10):
             listatext.append(
@@ -368,11 +368,11 @@ def ventana_Pilots():
     def menor_RGP():
         global ListaPilotos
         borrar(True)
-        ListaRGP = burbuja(ListaPilotos,11)
+        ListaRGP = burbuja(ListaPilotos,10)
         ListaPilotos = ListaRGP
         listatemporal = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
         for i in range(0, 10):
-            ListaPilotos[i][13] = ListaY[i]
+            ListaPilotos[i][12] = ListaY[i]
             ListaPilotos[i][8] = str(i)
         for i in range(0, 10):
             listatext.append(
@@ -383,10 +383,10 @@ def ventana_Pilots():
     def mayor_REP():
         global ListaPilotos
         borrar(True)
-        ListaREP = burbuja(ListaPilotos, 12)
+        ListaREP = burbuja(ListaPilotos, 11)
         ListaPilotos = ListaREP[::-1]
         for i in range(0, 10):
-            ListaPilotos[i][13] = ListaY[i]
+            ListaPilotos[i][12] = ListaY[i]
             ListaPilotos[i][8] = str(i)
         for i in range(0, 10):
             listatext.append(
@@ -397,11 +397,11 @@ def ventana_Pilots():
     def menor_REP():
         global ListaPilotos
         borrar(True)
-        ListaREP = burbuja(ListaPilotos, 12)
+        ListaREP = burbuja(ListaPilotos, 11)
         ListaPilotos = ListaREP
         listatemporal = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
         for i in range(0, 10):
-            ListaPilotos[i][13] = ListaY[i]
+            ListaPilotos[i][12] = ListaY[i]
             ListaPilotos[i][8] = str(i)
         for i in range(0, 10):
             listatext.append(
@@ -461,43 +461,72 @@ def ventana_Pilots():
             messagebox.showerror("Error", "Se debe ingresar un numero")
 
     def mod_jon():
-        mod_pil(0, 'jon')
+        mod_pil(0, str(ListaPilotos[0][9]))
 
     def mod_jsp():
-        mod_pil(1, 'jsp')
+        mod_pil(1, str(ListaPilotos[1][9]))
 
     def mod_jot():
-        mod_pil(2, 'jot')
+        mod_pil(2, str(ListaPilotos[2][9]))
 
     def mod_jsk():
-        mod_pil(3, 'jsk')
+        mod_pil(3, str(ListaPilotos[3][9]))
 
     def mod_gio():
-        mod_pil(4, 'gio')
+        mod_pil(4, str(ListaPilotos[4][9]))
 
     def mod_dio():
-        mod_pil(5, 'dio')
+        mod_pil(5, str(ListaPilotos[5][9]))
 
     def mod_kra():
-        mod_pil(6, 'kra')
+        mod_pil(6, str(ListaPilotos[6][9]))
 
     def mod_brn():
-        mod_pil(7, 'brn')
+        mod_pil(7, str(ListaPilotos[7][9]))
 
     def mod_pol():
-        mod_pil(8, 'pol')
+        mod_pil(8, str(ListaPilotos[8][9]))
 
     def mod_czs():
-        mod_pil(9, 'czs')
+        mod_pil(9, str(ListaPilotos[9][9]))
 
     def mod_pil(num, arch):
         Pilots.withdraw()
         EditGiorno = Toplevel()
         EditGiorno.title('Pilot')
-        EditGiorno.minsize(600, 400)
+        EditGiorno.minsize(900, 400)
         EditGiorno.resizable(width=NO, height=NO)
         Canvas_secundario = Canvas(EditGiorno, width=600, height=400, bg='blue')
         Canvas_secundario.place(x=0, y=0)
+        Canvas_derecha = Canvas(EditGiorno,width = 300, height = 400,bg='pink')
+        Canvas_derecha.place(x=600,y=0)
+        listapng2 = ['jonathan2.png','joseph2.png','jotaro2.png','josuke2.png','giorno2.png','dio2.png','kira2.png',
+                     'bruno2.png','polnareff2.png','caesar2.png']
+        listaimg2 = []
+        for png in listapng2:
+            listaimg2.append(cargarImg(png))
+        print(num,arch)
+        global ListaPilotos
+        if arch == '0\n':
+            Canvas_derecha.create_image(0, 0, anchor=NW, image=listaimg2[0])
+        if arch == '1\n':
+            Canvas_derecha.create_image(0, 0, anchor=NW, image=listaimg2[1])
+        if arch == '2\n':
+            Canvas_derecha.create_image(0, 0, anchor=NW, image=listaimg2[2])
+        if arch == '3\n':
+            Canvas_derecha.create_image(0, 0, anchor=NW, image=listaimg2[3])
+        if arch == '4\n':
+            Canvas_derecha.create_image(0, 0, anchor=NW, image=listaimg2[4])
+        if arch == '5\n':
+            Canvas_derecha.create_image(0, 0, anchor=NW, image=listaimg2[5])
+        if arch == '6\n':
+            Canvas_derecha.create_image(0, 0, anchor=NW, image=listaimg2[6])
+        if arch == '7\n':
+            Canvas_derecha.create_image(0, 0, anchor=NW, image=listaimg2[7])
+        if arch == '8\n':
+            Canvas_derecha.create_image(0, 0, anchor=NW, image=listaimg2[8])
+        if arch == '9\n':
+            Canvas_derecha.create_image(0, 0, anchor=NW, image=listaimg2[9])
 
         def volver():
             Pilots.deiconify()
@@ -507,8 +536,6 @@ def ventana_Pilots():
             pilotos()
             botones()
 
-        global ListaPilotos
-        print(num)
         E_nombre = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
         E_nombre.place(x=25,y=80)
         E_edad = Entry(Canvas_secundario,width = 13, font=('Britannic Bold', 14))
@@ -591,7 +618,7 @@ def ventana_Pilots():
     # Button(Pilots_Canvas,text = 'giorno',font=('Britannic Bold', 14), command=lambda:mod_gio('4') ,bg='black', fg='white').place(x=700,y=200)
     def botones():
         for i in range(0, 10):
-            listabtn[i] = (Button(listaframes[i],command =listacomandos2[i],image=ListaPilotos[i][14]))
+            listabtn[i] = (Button(listaframes[i],command =listacomandos2[i],image=ListaPilotos[i][13]))
             listabtn[i].pack()
         for i in range(0, 5):
             listabotones2[i] = (
@@ -600,7 +627,7 @@ def ventana_Pilots():
             listabotones2[i].pack()
 
     for i in range(0,10):
-        Pilots_Canvas.create_window(30, ListaPilotos[i][13], anchor=NW, window=listaframes[i])
+        Pilots_Canvas.create_window(75, ListaPilotos[i][12], anchor=NW, window=listaframes[i])
 
     Pilots_Canvas.create_window(780, 30, anchor=NW, window=Pilots_frame)
     Pilots_Canvas.update_idletasks()
