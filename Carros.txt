@@ -1,13 +1,13 @@
-Mercedez@W10@Alemania@2019@94%
-Honda@Mclaren@Italia@2016@72%
-Lotus@e22@Inglaterra@2014@61%
-Honda@Mclaren@Italia@2016@68%
-McLaren@MCL34@Italia@2019@93%
-Renault@RS19@Francia@2019@96%
-RedBull@RB15@Inglaterra@2015@95%
-Honda@Mclaren@Italia@2017@90%
-Honda@Mclaren@Italia@2018@80%
-Honda@Mclaren@Italia@2017@72%
+Mercedez@W10@Alemania@2019@9v@1.5v@1@5@Disponible@3-6v@SensorLuz@2.3kg@94@0
+Honda@Mclaren@Italia@2016@9v@1.5v@1@5@Descargado@3-6v@SensorLuz@2.5kg@72@1
+Lotus@e22@Inglaterra@2014@9v@1.5v@1@5@Descargado@3-6v@SensorLuz@2.4kg@61@2
+Honda@Mclaren@Italia@2016@9v@1.5v@1@5@Reparaciones@3-6v@SensorLuz@2.1kg@68@3
+McLaren@MCL34@Italia@2019@9v@1.5v@1@5@Descargado@3-6v@SensorLuz@3.7kg@93@4
+Renault@RS19@Francia@2019@9v@1.5v@1@5@Descargado@3-6v@SensorLuz@3.2kg@96@5
+RedBull@RB15@Inglaterra@2015@9v@1.5v@1@5@Reparaciones@3-6v@SensorLuz@3.6kg@95@6
+Honda@Mclaren@Italia@2017@9v@1.5v@1@5@Reparaciones@3-6v@SensorLuz@2.7kg@90@7
+Honda@Mclaren@Italia@2018@9v@1.5v@1@5@Descargado@3-6v@SensorLuz@2.9kg@80@8
+Honda@Mclaren@Italia@2017@9v@1.5v@1@5@Reparaciones@3-6v@SensorLuz@2.7kg@72@9
 
 
 
