@@ -218,7 +218,36 @@ def ventana_Pilots():
     arch1 = open('Pilotos.txt', 'r+')
     for i in range(0, 10):
         ListaPilotos.append(arch1.readline().split('@'))
-
+    def flag0():
+        ListaPilotos[0].append(britanico)
+    def flag1():
+        ListaPilotos[1].append(americano)
+    def flag2():
+        ListaPilotos[2].append(japones)
+    def flag3():
+        ListaPilotos[3].append(japones)
+    def flag4():
+        ListaPilotos[4].append(italiano)
+    def flag5():
+        ListaPilotos[5].append(britanico)
+    def flag6():
+        ListaPilotos[6].append(japones)
+    def flag7():
+        ListaPilotos[7].append(italiano)
+    def flag8():
+        ListaPilotos[8].append(frances)
+    def flag9():
+        ListaPilotos[9].append(italiano)
+    flag0()
+    flag1()
+    flag2()
+    flag3()
+    flag4()
+    flag5()
+    flag6()
+    flag7()
+    flag8()
+    flag9()
     # Se calculan los RGP de los pilotos y se agregan a la lista de cada piloto
     for i in range(0, 10):
         ListaPilotos[i].append(int(((int(ListaPilotos[i][5]) + int(ListaPilotos[i][6])) / (
@@ -236,16 +265,6 @@ def ventana_Pilots():
 
     print(ListaPilotos)
     # la lista de cada piloto
-    ListaPilotos[0][2] = britanico
-    ListaPilotos[1][2] = americano
-    ListaPilotos[2][2] = japones
-    ListaPilotos[3][2] = japones
-    ListaPilotos[4][2] = italiano
-    ListaPilotos[5][2] = britanico
-    ListaPilotos[6][2] = japones
-    ListaPilotos[7][2] = italiano
-    ListaPilotos[8][2] = frances
-    ListaPilotos[9][2] = italiano
 
     # ListaPilotos=(Pil0,Pil1,Pil2,Pil3,Pil4,Pil5,Pil6,Pil7,Pil8,Pil9)
     # RGP = ((V+P)/(T-A))*100
@@ -271,12 +290,13 @@ def ventana_Pilots():
     Comp = Pilots_Canvas.create_text(610, 2, anchor=NW, text='Competencias', font=('Britannic Bold', 16))
 
     def pilotos():
+        print(ListaPilotos)
         for i in range(0,10):
-            listaflags.append(Pilots_Canvas.create_image(108,ListaPilotos[i][12],image=ListaPilotos[i][2],anchor=NW))
+            listaflags.append(Pilots_Canvas.create_image(108,ListaPilotos[i][12],image=ListaPilotos[i][9],anchor=NW))
         for i in range(0,10):
             listanom.append(Pilots_Canvas.create_text(182,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][0],font=('Britannic Bold', 16)))
         for i in range(0,10):
-            listanacion.append(Pilots_Canvas.create_text(182,ListaPilotos[i][12]+50,anchor=NW,text =ListaPilotos[i][8],font=('Britannic Bold', 16)))
+            listanacion.append(Pilots_Canvas.create_text(182,ListaPilotos[i][12]+50,anchor=NW,text =ListaPilotos[i][2],font=('Britannic Bold', 16)))
         for i in range(0,10):
             listaedad.append(Pilots_Canvas.create_text(182,ListaPilotos[i][12]+25,anchor=NW,text =ListaPilotos[i][1],font=('Britannic Bold', 16)))
         for i in range(0,10):
@@ -289,6 +309,13 @@ def ventana_Pilots():
             listacomp.append(Pilots_Canvas.create_text(610,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][4],font=('Britannic Bold', 16)))
     #Pilots_Canvas.delete(nomp)
     #Boton.destroy()
+    def nuevoRGP():
+        for i in range(0, 10):
+            ListaPilotos[i][10] = (int(((int(ListaPilotos[i][5]) + int(ListaPilotos[i][6])) / (
+                    int(ListaPilotos[i][4]) - int(ListaPilotos[i][7])) * 100)))
+        for i in range(0, 10):
+            ListaPilotos[i][11](
+                int(((int(ListaPilotos[i][5])) / (int(ListaPilotos[i][4]) - int(ListaPilotos[i][7])) * 100)))
 
     def borrar():
         for texts in listatext:
@@ -322,6 +349,7 @@ def ventana_Pilots():
         print(ListaPilotos[0])
         for i in range(0,10):
             ListaPilotos[i][12] = ListaY[i]
+            ListaPilotos[i][8] = str(i)
         for i in range(0, 10):
             listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
         pilotos()
@@ -335,6 +363,7 @@ def ventana_Pilots():
         listatemporal = [10,9,8,7,6,5,4,3,2,1]
         for i in range(0, 10):
             ListaPilotos[i][12] = ListaY[i]
+            ListaPilotos[i][8] = str(i)
         for i in range(0, 10):
             listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=listatemporal[i], font=('Britannic Bold', 16)))
         pilotos()
@@ -347,6 +376,7 @@ def ventana_Pilots():
         ListaPilotos = ListaREP[::-1]
         for i in range(0, 10):
             ListaPilotos[i][12] = ListaY[i]
+            ListaPilotos[i][8] = str(i)
         for i in range(0, 10):
             listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
         pilotos()
@@ -360,28 +390,48 @@ def ventana_Pilots():
         listatemporal = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
         for i in range(0, 10):
             ListaPilotos[i][12] = ListaY[i]
+            ListaPilotos[i][8] = str(i)
         for i in range(0, 10):
             listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=listatemporal[i], font=('Britannic Bold', 16)))
         pilotos()
         botones()
 
-    def mod_nom(nuevo,cons):
+    def mod_nom(nuevo,cons,arch):
         global ListaPilotos
         for i in range(0,10):
-            print(ListaPilotos[i][9])
+            print(ListaPilotos[i][8])
             print(cons)
-            if int(ListaPilotos[i][9]) == cons:
+            if int(ListaPilotos[i][8]) == cons:
                 ListaPilotos[i][0] = nuevo
                 print(nuevo)
                 print(ListaPilotos[i])
                 break
-        else:
-            return
 
 
+    def mod_jon():
+        mod_pil(0,'jon')
+    def mod_jsp():
+        mod_pil(1,'jsp')
+    def mod_jot():
+        mod_pil(2,'jot')
+    def mod_jsk():
+        mod_pil(3,'jsk')
     def mod_gio():
+        mod_pil(4,'gio')
+    def mod_dio():
+        mod_pil(5,'dio')
+    def mod_kra():
+        mod_pil(6,'kra')
+    def mod_brn():
+        mod_pil(7,'brn')
+    def mod_pol():
+        mod_pil(8,'pol')
+    def mod_czs():
+        mod_pil(9,'czs')
+
+
+    def mod_pil(num,arch):
         Pilots.withdraw()
-        # Pantalla pilots
         EditGiorno = Toplevel()
         EditGiorno.title('Pilot')
         EditGiorno.minsize(600, 400)
@@ -390,13 +440,15 @@ def ventana_Pilots():
         Canvas_secundario.place(x=0,y=0)
         def volver():
             Pilots.deiconify()
+            Pilots.update()
             EditGiorno.destroy()
 
         global ListaPilotos
+        print(num)
         E_nombre1 = Entry(Canvas_secundario, width=15, font=('Britannic Bold', 14))
         E_nombre1.place(x=120,y=80)
         Button(Canvas_secundario,text='Atras',font=('Britannic Bold',14),command=volver,bg='black',fg='white').place(x=25,y=0)
-        Button(Canvas_secundario,text='Nombre',font=('Britannic Bold',14),command =lambda: mod_nom(str(E_nombre1.get()),4),bg='black', fg='white').place(x=100, y=40)
+        Button(Canvas_secundario,text='Nombre',font=('Britannic Bold',14),command =lambda: mod_nom(str(E_nombre1.get()),num,arch),bg='black', fg='white').place(x=100, y=40)
 
         EditGiorno.mainloop()
     # def mod_gio
@@ -426,22 +478,35 @@ def ventana_Pilots():
 
     # __Se crea una funcion para volver a la pantalla principal
     def atras_Pilots():
+        #ListaPilotos
+        with open("Pilotos.txt", "w") as f:
+         #   for line in lines:
+          #      f.write(line)()
+            listita = []
+            if len(ListaPilotos[1][8]) == 1:
+                for i in range(0,10):
+                    ListaPilotos[i][8] += '\n'
+            for i in range(0, 10):
+                listita.append('@'.join(ListaPilotos[i][0:9]))
+            for strs in listita:
+                f.write(strs)
         global pausa
         pausa = True
         Pilots.destroy()
         root.deiconify()
-    listabotones2 = [0,1,2,3,4,5]
-    listatext2 = ['Atras','Mayor RGP','Menor RGP','Mayor REP','Menor REP','giorno']
-    listacomandos = [atras_Pilots,mayor_RGP,menor_RGP,mayor_REP,menor_REP,mod_gio]
+    listabotones2 = [0,1,2,3,4]
+    listatext2 = ['Atras','Mayor RGP','Menor RGP','Mayor REP','Menor REP']
+    listacomandos = [atras_Pilots,mayor_RGP,menor_RGP,mayor_REP,menor_REP]
     #Botones de los pilotos
     listabtn = [0,1,2,3,4,5,6,7,8,9]
+    listacomandos2 = [mod_jon,mod_jsp,mod_jot,mod_jsk,mod_gio,mod_dio,mod_kra,mod_brn,mod_pol,mod_czs]
     print(ListaPilotos)
-
+    #Button(Pilots_Canvas,text = 'giorno',font=('Britannic Bold', 14), command=lambda:mod_gio('4') ,bg='black', fg='white').place(x=700,y=200)
     def botones():
         for i in range(0, 10):
-            listabtn[i] = (Button(listaframes[i], image=ListaPilotos[i][13]))
+            listabtn[i] = (Button(listaframes[i],command =listacomandos2[i],image=ListaPilotos[i][13]))
             listabtn[i].pack()
-        for i in range(0, 6):
+        for i in range(0, 5):
             listabotones2[i] =(Button(Pilots_frame, text=listatext2[i], font=('Britannic Bold', 14), command=listacomandos[i],bg='black', fg='white'))
             listabotones2[i].pack()
 
