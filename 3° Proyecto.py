@@ -1,11 +1,21 @@
+# __________/BIBLIOTECAS
+import tkinter as tk  # Se importa tkinter
+from tkinter import *  # Tk(), Label, Canvas, Photo
+from threading import Thread  # p.start()
+import os  # ruta = os.path.join('')
+import time  # time.sleep(x)
+from tkinter import messagebox  # AskYesNo ()
+from WiFiClient import NodeMCU  # Biblioteca para conectar con el carro
+from pygame import mixer
+
 InfoPer = """
 _______________________________________________
     Insituto Tecnologico de Costa Rica         
             Computer Engineering 
-            
+
             Formula E CE Tec
     Energy Saving and Telemetry Part II
-                       
+
 
     Kenneth Fuentes Martinez 2019026305 
     Cristian Calvo Porras 2019205083              
@@ -17,36 +27,9 @@ _______________________________________________
     Version: 1.0.0                        
 _________________________________________________
 Guia basica:
-                      
+
 _________________________________________________
 """
-# __________/BIBLIOTECAS
-import tkinter as tk  # Se importa tkinter
-from tkinter import *  # Tk(), Label, Canvas, Photo
-from threading import Thread  # p.start()
-import threading  #
-import winsound  # Playsound
-import os  # ruta = os.path.join('')
-import time  # time.sleep(x)
-from tkinter import messagebox  # AskYesNo ()
-import random  # Biblioteca Random
-from tkinter.ttk import Progressbar  # Se utiliza para hacer una progressbar
-from tkinter import ttk
-import pygame as pygame
-from pygame import mixer  # Se importa mixer de pygame
-
-# ______________________________________________
-# Biblioteca para conectar con el carro
-# Control del carrito por NodeMCU
-from pygame import mixer
-
-global left, right
-
-# ______________________________________________
-# Biblioteca para conectar con el carro
-import WiFiClient
-from WiFiClient import NodeMCU
-
 # ______________________________________________
 # Control del carrito por NodeMCU
 Carrito = NodeMCU()
@@ -55,7 +38,8 @@ mixer.init()
 
 # ______________________________________________
 # Global
-global left, right, NumGas, NumGas_Re, reverseON, L_rightON, L_leftON, L_backON, GasON, L_DirON, pressTecla, L_frontON, front_press, left_press, right_press, Dir_press
+#global left, right, NumGas, NumGas_Re, reverseON, L_rightON, L_leftON, L_backON, GasON, L_DirON, pressTecla, \
+#    L_frontON, front_press, left_press, right_press, Dir_press, reverse_press, pressS, num_bar
 left = False
 right = False
 reverseON = False
@@ -118,21 +102,14 @@ Principal_Canvas.create_image(0, 0, image=InicioBackup, anchor=NW)
 Play = Thread(target=Song1, args=())
 Play.start()
 
-
-def play1():
-    pause()
-    Play = Thread(target=Song1, args=())
-    Play.start()
-
-
-def quit():
+# Funcion para salir de la aplicacion
+def quitApp():
     mixer.music.stop()
     root.destroy()
 
 
-#Imagen para los botones de Atras de todas las ventanas
+# Imagen para los botones de Atras de todas las ventanas
 Btn_AtrasImg = cargarImg('Btn_Atras.png')
-
 
 # _________/Se crea la funcion que ejecuta la cancion de fondo
 Play = Thread(target=Song1, args=())
@@ -218,26 +195,37 @@ def ventana_Pilots():
     arch1 = open('Pilotos.txt', 'r+')
     for i in range(0, 10):
         ListaPilotos.append(arch1.readline().split('@'))
+
     def flag0():
         ListaPilotos[0].append(britanico)
+
     def flag1():
         ListaPilotos[1].append(americano)
+
     def flag2():
         ListaPilotos[2].append(japones)
+
     def flag3():
         ListaPilotos[3].append(japones)
+
     def flag4():
         ListaPilotos[4].append(italiano)
+
     def flag5():
         ListaPilotos[5].append(britanico)
+
     def flag6():
         ListaPilotos[6].append(japones)
+
     def flag7():
         ListaPilotos[7].append(italiano)
+
     def flag8():
         ListaPilotos[8].append(frances)
+
     def flag9():
         ListaPilotos[9].append(italiano)
+
     flag0()
     flag1()
     flag2()
@@ -250,12 +238,10 @@ def ventana_Pilots():
     flag9()
     # Se calculan los RGP de los pilotos y se agregan a la lista de cada piloto
     for i in range(0, 10):
-        ListaPilotos[i].append(int(((int(ListaPilotos[i][5]) + int(ListaPilotos[i][6])) / (
-                    int(ListaPilotos[i][4]) - int(ListaPilotos[i][7])) * 100)))
+        ListaPilotos[i].append(int(((int(ListaPilotos[i][5]) + int(ListaPilotos[i][6])) / (int(ListaPilotos[i][4]) - int(ListaPilotos[i][7])) * 100)))
 
     for i in range(0, 10):
-        ListaPilotos[i].append(
-            int(((int(ListaPilotos[i][5])) / (int(ListaPilotos[i][4]) - int(ListaPilotos[i][7])) * 100)))
+        ListaPilotos[i].append(int(((int(ListaPilotos[i][5])) / (int(ListaPilotos[i][4]) - int(ListaPilotos[i][7])) * 100)))
 
     for i in range(0, 10):
         ListaPilotos[i].append(ListaY[i])
@@ -337,6 +323,7 @@ def ventana_Pilots():
             listacomp.append(Pilots_Canvas.create_text(610,ListaPilotos[i][13],anchor=NW,text =ListaPilotos[i][4],font=('Britannic Bold', 16)))
     #Pilots_Canvas.delete(nomp)
     #Boton.destroy()
+
     def nuevoRGP():
         for i in range(0, 10):
             ListaPilotos[i][11] = (int(((int(ListaPilotos[i][5]) + int(ListaPilotos[i][6])) / (
@@ -368,7 +355,8 @@ def ventana_Pilots():
             btn.destroy()
         for btn2 in listabotones2:
             btn2.destroy()
-        #Pilots_Canvas.delete(listatext)
+        # Pilots_Canvas.delete(listatext)
+
     def mayor_RGP():
         global ListaPilotos
         borrar(True)
@@ -379,7 +367,8 @@ def ventana_Pilots():
             ListaPilotos[i][13] = ListaY[i]
             ListaPilotos[i][8] = str(i)
         for i in range(0, 10):
-            listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
+            listatext.append(
+                Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
         pilotos()
         botones()
 
@@ -388,12 +377,13 @@ def ventana_Pilots():
         borrar(True)
         ListaRGP = burbuja(ListaPilotos,11)
         ListaPilotos = ListaRGP
-        listatemporal = [10,9,8,7,6,5,4,3,2,1]
+        listatemporal = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
         for i in range(0, 10):
             ListaPilotos[i][13] = ListaY[i]
             ListaPilotos[i][8] = str(i)
         for i in range(0, 10):
-            listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=listatemporal[i], font=('Britannic Bold', 16)))
+            listatext.append(
+                Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=listatemporal[i], font=('Britannic Bold', 16)))
         pilotos()
         botones()
 
@@ -406,7 +396,8 @@ def ventana_Pilots():
             ListaPilotos[i][13] = ListaY[i]
             ListaPilotos[i][8] = str(i)
         for i in range(0, 10):
-            listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
+            listatext.append(
+                Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
         pilotos()
         botones()
 
@@ -420,7 +411,8 @@ def ventana_Pilots():
             ListaPilotos[i][13] = ListaY[i]
             ListaPilotos[i][8] = str(i)
         for i in range(0, 10):
-            listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=listatemporal[i], font=('Britannic Bold', 16)))
+            listatext.append(
+                Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=listatemporal[i], font=('Britannic Bold', 16)))
         pilotos()
         botones()
 
@@ -479,37 +471,45 @@ def ventana_Pilots():
         except:
             messagebox.showerror("Error", "Se debe ingresar un numero")
 
-
     def mod_jon():
-        mod_pil(0,'jon')
+        mod_pil(0, 'jon')
+
     def mod_jsp():
-        mod_pil(1,'jsp')
+        mod_pil(1, 'jsp')
+
     def mod_jot():
-        mod_pil(2,'jot')
+        mod_pil(2, 'jot')
+
     def mod_jsk():
-        mod_pil(3,'jsk')
+        mod_pil(3, 'jsk')
+
     def mod_gio():
-        mod_pil(4,'gio')
+        mod_pil(4, 'gio')
+
     def mod_dio():
-        mod_pil(5,'dio')
+        mod_pil(5, 'dio')
+
     def mod_kra():
-        mod_pil(6,'kra')
+        mod_pil(6, 'kra')
+
     def mod_brn():
-        mod_pil(7,'brn')
+        mod_pil(7, 'brn')
+
     def mod_pol():
-        mod_pil(8,'pol')
+        mod_pil(8, 'pol')
+
     def mod_czs():
-        mod_pil(9,'czs')
+        mod_pil(9, 'czs')
 
-
-    def mod_pil(num,arch):
+    def mod_pil(num, arch):
         Pilots.withdraw()
         EditGiorno = Toplevel()
         EditGiorno.title('Pilot')
         EditGiorno.minsize(600, 400)
         EditGiorno.resizable(width=NO, height=NO)
         Canvas_secundario = Canvas(EditGiorno, width=600, height=400, bg='blue')
-        Canvas_secundario.place(x=0,y=0)
+        Canvas_secundario.place(x=0, y=0)
+
         def volver():
             Pilots.deiconify()
             EditGiorno.destroy()
@@ -530,9 +530,7 @@ def ventana_Pilots():
         Button(Canvas_secundario, text='Edad', font=('Britannic Bold', 14),
                command=lambda: mod_strs(E_edad.get(), num, 'edad'), bg='black', fg='white').place(x=200, y=40)
 
-
         EditGiorno.mainloop()
-    # def mod_gio
 
     def burbuja(Lista, k):
         return burbuja_aux(Lista, 0, 0, len(Lista), False, k)
@@ -551,18 +549,13 @@ def ventana_Pilots():
             Lista[j + 1] = Tmp
             return burbuja_aux(Lista, i, j + 1, n, True, k)
         else:
-            return burbuja_aux(Lista, i, j + 1, n, Swap,k)
+            return burbuja_aux(Lista, i, j + 1, n, Swap, k)
 
-    # __Se carga una imagen
-
-    # __Se crea un label con informacion crucial
-
-    # __Se crea una funcion para volver a la pantalla principal
     def atras_Pilots():
-        #ListaPilotos
+        # ListaPilotos
         with open("Pilotos.txt", "w") as f:
-         #   for line in lines:
-          #      f.write(line)()
+            #   for line in lines:
+            #      f.write(line)()
             listita = []
             print(len(ListaPilotos[1][9]))
             for i in range(0, 10):
@@ -574,20 +567,24 @@ def ventana_Pilots():
         pausa = True
         Pilots.destroy()
         root.deiconify()
-    listabotones2 = [0,1,2,3,4]
-    listatext2 = ['Atras','Mayor RGP','Menor RGP','Mayor REP','Menor REP']
-    listacomandos = [atras_Pilots,mayor_RGP,menor_RGP,mayor_REP,menor_REP]
-    #Botones de los pilotos
-    listabtn = [0,1,2,3,4,5,6,7,8,9]
-    listacomandos2 = [mod_jon,mod_jsp,mod_jot,mod_jsk,mod_gio,mod_dio,mod_kra,mod_brn,mod_pol,mod_czs]
+
+    listabotones2 = [0, 1, 2, 3, 4]
+    listatext2 = ['Atras', 'Mayor RGP', 'Menor RGP', 'Mayor REP', 'Menor REP']
+    listacomandos = [atras_Pilots, mayor_RGP, menor_RGP, mayor_REP, menor_REP]
+    # Botones de los pilotos
+    listabtn = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    listacomandos2 = [mod_jon, mod_jsp, mod_jot, mod_jsk, mod_gio, mod_dio, mod_kra, mod_brn, mod_pol, mod_czs]
     print(ListaPilotos)
-    #Button(Pilots_Canvas,text = 'giorno',font=('Britannic Bold', 14), command=lambda:mod_gio('4') ,bg='black', fg='white').place(x=700,y=200)
+
+    # Button(Pilots_Canvas,text = 'giorno',font=('Britannic Bold', 14), command=lambda:mod_gio('4') ,bg='black', fg='white').place(x=700,y=200)
     def botones():
         for i in range(0, 10):
             listabtn[i] = (Button(listaframes[i],command =listacomandos2[i],image=ListaPilotos[i][14]))
             listabtn[i].pack()
         for i in range(0, 5):
-            listabotones2[i] =(Button(Pilots_frame, text=listatext2[i], font=('Britannic Bold', 14), command=listacomandos[i],bg='black', fg='white'))
+            listabotones2[i] = (
+                Button(Pilots_frame, text=listatext2[i], font=('Britannic Bold', 14), command=listacomandos[i],
+                       bg='black', fg='white'))
             listabotones2[i].pack()
 
     for i in range(0,10):
@@ -603,21 +600,23 @@ def ventana_Pilots():
     Pilots.mainloop()
 
 
-#_____________/Ventana Carros
+# _____________/Ventana Carros
 def ventana_Carros():
     # Esconder la pantalla principal sin destruirla
     root.withdraw()
     # Pantalla Carros
     Carros = Toplevel()
-    Carros.title('Test Drive')
+    Carros.title('Vehiculos')
     Carros.minsize(1000, 626)
     Carros.resizable(width=NO, height=NO)
     # __Se crea un canvas
     Carros_Canvas = Canvas(Carros, width=1000, height=626, bg='#2d2d2e')
-    Carros_Canvas.place(x=0, y=0)
     # __Se carga una imagen de fondo
     BackupCars = cargarImg('backup_about.png')
     Carros_Canvas.create_image(0, 0, image=BackupCars, anchor=NW)
+
+    BackupCarsInverso = cargarImg('backupInverso.png')
+    Carros_Canvas.create_image(0, 626, image=BackupCarsInverso, anchor=NW)
 
     # __Se crea una funcion para volver a la pantalla principal
     def atras_Carros():
@@ -626,28 +625,103 @@ def ventana_Carros():
         Carros.destroy()
         root.deiconify()
 
+    # __Se crea un canvas y un scrollbar
+    scrolly = Scrollbar(Carros, orient='vertical', command=Carros_Canvas.yview)
+    Cars_frame = Frame(Carros_Canvas)
+    listaframes = []
+    for i in range(0, 10):
+        listaframes.append(Frame(Carros_Canvas))
+
     Btn_Atras_cars = Button(Carros_Canvas, image=Btn_AtrasImg, command=atras_Carros, bg='#2d2d2e')
     Btn_Atras_cars.place(x=5, y=5)
 
     listacarrospng = ["car0.png", "car1.png", "car2.png", "car3.png", "car4.png", "car5.png", "car6.png",
-                "car7.png", "car8.png", "car9.png"]
-    listacarimg = []
-    for car in listacarrospng:
-        listacarimg.append(cargarImg(car))
+                      "car7.png", "car8.png", "car9.png"]
+    listacarrosImg = []
 
+    for carImg in listacarrospng:
+        listacarrosImg.append(cargarImg(carImg))
 
+    global ListaCarros
+    ListaCarros = []
+    ListaY = [60, 175, 290, 405, 520, 635, 750, 865, 980, 1095]
+
+    # __Se abre el archivo de texto con la info. de los carros
+    archCars = open('Carros.txt', 'r+')
+    for i in range(0, 10):
+        ListaCarros.append(archCars.readline().split('@'))
+
+    # Se cargan los datos juntos a su carro
+    for i in range(0, 10):
+        ListaCarros[i].append(ListaY[i])
+
+    for i in range(0, 10):
+        ListaCarros[i].append(listacarrosImg[i])
+
+    listatext = []
+    listacar = []
+    listapais = []
+    listamarca = []
+    listamodelo = []
+    listatemp = []
+    listabaterias = []
+    listapilas = []
+    listaestado = []
+    listacarac = []
+    listaeficiencia = []
+    for i in range(0, 10):
+        listatext.append(Carros_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
+
+    CarImg = Carros_Canvas.create_text(182, 2, anchor=NW, text='Marca\nModelo', font=('Britannic Bold', 16),fill="#fdf2b4")
+    TempYPais = Carros_Canvas.create_text(300, 2, anchor=NW, text='Temporada\nPais', font=('Britannic Bold', 16),fill="#fdf2b4")
+    Baterias = Carros_Canvas.create_text(450, 2, anchor=NW, text='Baterias\nPilas', font=('Britannic Bold', 16),fill="#fdf2b4")
+    Caracteristicas = Carros_Canvas.create_text(565, 2, anchor=NW, text='Caracteristicas', font=('Britannic Bold', 16),fill="#fdf2b4")
+    Estado = Carros_Canvas.create_text(745, 2, anchor=NW, text='Estado', font=('Britannic Bold', 16),fill="#fdf2b4")
+    Eficiencia = Carros_Canvas.create_text(845, 2, anchor=NW, text='Eficiencia', font=('Britannic Bold', 16),fill="#fdf2b4")
+
+    def F_Carros():
+        print (ListaCarros)
+        for i in range(0, 10):
+            listacar.append(Carros_Canvas.create_image(10, ListaCarros[i][5], image=ListaCarros[i][6], anchor=NW))
+        for i in range(0, 10):
+            listamarca.append(Carros_Canvas.create_text(182, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][0],font=('Britannic Bold', 16), fill="white"))
+        for i in range(0, 10):
+            listamodelo.append(Carros_Canvas.create_text(182, ListaCarros[i][5] + 25, anchor=NW, text=ListaCarros[i][1],font=('Britannic Bold', 16),fill="white"))
+        for i in range(0, 10):
+            listapais.append(Carros_Canvas.create_text(300, ListaCarros[i][5] + 25, anchor=NW, text=ListaCarros[i][2],font=('Britannic Bold', 16),fill="white"))
+        for i in range(0, 10):
+            listatemp.append(Carros_Canvas.create_text(300, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][3],font=('Britannic Bold', 16),fill="white"))
+        #for i in range(0, 10):
+            #listabaterias.append(Carros_Canvas.create_text(380, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][3],font=('Britannic Bold', 16)))
+        #for i in range(0, 10):
+            #listapilas.append(Carros_Canvas.create_text(500, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][10],font=('Britannic Bold', 16)))
+        #for i in range(0, 10):
+            #listaestado.append(Carros_Canvas.create_text(555, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][11],font=('Britannic Bold', 16)))
+        #for i in range(0, 10):
+            #listacarac.append(Carros_Canvas.create_text(610, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][4],font=('Britannic Bold', 16)))
+        for i in range(0, 10):
+            listaeficiencia.append(Carros_Canvas.create_text(845, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][4],font=('Britannic Bold', 16),fill="white"))
+
+    Carros_Canvas.create_window(780, 30, anchor=NW, window=Cars_frame)
+    Carros_Canvas.update_idletasks()
+    Carros_Canvas.configure(scrollregion=(0, 0, 500, 1200), yscrollcommand=scrolly.set)
+    Carros_Canvas.pack(fill=BOTH, expand=True, side=LEFT)
+    scrolly.pack(fill=Y, side=RIGHT)
+
+    F_Carros()
     Carros.mainloop()
+
 
 # ___________/Funcion de send, para enviar mensajes al Carrito
 
 def send(mensaje):
-    if (len(mensaje) > 0 and mensaje[-1] == ";"):
+    if len(mensaje) > 0 and mensaje[-1] == ";":
         Carrito.send(mensaje)
     else:
         messagebox.showwarning("Error del mensaje", "Mensaje sin caracter de finalización (';')")
 
-
     # __________ /Funcion para ventana de TestDrive
+
 
 def ventana_TestDrive():
     # Esconder la pantalla principal sin destruirla
@@ -751,18 +825,18 @@ def ventana_TestDrive():
 
     # Funcion para obtener el nivel de bateria y la iluminacion de ambiente
     def GetSense():
-        global carrito
+        global Carrito
         # Obtencion de la bateria
-        SenseGet = carrito.send("sense;")
+        SenseGet = Carrito.send("sense;")
         time.sleep(3)
-        BatlvlGet = carrito.readById(SenseGet)
+        BatlvlGet = Carrito.readById(SenseGet)
         BatLvlObtenido = int(BatlvlGet[0][-2:])
         BatLvl = BatLvlObtenido - 60
         BatLvlFinal = int((BatLvl * 100) / 12)
-        BatImage(BatLvlFinal)
+        #BatImage(BatLvlFinal)
         Test_Canvas.itemconfig("FinalBatLvl", text=str(BatLvlFinal) + "%")
         # Obtencion de la Luz
-        LuzGet = carrito.readById(SenseGet)
+        LuzGet = Carrito.readById(SenseGet)
         LuzObtenida = int(LuzGet[1][-1])
         iluminacion_actual(LuzObtenida)
         time.sleep(15)
@@ -788,9 +862,9 @@ def ventana_TestDrive():
             Test_Canvas.itemconfig('s-off', state=NORMAL)
 
     # Nivel de bateria, presente en el test drive
-    def BatImage(BatLevel):
-        if BatLevel == 100:
-            BatLevel = 0
+    #def BatImage(BatLevel):
+        #if BatLevel == 100:
+            #BatLevel = 0
 
     # Control key press
     def Car_Control(event):
@@ -1222,7 +1296,7 @@ Btn_About = Button(Principal_Canvas, image=Btn_Credits, command=ventana_about, b
 Btn_About.place(x=10, y=258)
 
 Btn_QuitImg = cargarImg("Btn_Quit.png")
-Btn_Quit = Button(Principal_Canvas, image=Btn_QuitImg, command=quit, bg='#2d2d2e')
+Btn_Quit = Button(Principal_Canvas, image=Btn_QuitImg, command=quitApp, bg='#2d2d2e')
 Btn_Quit.place(x=10, y=324)
 
 Btn_play = cargarImg("Btn_play.png")
