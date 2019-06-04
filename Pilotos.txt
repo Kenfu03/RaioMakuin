@@ -1,10 +1,10 @@
-Giorno Giovanna@19 años@italiano@1 2018@20@20@0@0@0
-Ceasar Zeppeli@20 años@italiano@1 2018@20@9@10@0@1
-Jean-Pierre Polnareff@24 años@frances@1 2018@20@3@15@0@2
-Dio Brando@20 años@britanico@1 2018@20@14@4@0@3
-Bruno Bucciarati@21 años@italiano@1 2018@20@4@12@0@4
-asdk@20 años@britanico@1 2018@20@2@14@0@5
-Josuke Higashikata@23 años@japones@1 2018@20@6@9@0@6
-Jotaro Kujo@27 años@japones@1 2018@20@10@3@2@7
-Joseph Joestar@18 años@americano@1 2018@20@7@4@2@8
-Kira Yoshikage@33 años@japones@1 2018@20@9@3@0@9
+Jonathan Joestar@20 años@Britanico@1 2018@20@2@14@0@0@0
+Joseph Joestar@18 años@Americano@1 2018@20@7@4@2@1@1
+Jotaro Kujo@27 años@Japones@1 2018@20@10@3@2@2@2
+Josuke Higashikata@23 años@Japones@1 2018@20@6@9@0@3@3
+Giorno Giovanna@19 años@Italiano@1 2018@20@20@0@0@4@4
+Dio Brando@20 años@Britanico@1 2018@20@14@4@0@5@5
+Kira Yoshikage@33 años@Japones@1 2018@20@9@3@0@6@6
+Bruno Bucciarati@21 años@Italiano@1 2018@20@4@12@0@7@7
+Jean-Pierre Polnareff@24 años@Frances@1 2018@20@3@15@0@8@8
+Ceasar A. Zeppeli@20 años@Italiano@1 2018@20@9@10@0@9@9
