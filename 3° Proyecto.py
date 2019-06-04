@@ -276,11 +276,6 @@ def ventana_Pilots():
     for i in range(0, 10):
         if ListaPilotos[i][9] == '9\n':
             ListaPilotos[i].append(listaimg[9])
-
-    print(ListaPilotos)
-    # la lista de cada piloto
-
-    # ListaPilotos=(Pil0,Pil1,Pil2,Pil3,Pil4,Pil5,Pil6,Pil7,Pil8,Pil9)
     # RGP = ((V+P)/(T-A))*100
     # REP =(V/(T-A))*100
     # V = VICTORIAS, P = 2 Y 3 LUGAR, T=PARTICIPACIONES, A=ABANDONOS
@@ -304,7 +299,6 @@ def ventana_Pilots():
     Comp = Pilots_Canvas.create_text(610, 2, anchor=NW, text='Competencias', font=('Britannic Bold', 16))
 
     def pilotos():
-        print(ListaPilotos)
         for i in range(0,10):
             listaflags.append(Pilots_Canvas.create_image(108,ListaPilotos[i][13],image=ListaPilotos[i][10],anchor=NW))
         for i in range(0,10):
@@ -362,7 +356,6 @@ def ventana_Pilots():
         borrar(True)
         ListaRGP = burbuja(ListaPilotos,11)
         ListaPilotos = ListaRGP[::-1]
-        print(ListaPilotos[0])
         for i in range(0,10):
             ListaPilotos[i][13] = ListaY[i]
             ListaPilotos[i][8] = str(i)
@@ -420,39 +413,23 @@ def ventana_Pilots():
         global ListaPilotos
         if modo == 'nombre':
             for i in range(0,10):
-                print(ListaPilotos[i][8])
-                print(cons)
                 if int(ListaPilotos[i][8]) == cons:
                     ListaPilotos[i][0] = nuevo
-                    print(nuevo)
-                    print(ListaPilotos[i])
                     break
         if modo == 'edad':
             for i in range(0, 10):
-                print(ListaPilotos[i][8])
-                print(cons)
                 if int(ListaPilotos[i][8]) == cons:
                     ListaPilotos[i][1] = nuevo
-                    print(nuevo)
-                    print(ListaPilotos[i])
                     break
         if modo == 'nacion':
             for i in range(0, 10):
-                print(ListaPilotos[i][8])
-                print(cons)
                 if int(ListaPilotos[i][8]) == cons:
                     ListaPilotos[i][2] = nuevo
-                    print(nuevo)
-                    print(ListaPilotos[i])
                     break
         if modo == 'temp':
             for i in range(0, 10):
-                print(ListaPilotos[i][8])
-                print(cons)
                 if int(ListaPilotos[i][8]) == cons:
                     ListaPilotos[i][3] = nuevo
-                    print(nuevo)
-                    print(ListaPilotos[i])
                     break
 
     def mod_nums(nuevo,cons,arch):
@@ -460,14 +437,26 @@ def ventana_Pilots():
             global ListaPilotos
             nuevo = int(nuevo)
             if isinstance(nuevo,int):
-                for i in range(0, 10):
-                    print(ListaPilotos[i][8])
-                    print(cons)
-                    if int(ListaPilotos[i][8]) == cons:
-                        ListaPilotos[i][1] = nuevo
-                        print(nuevo)
-                        print(ListaPilotos[i])
-                        break
+                if arch == 'comp':
+                    for i in range(0, 10):
+                        if int(ListaPilotos[i][8]) == cons:
+                            ListaPilotos[i][4] = str(nuevo)
+                            break
+                if arch == 'vic':
+                    for i in range(0, 10):
+                        if int(ListaPilotos[i][8]) == cons:
+                            ListaPilotos[i][5] = str(nuevo)
+                            break
+                if arch == 'pod':
+                    for i in range(0, 10):
+                        if int(ListaPilotos[i][8]) == cons:
+                            ListaPilotos[i][6] = str(nuevo)
+                            break
+                if arch == 'aban':
+                    for i in range(0, 10):
+                        if int(ListaPilotos[i][8]) == cons:
+                            ListaPilotos[i][7] = str(nuevo)
+                            break
         except:
             messagebox.showerror("Error", "Se debe ingresar un numero")
 
@@ -524,12 +513,35 @@ def ventana_Pilots():
         E_nombre.place(x=25,y=80)
         E_edad = Entry(Canvas_secundario,width = 13, font=('Britannic Bold', 14))
         E_edad.place(x=200,y=80)
+        E_nacion = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_nacion.place(x=375, y=80)
+        E_temp = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_temp.place(x=25, y=170)
+        E_comp = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_comp.place(x=200, y=170)
+        E_vic = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_vic.place(x=375, y=170)
+        E_sec = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_sec.place(x=25, y=260)
+        E_aban = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_aban.place(x=200, y=260)
         Button(Canvas_secundario,text='Atras',font=('Britannic Bold',14),command=volver,bg='black',fg='white').place(x=25,y=0)
         Button(Canvas_secundario, text='Nombre', font=('Britannic Bold', 14),
                command=lambda: mod_strs(str(E_nombre.get()), num, 'nombre'), bg='black', fg='white').place(x=25, y=40)
         Button(Canvas_secundario, text='Edad', font=('Britannic Bold', 14),
                command=lambda: mod_strs(E_edad.get(), num, 'edad'), bg='black', fg='white').place(x=200, y=40)
-
+        Button(Canvas_secundario, text='Nacionalidad', font=('Britannic Bold', 14),
+               command=lambda: mod_strs(E_nacion.get(), num, 'nacion'), bg='black', fg='white').place(x=375, y=40)
+        Button(Canvas_secundario, text='Temporada', font=('Britannic Bold', 14),
+               command=lambda: mod_strs(E_temp.get(), num, 'temp'), bg='black', fg='white').place(x=25, y=130)
+        Button(Canvas_secundario, text='Competencia', font=('Britannic Bold', 14),
+               command=lambda: mod_nums(E_comp.get(), num, 'comp'), bg='black', fg='white').place(x=200, y=130)
+        Button(Canvas_secundario, text='Victorias', font=('Britannic Bold', 14),
+               command=lambda: mod_nums(E_vic.get(), num, 'vic'), bg='black', fg='white').place(x=375, y=130)
+        Button(Canvas_secundario, text='Podio', font=('Britannic Bold', 14),
+               command=lambda: mod_nums(E_sec.get(), num, 'pod'), bg='black', fg='white').place(x=25, y=220)
+        Button(Canvas_secundario, text='Abandonos', font=('Britannic Bold', 14),
+               command=lambda: mod_nums(E_aban.get(), num, 'aban'), bg='black', fg='white').place(x=200, y=220)
         EditGiorno.mainloop()
 
     def burbuja(Lista, k):
