@@ -172,6 +172,13 @@ def ventana_Pilots():
     Pilots_Canvas = Canvas(Pilots, width=900, height=700, bg='#2d2d2e')
     scroll_y = Scrollbar(Pilots, orient='vertical', command=Pilots_Canvas.yview)
     Pilots_frame = Frame(Pilots_Canvas)
+
+    BackupCars = cargarImg('backup_about.png')
+    Pilots_Canvas.create_image(0, 0, image=BackupCars, anchor=NW)
+
+    BackupCarsInverso = cargarImg('backupInverso.png')
+    Pilots_Canvas.create_image(0, 626, image=BackupCarsInverso, anchor=NW)
+
     listaframes = []
     for i in range(0, 10):
         listaframes.append(Frame(Pilots_Canvas))
@@ -704,9 +711,13 @@ def ventana_Carros():
     listamodelo = []
     listatemp = []
     listabaterias = []
+    listabaterias2 = []
     listapilas = []
+    listapilas2 = []
     listaestado = []
     listacarac = []
+    listacarac2 = []
+    listacarac3 = []
     listaeficiencia = []
     for i in range(0, 10):
         listatext.append(Carros_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
@@ -714,32 +725,132 @@ def ventana_Carros():
     CarImg = Carros_Canvas.create_text(182, 2, anchor=NW, text='Marca\nModelo', font=('Britannic Bold', 16),fill="#fdf2b4")
     TempYPais = Carros_Canvas.create_text(300, 2, anchor=NW, text='Temporada\nPais', font=('Britannic Bold', 16),fill="#fdf2b4")
     Baterias = Carros_Canvas.create_text(450, 2, anchor=NW, text='Baterias\nPilas', font=('Britannic Bold', 16),fill="#fdf2b4")
-    Caracteristicas = Carros_Canvas.create_text(565, 2, anchor=NW, text='Caracteristicas', font=('Britannic Bold', 16),fill="#fdf2b4")
+    Caracteristicas = Carros_Canvas.create_text(565, 2, anchor=NW, text='Pw Motores\nSensores,  Peso', font=('Britannic Bold', 16),fill="#fdf2b4")
     Estado = Carros_Canvas.create_text(745, 2, anchor=NW, text='Estado', font=('Britannic Bold', 16),fill="#fdf2b4")
-    Eficiencia = Carros_Canvas.create_text(845, 2, anchor=NW, text='Eficiencia', font=('Britannic Bold', 16),fill="#fdf2b4")
+    Eficiencia = Carros_Canvas.create_text(880, 2, anchor=NW, text='Eficiencia', font=('Britannic Bold', 16),fill="#fdf2b4")
 
     def F_Carros():
         print (ListaCarros)
         for i in range(0, 10):
-            listacar.append(Carros_Canvas.create_image(10, ListaCarros[i][5], image=ListaCarros[i][6], anchor=NW))
+            listacar.append(Carros_Canvas.create_image(10, ListaCarros[i][14], image=ListaCarros[i][15], anchor=NW))
         for i in range(0, 10):
-            listamarca.append(Carros_Canvas.create_text(182, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][0],font=('Britannic Bold', 16), fill="white"))
+            listamarca.append(Carros_Canvas.create_text(182, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][0],font=('Britannic Bold', 16), fill="white"))
         for i in range(0, 10):
-            listamodelo.append(Carros_Canvas.create_text(182, ListaCarros[i][5] + 25, anchor=NW, text=ListaCarros[i][1],font=('Britannic Bold', 16),fill="white"))
+            listamodelo.append(Carros_Canvas.create_text(182, ListaCarros[i][14] + 25, anchor=NW, text=ListaCarros[i][1],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listapais.append(Carros_Canvas.create_text(300, ListaCarros[i][5] + 25, anchor=NW, text=ListaCarros[i][2],font=('Britannic Bold', 16),fill="white"))
+            listapais.append(Carros_Canvas.create_text(300, ListaCarros[i][14] + 25, anchor=NW, text=ListaCarros[i][2],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listatemp.append(Carros_Canvas.create_text(300, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][3],font=('Britannic Bold', 16),fill="white"))
-        #for i in range(0, 10):
-            #listabaterias.append(Carros_Canvas.create_text(380, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][3],font=('Britannic Bold', 16)))
-        #for i in range(0, 10):
-            #listapilas.append(Carros_Canvas.create_text(500, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][10],font=('Britannic Bold', 16)))
-        #for i in range(0, 10):
-            #listaestado.append(Carros_Canvas.create_text(555, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][11],font=('Britannic Bold', 16)))
-        #for i in range(0, 10):
-            #listacarac.append(Carros_Canvas.create_text(610, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][4],font=('Britannic Bold', 16)))
+            listatemp.append(Carros_Canvas.create_text(300, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][3],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listaeficiencia.append(Carros_Canvas.create_text(845, ListaCarros[i][5], anchor=NW, text=ListaCarros[i][4],font=('Britannic Bold', 16),fill="white"))
+            listabaterias.append(Carros_Canvas.create_text(450, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][4],font=('Britannic Bold', 16),fill="white"))
+        for i in range(0, 10):
+            listabaterias2.append(Carros_Canvas.create_text(450, ListaCarros[i][14] + 25, anchor=NW, text=ListaCarros[i][5],font=('Britannic Bold', 16),fill="white"))
+        for i in range(0, 10):
+            listapilas.append(Carros_Canvas.create_text(500, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][6],font=('Britannic Bold', 16),fill="white"))
+        for i in range(0, 10):
+            listapilas2.append(Carros_Canvas.create_text(500, ListaCarros[i][14] + 25, anchor=NW, text=ListaCarros[i][7],font=('Britannic Bold', 16),fill="white"))
+        for i in range(0, 10):
+            listaestado.append(Carros_Canvas.create_text(745, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][8],font=('Britannic Bold', 16),fill="white"))
+        for i in range(0, 10):
+            listacarac.append(Carros_Canvas.create_text(565, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][9],font=('Britannic Bold', 16),fill="white"))
+        for i in range(0, 10):
+            listacarac2.append(Carros_Canvas.create_text(565, ListaCarros[i][14] + 25, anchor=NW, text=ListaCarros[i][10],font=('Britannic Bold', 16),fill="white"))
+        for i in range(0, 10):
+            listacarac3.append(Carros_Canvas.create_text(565, ListaCarros[i][14] + 50, anchor=NW, text=ListaCarros[i][11],font=('Britannic Bold', 16),fill="white"))
+        for i in range(0, 10):
+            listaeficiencia.append(Carros_Canvas.create_text(880, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][12],font=('Britannic Bold', 16),fill="white"))
+
+    def borrarCars(Fa_Tr):
+        if Fa_Tr:
+            for texts in listatext:
+                Carros_Canvas.delete(texts)
+        for cars in listacar:
+            Carros_Canvas.delete(cars)
+        for marca in listamarca:
+            Carros_Canvas.delete(marca)
+        for model in listamodelo:
+            Carros_Canvas.delete(model)
+        for pais in listapais:
+            Carros_Canvas.delete(pais)
+        for temp in listatemp:
+            Carros_Canvas.delete(temp)
+        for bat in listabaterias:
+            Carros_Canvas.delete(bat)
+        for bat2 in listabaterias2:
+            Carros_Canvas.delete(bat2)
+        for pil in listapilas:
+            Carros_Canvas.delete(pil)
+        for pil2 in listapilas2:
+            Carros_Canvas.delete(pil2)
+        for stat in listaestado:
+            Carros_Canvas.delete(stat)
+        for carac in listacarac:
+            Carros_Canvas.delete(carac)
+        for carac2 in listacarac2:
+            Carros_Canvas.delete(carac2)
+        for carac3 in listacarac3:
+            Carros_Canvas.delete(carac3)
+        for efi in listaeficiencia:
+            Carros_Canvas.delete(efi)
+
+
+    def mayor_Efi():
+        global ListaCarros
+        borrarCars(True)
+        ListaEfi = burbujaCars(ListaCarros,12)
+        ListaCarros = ListaEfi[::-1]
+        print(ListaCarros[0])
+        for i in range(0,10):
+            ListaCarros[i][14] = ListaY[i]
+            ListaCarros[i][13] = str(i)
+        for i in range(0, 10):
+            listatext.append(Carros_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
+        F_Carros()
+        botonesCar()
+
+    def menor_Efi():
+        global ListaCarros
+        borrarCars(True)
+        print (ListaCarros)
+        ListaEfi = burbujaCars(ListaCarros,12)
+        ListaCarros = ListaEfi
+        listatemporal = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+        for i in range(0, 10):
+            ListaCarros[i][14] = ListaY[i]
+            ListaCarros[i][13] = str(i)
+        for i in range(0, 10):
+            listatext.append(Carros_Canvas.create_text(5, ListaY[i], anchor=NW, text=listatemporal[i], font=('Britannic Bold', 16)))
+        F_Carros()
+        botonesCar()
+
+    def botonesCar():
+        btn_up = Button(Carros_Canvas, image=flechup, command=mayor_Efi, bg='#2d2d2e')
+        btn_dowm = Button(Carros_Canvas, image=flechdowm, command=menor_Efi, bg='#2d2d2e')
+        btn_up.place(x=101,y=5)
+        btn_dowm.place(x=139,y=5)
+
+    def burbujaCars(Lista, cord):
+        return burbuja_auxCars(Lista, 0, 0, len(Lista), False, cord)
+
+    def burbuja_auxCars(Lista, i, j, n, Swap, cord):
+        if i == n:
+            return Lista
+        if j == n - i - 1:
+            if Swap:
+                return burbuja_auxCars(Lista, i + 1, 0, n, False, cord)
+            else:
+                return Lista
+        if Lista[j][cord] > Lista[j + 1][cord]:
+            Tmp = Lista[j]
+            Lista[j] = Lista[j + 1]
+            Lista[j + 1] = Tmp
+            return burbuja_auxCars(Lista, i, j + 1, n, True, cord)
+        else:
+            return burbuja_auxCars(Lista, i, j + 1, n, Swap, cord)
+
+
+    flechup = cargarImg('flechup.png')
+    flechdowm = cargarImg('flechdowm.png')
 
     Carros_Canvas.create_window(780, 30, anchor=NW, window=Cars_frame)
     Carros_Canvas.update_idletasks()
@@ -748,6 +859,7 @@ def ventana_Carros():
     scrolly.pack(fill=Y, side=RIGHT)
 
     F_Carros()
+    botonesCar()
     Carros.mainloop()
 
 
