@@ -203,46 +203,7 @@ def ventana_Pilots():
     for i in range(0, 10):
         ListaPilotos.append(arch1.readline().split('@'))
 
-    '''def flag0():
-        ListaPilotos[0].append(britanico)
 
-    def flag1():
-        ListaPilotos[1].append(americano)
-
-    def flag2():
-        ListaPilotos[2].append(japones)
-
-    def flag3():
-        ListaPilotos[3].append(japones)
-
-    def flag4():
-        ListaPilotos[4].append(italiano)
-
-    def flag5():
-        ListaPilotos[5].append(britanico)
-
-    def flag6():
-        ListaPilotos[6].append(japones)
-
-    def flag7():
-        ListaPilotos[7].append(italiano)
-
-    def flag8():
-        ListaPilotos[8].append(frances)
-
-    def flag9():
-        ListaPilotos[9].append(italiano)
-
-    flag0()
-    flag1()
-    flag2()
-    flag3()
-    flag4()
-    flag5()
-    flag6()
-    flag7()
-    flag8()
-    flag9()'''
     # Se calculan los RGP de los pilotos y se agregan a la lista de cada piloto
     for i in range(0, 10):
         ListaPilotos[i].append(int(((int(ListaPilotos[i][5]) + int(ListaPilotos[i][6])) / (int(ListaPilotos[i][4]) - int(ListaPilotos[i][7])) * 100)))
@@ -299,29 +260,29 @@ def ventana_Pilots():
     for i in range(0, 10):
         listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
 
-    Nombre = Pilots_Canvas.create_text(182, 2, anchor=NW, text='Nombre/Edad', font=('Britannic Bold', 16))
-    Temp = Pilots_Canvas.create_text(380, 2, anchor=NW, text='Temporada', font=('Britannic Bold', 16))
-    RGP = Pilots_Canvas.create_text(500, 2, anchor=NW, text='RGP', font=('Britannic Bold', 16))
-    REP = Pilots_Canvas.create_text(555, 2, anchor=NW, text='REP', font=('Britannic Bold', 16))
-    Comp = Pilots_Canvas.create_text(610, 2, anchor=NW, text='Competencias', font=('Britannic Bold', 16))
+    Nombre = Pilots_Canvas.create_text(182, 2, anchor=NW, text='Nombre/Edad', font=('Britannic Bold', 16),fill='#fdf2b4')
+    Temp = Pilots_Canvas.create_text(380, 2, anchor=NW, text='Temporada', font=('Britannic Bold', 16),fill='#fdf2b4')
+    RGP = Pilots_Canvas.create_text(500, 2, anchor=NW, text='RGP', font=('Britannic Bold', 16),fill='#fdf2b4')
+    REP = Pilots_Canvas.create_text(555, 2, anchor=NW, text='REP', font=('Britannic Bold', 16),fill='#fdf2b4')
+    Comp = Pilots_Canvas.create_text(610, 2, anchor=NW, text='Competencias', font=('Britannic Bold', 16),fill='#fdf2b4')
 
     def pilotos():
         #for i in range(0,10):
          #   listaflags.append(Pilots_Canvas.create_image(108,ListaPilotos[i][13],image=ListaPilotos[i][10],anchor=NW))
         for i in range(0,10):
-            listanom.append(Pilots_Canvas.create_text(182,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][0],font=('Britannic Bold', 16)))
+            listanom.append(Pilots_Canvas.create_text(182,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][0],font=('Britannic Bold', 16),fill='white'))
         for i in range(0,10):
-            listanacion.append(Pilots_Canvas.create_text(182,ListaPilotos[i][12]+50,anchor=NW,text =ListaPilotos[i][2],font=('Britannic Bold', 16)))
+            listanacion.append(Pilots_Canvas.create_text(182,ListaPilotos[i][12]+50,anchor=NW,text =ListaPilotos[i][2],font=('Britannic Bold', 16),fill='white'))
         for i in range(0,10):
-            listaedad.append(Pilots_Canvas.create_text(182,ListaPilotos[i][12]+25,anchor=NW,text =ListaPilotos[i][1],font=('Britannic Bold', 16)))
+            listaedad.append(Pilots_Canvas.create_text(182,ListaPilotos[i][12]+25,anchor=NW,text =ListaPilotos[i][1],font=('Britannic Bold', 16),fill='white'))
         for i in range(0,10):
-            listatmp.append(Pilots_Canvas.create_text(380,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][3],font=('Britannic Bold', 16)))
+            listatmp.append(Pilots_Canvas.create_text(380,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][3],font=('Britannic Bold', 16),fill='white'))
         for i in range(0,10):
-            listargp.append(Pilots_Canvas.create_text(500,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][10],font=('Britannic Bold', 16)))
+            listargp.append(Pilots_Canvas.create_text(500,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][10],font=('Britannic Bold', 16),fill='white'))
         for i in range(0,10):
-            listarep.append(Pilots_Canvas.create_text(555,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][11],font=('Britannic Bold', 16)))
+            listarep.append(Pilots_Canvas.create_text(555,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][11],font=('Britannic Bold', 16),fill='white'))
         for i in range(0,10):
-            listacomp.append(Pilots_Canvas.create_text(610,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][4],font=('Britannic Bold', 16)))
+            listacomp.append(Pilots_Canvas.create_text(610,ListaPilotos[i][12],anchor=NW,text =ListaPilotos[i][4],font=('Britannic Bold', 16),fill='white'))
     #Pilots_Canvas.delete(nomp)
     #Boton.destroy()
 
@@ -614,23 +575,26 @@ def ventana_Pilots():
         Pilots.destroy()
         root.deiconify()
 
-    listabotones2 = [0, 1, 2, 3, 4]
-    listatext2 = ['Atras', 'Mayor RGP', 'Menor RGP', 'Mayor REP', 'Menor REP']
-    listacomandos = [atras_Pilots, mayor_RGP, menor_RGP, mayor_REP, menor_REP]
+    listabotones2 = [0, 1, 2, 3]
+    listatext2 = ['Mayor RGP', 'Menor RGP', 'Mayor REP', 'Menor REP']
+    listacomandos = [mayor_RGP, menor_RGP, mayor_REP, menor_REP]
     # Botones de los pilotos
     listabtn = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     listacomandos2 = [mod_jon, mod_jsp, mod_jot, mod_jsk, mod_gio, mod_dio, mod_kra, mod_brn, mod_pol, mod_czs]
     print(ListaPilotos)
+
+    btnatras = Button(Pilots_Canvas, image=Btn_AtrasImg, command=atras_Pilots, bg='#2d2d2e')
+    btnatras.place(x=809,y=649)
 
     # Button(Pilots_Canvas,text = 'giorno',font=('Britannic Bold', 14), command=lambda:mod_gio('4') ,bg='black', fg='white').place(x=700,y=200)
     def botones():
         for i in range(0, 10):
             listabtn[i] = (Button(listaframes[i],command =listacomandos2[i],image=ListaPilotos[i][13]))
             listabtn[i].pack()
-        for i in range(0, 5):
+        for i in range(0, 4):
             listabotones2[i] = (
-                Button(Pilots_frame, text=listatext2[i], font=('Britannic Bold', 14), command=listacomandos[i],
-                       bg='black', fg='white'))
+                Button(Pilots_frame, text=listatext2[i], font=('Britannic Bold', 14), command=listacomandos[i]
+                       ,bg='#2d2d2e', fg="#fdf2b4"))
             listabotones2[i].pack()
 
     for i in range(0,10):
@@ -664,22 +628,12 @@ def ventana_Carros():
     BackupCarsInverso = cargarImg('backupInverso.png')
     Carros_Canvas.create_image(0, 626, image=BackupCarsInverso, anchor=NW)
 
-    # __Se crea una funcion para volver a la pantalla principal
-    def atras_Carros():
-        global pausa
-        pausa = True
-        Carros.destroy()
-        root.deiconify()
-
     # __Se crea un canvas y un scrollbar
     scrolly = Scrollbar(Carros, orient='vertical', command=Carros_Canvas.yview)
     Cars_frame = Frame(Carros_Canvas)
     listaframes = []
     for i in range(0, 10):
         listaframes.append(Frame(Carros_Canvas))
-
-    Btn_Atras_cars = Button(Carros_Canvas, image=Btn_AtrasImg, command=atras_Carros, bg='#2d2d2e')
-    Btn_Atras_cars.place(x=5, y=5)
 
     listacarrospng = ["car0.png", "car1.png", "car2.png", "car3.png", "car4.png", "car5.png", "car6.png",
                       "car7.png", "car8.png", "car9.png"]
@@ -732,33 +686,33 @@ def ventana_Carros():
     def F_Carros():
         print (ListaCarros)
         for i in range(0, 10):
-            listacar.append(Carros_Canvas.create_image(10, ListaCarros[i][14], image=ListaCarros[i][15], anchor=NW))
+            listacar.append(Carros_Canvas.create_image(10, ListaCarros[i][15], image=ListaCarros[i][16], anchor=NW))
         for i in range(0, 10):
-            listamarca.append(Carros_Canvas.create_text(182, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][0],font=('Britannic Bold', 16), fill="white"))
+            listamarca.append(Carros_Canvas.create_text(182, ListaCarros[i][15], anchor=NW, text=ListaCarros[i][0],font=('Britannic Bold', 16), fill="white"))
         for i in range(0, 10):
-            listamodelo.append(Carros_Canvas.create_text(182, ListaCarros[i][14] + 25, anchor=NW, text=ListaCarros[i][1],font=('Britannic Bold', 16),fill="white"))
+            listamodelo.append(Carros_Canvas.create_text(182, ListaCarros[i][15] + 25, anchor=NW, text=ListaCarros[i][1],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listapais.append(Carros_Canvas.create_text(300, ListaCarros[i][14] + 25, anchor=NW, text=ListaCarros[i][2],font=('Britannic Bold', 16),fill="white"))
+            listapais.append(Carros_Canvas.create_text(300, ListaCarros[i][15] + 25, anchor=NW, text=ListaCarros[i][2],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listatemp.append(Carros_Canvas.create_text(300, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][3],font=('Britannic Bold', 16),fill="white"))
+            listatemp.append(Carros_Canvas.create_text(300, ListaCarros[i][15], anchor=NW, text=ListaCarros[i][3],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listabaterias.append(Carros_Canvas.create_text(450, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][4],font=('Britannic Bold', 16),fill="white"))
+            listabaterias.append(Carros_Canvas.create_text(450, ListaCarros[i][15], anchor=NW, text=ListaCarros[i][4],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listabaterias2.append(Carros_Canvas.create_text(450, ListaCarros[i][14] + 25, anchor=NW, text=ListaCarros[i][5],font=('Britannic Bold', 16),fill="white"))
+            listabaterias2.append(Carros_Canvas.create_text(450, ListaCarros[i][15] + 25, anchor=NW, text=ListaCarros[i][5],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listapilas.append(Carros_Canvas.create_text(500, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][6],font=('Britannic Bold', 16),fill="white"))
+            listapilas.append(Carros_Canvas.create_text(500, ListaCarros[i][15], anchor=NW, text=ListaCarros[i][6],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listapilas2.append(Carros_Canvas.create_text(500, ListaCarros[i][14] + 25, anchor=NW, text=ListaCarros[i][7],font=('Britannic Bold', 16),fill="white"))
+            listapilas2.append(Carros_Canvas.create_text(500, ListaCarros[i][15] + 25, anchor=NW, text=ListaCarros[i][7],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listaestado.append(Carros_Canvas.create_text(745, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][8],font=('Britannic Bold', 16),fill="white"))
+            listaestado.append(Carros_Canvas.create_text(745, ListaCarros[i][15], anchor=NW, text=ListaCarros[i][8],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listacarac.append(Carros_Canvas.create_text(565, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][9],font=('Britannic Bold', 16),fill="white"))
+            listacarac.append(Carros_Canvas.create_text(565, ListaCarros[i][15], anchor=NW, text=ListaCarros[i][9],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listacarac2.append(Carros_Canvas.create_text(565, ListaCarros[i][14] + 25, anchor=NW, text=ListaCarros[i][10],font=('Britannic Bold', 16),fill="white"))
+            listacarac2.append(Carros_Canvas.create_text(565, ListaCarros[i][15] + 25, anchor=NW, text=ListaCarros[i][10],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listacarac3.append(Carros_Canvas.create_text(565, ListaCarros[i][14] + 50, anchor=NW, text=ListaCarros[i][11],font=('Britannic Bold', 16),fill="white"))
+            listacarac3.append(Carros_Canvas.create_text(565, ListaCarros[i][15] + 50, anchor=NW, text=ListaCarros[i][11],font=('Britannic Bold', 16),fill="white"))
         for i in range(0, 10):
-            listaeficiencia.append(Carros_Canvas.create_text(880, ListaCarros[i][14], anchor=NW, text=ListaCarros[i][12],font=('Britannic Bold', 16),fill="white"))
+            listaeficiencia.append(Carros_Canvas.create_text(880, ListaCarros[i][15], anchor=NW, text=ListaCarros[i][12],font=('Britannic Bold', 16),fill="white"))
 
     def borrarCars(Fa_Tr):
         if Fa_Tr:
@@ -792,6 +746,8 @@ def ventana_Carros():
             Carros_Canvas.delete(carac3)
         for efi in listaeficiencia:
             Carros_Canvas.delete(efi)
+        for btn in listaedit:
+            btn.destroy()
 
 
     def mayor_Efi():
@@ -823,12 +779,6 @@ def ventana_Carros():
         F_Carros()
         botonesCar()
 
-    def botonesCar():
-        btn_up = Button(Carros_Canvas, image=flechup, command=mayor_Efi, bg='#2d2d2e')
-        btn_dowm = Button(Carros_Canvas, image=flechdowm, command=menor_Efi, bg='#2d2d2e')
-        btn_up.place(x=101,y=5)
-        btn_dowm.place(x=139,y=5)
-
     def burbujaCars(Lista, cord):
         return burbuja_auxCars(Lista, 0, 0, len(Lista), False, cord)
 
@@ -848,9 +798,225 @@ def ventana_Carros():
         else:
             return burbuja_auxCars(Lista, i, j + 1, n, Swap, cord)
 
+    def mod_strsCars(nuevo,cons,modo):
+        global ListaCarros
+        if modo == 'marca':
+            for i in range(0,10):
+                if int(ListaCarros[i][13]) == cons:
+                    ListaCarros[i][0] = nuevo
+                    break
+        if modo == 'modelo':
+            for i in range(0, 10):
+                if int(ListaCarros[i][13]) == cons:
+                    ListaCarros[i][1] = nuevo
+                    break
+        if modo == 'temp':
+            for i in range(0, 10):
+                if int(ListaCarros[i][13]) == cons:
+                    ListaCarros[i][3] = nuevo
+                    break
+        if modo == 'pais':
+            for i in range(0, 10):
+                if int(ListaCarros[i][13]) == cons:
+                    ListaCarros[i][2] = nuevo
+                    break
+        if modo == 'baterias':
+            for i in range(0, 10):
+                if int(ListaCarros[i][13]) == cons:
+                    ListaCarros[i][4] = nuevo
+                    break
+        if modo == 'baterias2':
+            for i in range(0,10):
+                if int(ListaCarros[i][13]) == cons:
+                    ListaCarros[i][5] = nuevo
+                    break
+        if modo == 'pilas':
+            for i in range(0, 10):
+                if int(ListaCarros[i][13]) == cons:
+                    ListaCarros[i][6] = nuevo
+                    break
+        if modo == 'pilas2':
+            for i in range(0, 10):
+                if int(ListaCarros[i][13]) == cons:
+                    ListaCarros[i][7] = nuevo
+                    break
+        if modo == 'consumo motores':
+            for i in range(0, 10):
+                if int(ListaCarros[i][13]) == cons:
+                    ListaCarros[i][9] = nuevo
+                    break
+        if modo == 'sensores':
+            for i in range(0, 10):
+                if int(ListaCarros[i][13]) == cons:
+                    ListaCarros[i][10] = nuevo
+                    break
+        if modo == 'peso':
+            for i in range(0, 10):
+                if int(ListaCarros[i][13]) == cons:
+                    ListaCarros[i][11] = nuevo
+                    break
+        if modo == 'estado':
+            for i in range(0, 10):
+                if int(ListaCarros[i][13]) == cons:
+                    ListaCarros[i][8] = nuevo
+                    break
+
+    def mod_numsCars(nuevo,cons,arch):
+        try:
+            global ListaCarros
+            nuevo = int(nuevo)
+            if isinstance(nuevo,int):
+                if arch == 'efi':
+                    for i in range(0, 10):
+                        if int(ListaCarros[i][13]) == cons:
+                            ListaCarros[i][12] = str(nuevo)
+                            break
+        except:
+            messagebox.showerror("Error", "Se debe ingresar un numero")
+
+    def mod_car0():
+        mod_car(0, str(ListaCarros[0][13]))
+
+    def mod_car1():
+        mod_car(1, str(ListaCarros[1][13]))
+
+    def mod_car2():
+        mod_car(2, str(ListaCarros[2][13]))
+
+    def mod_car3():
+        mod_car(3, str(ListaCarros[3][13]))
+
+    def mod_car4():
+        mod_car(4, str(ListaCarros[4][13]))
+
+    def mod_car5():
+        mod_car(5, str(ListaCarros[5][13]))
+
+    def mod_car6():
+        mod_car(6, str(ListaCarros[6][13]))
+
+    def mod_car7():
+        mod_car(7, str(ListaCarros[7][13]))
+
+    def mod_car8():
+        mod_car(8, str(ListaCarros[8][13]))
+
+    def mod_car9():
+        mod_car(9, str(ListaCarros[9][13]))
+
+    def mod_car(num, arch):
+        Carros.withdraw()
+        EditCars = Toplevel()
+        EditCars.title('Edit Cars')
+        EditCars.minsize(800, 400)
+        EditCars.resizable(width=NO, height=NO)
+        Canvas_secundario = Canvas(EditCars, width=800, height=400, bg='#2d2d2e')
+        Canvas_secundario.place(x=0, y=0)
+
+        def volver():
+            Carros.deiconify()
+            EditCars.destroy()
+            borrarCars(False)
+            F_Carros()
+            botonesCar()
+
+        E_Marca = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_Marca.place(x=25, y=80)
+        E_Modelo = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_Modelo.place(x=200, y=80)
+        E_temp = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_temp.place(x=375, y=80)
+        E_pais = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_pais.place(x=550, y=80)
+        E_bat = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_bat.place(x=25, y=170)
+        E_bat2 = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_bat2.place(x=200, y=170)
+        E_pil = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_pil.place(x=375, y=170)
+        E_pil2 = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_pil2.place(x=550, y=170)
+        E_stat = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_stat.place(x=25, y=260)
+        E_carac = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_carac.place(x=200, y=260)
+        E_carac2 = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_carac2.place(x=375, y=260)
+        E_carac3 = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_carac3.place(x=550, y=260)
+        E_efi = Entry(Canvas_secundario, width=13, font=('Britannic Bold', 14))
+        E_efi.place(x=25, y=350)
+        Button(Canvas_secundario, text='Atras', font=('Britannic Bold', 14), command=volver, bg='black', fg='white').place(x=25, y=0)
+        Button(Canvas_secundario, text='Marca', font=('Britannic Bold', 14),
+               command=lambda: mod_strsCars(str(E_Marca.get()), num, 'marca'), bg='black', fg='white').place(x=25, y=40)
+        Button(Canvas_secundario, text='Modelo', font=('Britannic Bold', 14),
+               command=lambda: mod_strsCars(str(E_Modelo.get()), num, 'modelo'), bg='black', fg='white').place(x=200, y=40)
+        Button(Canvas_secundario, text='Temporada', font=('Britannic Bold', 14),
+               command=lambda: mod_strsCars(str(E_temp.get()), num, 'temp'), bg='black', fg='white').place(x=375, y=40)
+        Button(Canvas_secundario, text='Pais', font=('Britannic Bold', 14),
+               command=lambda: mod_strsCars(str(E_pais.get()), num, 'pais'), bg='black', fg='white').place(x=550, y=40)
+        Button(Canvas_secundario, text='Bateria', font=('Britannic Bold', 14),
+               command=lambda: mod_strsCars(str(E_bat.get()), num, 'baterias'), bg='black', fg='white').place(x=25, y=130)
+        Button(Canvas_secundario, text='Bateria 2', font=('Britannic Bold', 14),
+               command=lambda: mod_strsCars(str(E_bat2.get()), num, 'baterias2'), bg='black', fg='white').place(x=200, y=130)
+        Button(Canvas_secundario, text='Pilas', font=('Britannic Bold', 14),
+               command=lambda: mod_strsCars(str(E_pil.get()), num, 'pilas'), bg='black', fg='white').place(x=375, y=130)
+        Button(Canvas_secundario, text='Pilas 2', font=('Britannic Bold', 14),
+               command=lambda: mod_strsCars(str(E_pil2.get()), num, 'pilas2'), bg='black', fg='white').place(x=550, y=130)
+        Button(Canvas_secundario, text='Estado', font=('Britannic Bold', 14),
+               command=lambda: mod_strsCars(str(E_stat.get()), num, 'estado'), bg='black', fg='white').place(x=25, y=220)
+        Button(Canvas_secundario, text='Consumo Motores', font=('Britannic Bold', 14),
+               command=lambda: mod_strsCars(str(E_carac.get()), num, 'consumo motores'), bg='black', fg='white').place(x=200, y=220)
+        Button(Canvas_secundario, text='Sensores', font=('Britannic Bold', 14),
+               command=lambda: mod_strsCars(str(E_carac2.get()), num, 'sensores'), bg='black', fg='white').place(x=375, y=220)
+        Button(Canvas_secundario, text='Peso', font=('Britannic Bold', 14),
+               command=lambda: mod_strsCars(str(E_carac3.get()), num, 'peso'), bg='black', fg='white').place(x=550, y=220)
+        Button(Canvas_secundario, text='Eficiencia', font=('Britannic Bold', 14),
+               command=lambda: mod_numsCars(E_efi.get(), num, 'efi'), bg='black', fg='white').place(x=25, y=310)
+        EditCars.mainloop()
+
+
+    # __Se crea una funcion para volver a la pantalla principal
+    def atras_Carros():
+        #Lista Carros
+        with open("Carros.txt", "w") as f:
+            #   for line in lines:
+            #      f.write(line)()
+            listita2 = []
+            print(len(ListaCarros[1][9]))
+            for i in range(0, 10):
+                listita2.append('@'.join(ListaCarros[i][0:15]))
+            print(listita2)
+            for strs in listita2:
+                f.write(strs)
+        global pausa
+        pausa = True
+        Carros.destroy()
+        root.deiconify()
+
+    # Botones de edit
+    listaedit = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    listcomandedit = [mod_car0, mod_car1, mod_car2, mod_car3, mod_car4, mod_car5, mod_car6, mod_car7, mod_car8,
+                      mod_car9]
+    btnedit = cargarImg('editbutton.png')
+
+    def botonesCar():
+        btn_up = Button(Carros_Canvas, image=flechup, command=mayor_Efi, bg='#2d2d2e')
+        btn_dowm = Button(Carros_Canvas, image=flechdowm, command=menor_Efi, bg='#2d2d2e')
+        btn_up.place(x=101, y=5)
+        btn_dowm.place(x=139, y=5)
+        for i in range(0, 10):
+            listaedit[i] = (Button(listaframes[i], command=listcomandedit[i], image=btnedit, bg='#2d2d2e'))
+            listaedit[i].pack()
 
     flechup = cargarImg('flechup.png')
     flechdowm = cargarImg('flechdowm.png')
+
+    for i in range(0, 10):
+        Carros_Canvas.create_window(960, ListaCarros[i][15], anchor=NW, window=listaframes[i])
+
+    Btn_Atras_cars = Button(Carros_Canvas, image=Btn_AtrasImg, command=atras_Carros, bg='#2d2d2e')
+    Btn_Atras_cars.place(x=5, y=5)
 
     Carros_Canvas.create_window(780, 30, anchor=NW, window=Cars_frame)
     Carros_Canvas.update_idletasks()

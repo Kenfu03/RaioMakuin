@@ -1,4 +1,4 @@
-Giorno Giovanna@19 años@Italiano@1 2018@20@20@0@0@0@4
+Kenneth@19 años@Italiano@1 2018@20@20@0@0@0@4
 Ceasar A. Zeppeli@20 años@Italiano@1 2018@20@9@10@0@1@9
 Dio Brando@20 años@Britanico@1 2018@20@14@4@0@2@5
 Jean-Pierre Polnareff@24 años@Frances@1 2018@20@3@15@0@3@8
@@ -8,4 +8,3 @@ Josuke Higashikata@23 años@Japones@1 2018@20@6@9@0@6@3
 Jotaro Kujo@27 años@Japones@1 2018@20@10@3@2@7@2
 Joseph Joestar@18 años@Americano@1 2018@20@7@4@2@8@1
 Kira Yoshikage@33 años@Japones@1 2018@20@9@3@0@9@6
-
