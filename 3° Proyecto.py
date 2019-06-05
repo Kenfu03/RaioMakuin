@@ -1068,10 +1068,6 @@ def ventana_TestDrive():
     Luz_Front = cargarImg('luz_blanca.png')
     Test_Canvas.create_image(605, 420, image=Luz_Front, anchor=NW, tags=("L_f", "LF"), state=HIDDEN)
     Test_Canvas.create_image(650, 420, image=Luz_Front, anchor=NW, tags=("L_f2", "LF"), state=HIDDEN)
-    # Luz direccion
-    Luz_Direccion = cargarImg('luz_amarilla.png')
-    Test_Canvas.create_image(490, 510, image=Luz_Direccion, anchor=NW, tags=("L_left", "L_dir"), state=HIDDEN)
-    Test_Canvas.create_image(568, 510, image=Luz_Direccion, anchor=NW, tags=("L_right", "L_dir2"), state=HIDDEN)
     # Luz stop
     Luz_Stop = cargarImg('luz_roja.png')
     Test_Canvas.create_image(570, 610, image=Luz_Stop, anchor=NW, tags=("L_s", "LS"), state=NORMAL)
@@ -1083,6 +1079,49 @@ def ventana_TestDrive():
     Test_Canvas.create_image(630, 450, image=CarNone, anchor=NW, tags=("none", "car"), state=NORMAL)
     Test_Canvas.create_image(630, 450, image=CarLeft, anchor=NW, tags=("left", "car"), state=HIDDEN)
     Test_Canvas.create_image(630, 450, image=CarRight, anchor=NW, tags=("right", "car"), state=HIDDEN)
+
+    #Se cargan imagenes decorativas
+    cele = cargarImg('cele.png')
+    celeON = cargarImg('celeON.png')
+    circle = cargarImg('circlebtn.png')
+    circleON = cargarImg('circlebtnON.png')
+    # Luz direccion
+    flecharight = cargarImg('dir_rigth.png')
+    flecharightON = cargarImg('dir_rigthON.png')
+    flechaleft = cargarImg('dir_left.png')
+    flechaleftON = cargarImg('dir_leftON.png')
+    infinite = cargarImg('infinite.png')
+    infiniteON = cargarImg('infiniteON.png')
+    reset = cargarImg('resetbtn.png')
+    resetON = cargarImg('resetbtnON.png')
+    special = cargarImg('specialbtn.png')
+    specialON = cargarImg('specialbtnON.png')
+    zigzag = cargarImg('zigzag.png')
+    zigzagON = cargarImg('zigzagON.png')
+
+    # Celebracion
+    Test_Canvas.create_image(580, 605, image=cele, anchor=NW, tags=("cele_off", "cele"), state=NORMAL)
+    Test_Canvas.create_image(580, 605, image=celeON, anchor=NW, tags=("cele_on", "cele"), state=HIDDEN)
+    # Circle
+    Test_Canvas.create_image(740, 490, image=circle, anchor=NW, tags=("circleoff", "circle"), state=NORMAL)
+    Test_Canvas.create_image(740, 490, image=circleON, anchor=NW, tags=("circleon", "circle"), state=HIDDEN)
+    # Luz direccion
+    Test_Canvas.create_image(388, 450, image=flecharight, anchor=NW, tags=("richtoff", "flecharight"), state=NORMAL)
+    Test_Canvas.create_image(388, 450, image=flecharightON, anchor=NW, tags=("righton", "flecharight"), state=HIDDEN)
+    Test_Canvas.create_image(240, 450, image=flechaleft, anchor=NW, tags=("leftoff", "flechaleft"), state=NORMAL)
+    Test_Canvas.create_image(240, 450, image=flechaleftON, anchor=NW, tags=("lefton", "flechaleft"), state=HIDDEN)
+    # Infinito
+    Test_Canvas.create_image(740, 530, image=infinite, anchor=NW, tags=("infiniteoff", "infinite"), state=NORMAL)
+    Test_Canvas.create_image(740, 530, image=infiniteON, anchor=NW, tags=("infiniteon", "infinite"), state=HIDDEN)
+    # Reset luces
+    Test_Canvas.create_image(580, 560, image=reset, anchor=NW, tags=("resetoff", "reset"), state=NORMAL)
+    Test_Canvas.create_image(580, 560, image=resetON, anchor=NW, tags=("reseton", "reset"), state=HIDDEN)
+    # Especial
+    Test_Canvas.create_image(740, 600, image=special, anchor=NW, tags=("specialoff", "special"), state=NORMAL)
+    Test_Canvas.create_image(740, 600, image=specialON, anchor=NW, tags=("specialon", "special"), state=HIDDEN)
+    # ZigZag
+    Test_Canvas.create_image(740, 560, image=zigzag, anchor=NW, tags=("zigzagoff", "zigzag"), state=NORMAL)
+    Test_Canvas.create_image(740, 560, image=zigzagON, anchor=NW, tags=("zigzagon", "zigzag"), state=HIDDEN)
 
     # __Se cargan flechas para el velocimetro
     listapng = ['10vel.png', '20vel.png', '30vel.png', '40vel.png', '50vel.png', '55vel.png', '60vel.png', '65vel.png',
@@ -1276,6 +1315,65 @@ def ventana_TestDrive():
                     Test_Canvas.itemconfig("reverse", state=HIDDEN)
                     Test_Canvas.itemconfig("R-on", state=NORMAL)
 
+        # Reset, reinicia todas las luces, a 0
+        elif key == "m":
+            Test_Canvas.itemconfig("reset", state=HIDDEN)
+            Test_Canvas.itemconfig("reseton", state=NORMAL)
+            send("ll:0;")
+            send("lr:0;")
+            send("lf:0;")
+            send("lb:1;")
+            time.sleep(2)
+            Test_Canvas.itemconfig("reset", state=HIDDEN)
+            Test_Canvas.itemconfig("resetoff", state=NORMAL)
+
+        # Comandos especiales
+
+        # Circle derecha
+        elif key == "p":
+            Test_Canvas.itemconfig("circle", state=HIDDEN)
+            Test_Canvas.itemconfig("circleon", state=NORMAL)
+            send("Circle:1;")
+            time.sleep(2)
+            Test_Canvas.itemconfig("circle", state=HIDDEN)
+            Test_Canvas.itemconfig("circleoff", state=NORMAL)
+
+        # Circle izquierda
+        elif key == "o":
+            Test_Canvas.itemconfig("circle", state=HIDDEN)
+            Test_Canvas.itemconfig("circleon", state=NORMAL)
+            send("Circle:-1;")
+            time.sleep(2)
+            Test_Canvas.itemconfig("circle", state=HIDDEN)
+            Test_Canvas.itemconfig("circleoff", state=NORMAL)
+
+        # Infinite
+        elif key == "i":
+            Test_Canvas.itemconfig("infinite", state=HIDDEN)
+            Test_Canvas.itemconfig("infiniteon", state=NORMAL)
+            send("Infinite;")
+            time.sleep(2)
+            Test_Canvas.itemconfig("infinite", state=HIDDEN)
+            Test_Canvas.itemconfig("infiniteoff", state=NORMAL)
+
+        # Especial
+        elif key == "l":
+            Test_Canvas.itemconfig("special", state=HIDDEN)
+            Test_Canvas.itemconfig("specialon", state=NORMAL)
+            send("Especial;")
+            time.sleep(2)
+            Test_Canvas.itemconfig("special", state=HIDDEN)
+            Test_Canvas.itemconfig("specialoff", state=NORMAL)
+
+        # ZigZig
+        elif key == "k":
+            Test_Canvas.itemconfig("zigzag", state=HIDDEN)
+            Test_Canvas.itemconfig("zigzagon", state=NORMAL)
+            send("ZigZag;")
+            time.sleep(2)
+            Test_Canvas.itemconfig("zigzag", state=HIDDEN)
+            Test_Canvas.itemconfig("zigzagoff", state=NORMAL)
+
 
         # Control de luces
 
@@ -1305,11 +1403,13 @@ def ventana_TestDrive():
             else:
                 left_press = True
                 if L_leftON:
-                    Test_Canvas.itemconfig("L_dir", state=HIDDEN)
+                    Test_Canvas.itemconfig("flechaleft", state=HIDDEN)
+                    Test_Canvas.itemconfig("leftoff", state=NORMAL)
                     L_leftON = False
                     T_blinking_stop(100, "ll")
                 else:
-                    Test_Canvas.itemconfig("L_dir", state=NORMAL)
+                    Test_Canvas.itemconfig("flechaleft", state=HIDDEN)
+                    Test_Canvas.itemconfig("lefton", state=NORMAL)
                     L_leftON = True
                     T_blinking(1, "ll")
 
@@ -1320,11 +1420,13 @@ def ventana_TestDrive():
             else:
                 right_press = True
                 if L_rightON:
-                    Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
+                    Test_Canvas.itemconfig("flecharight", state=HIDDEN)
+                    Test_Canvas.itemconfig("richtoff", state=NORMAL)
                     L_rightON = False
                     T_blinking_stop(100, "lr")
                 else:
-                    Test_Canvas.itemconfig("L_dir2", state=NORMAL)
+                    Test_Canvas.itemconfig("flecharight", state=HIDDEN)
+                    Test_Canvas.itemconfig("righton", state=NORMAL)
                     L_rightON = True
                     T_blinking(1, "lr")
 
@@ -1335,14 +1437,18 @@ def ventana_TestDrive():
             else:
                 Dir_press = True
                 if L_DirON:
-                    Test_Canvas.itemconfig("L_dir", state=HIDDEN)
-                    Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
+                    Test_Canvas.itemconfig("flechaleft", state=HIDDEN)
+                    Test_Canvas.itemconfig("flecharight", state=HIDDEN)
+                    Test_Canvas.itemconfig("leftoff", state=NORMAL)
+                    Test_Canvas.itemconfig("richtoff", state=NORMAL)
                     L_DirON = False
                     T_blinking_stop(100, "lr")
                     T_blinking_stop(100, "ll")
                 else:
-                    Test_Canvas.itemconfig("L_dir", state=NORMAL)
-                    Test_Canvas.itemconfig("L_dir2", state=NORMAL)
+                    Test_Canvas.itemconfig("flechaleft", state=HIDDEN)
+                    Test_Canvas.itemconfig("flecharight", state=HIDDEN)
+                    Test_Canvas.itemconfig("lefton", state=NORMAL)
+                    Test_Canvas.itemconfig("righton", state=NORMAL)
                     L_DirON = True
                     T_blinking(1, "lr")
                     T_blinking(1, "ll")
@@ -1363,8 +1469,10 @@ def ventana_TestDrive():
         global L_DirON, L_rightON, L_leftON
         if L_DirON or L_leftON or L_rightON:
             if n >= 100:
-                Test_Canvas.itemconfig("L_dir", state=HIDDEN)
-                Test_Canvas.itemconfig("L_dir2", state=HIDDEN)
+                Test_Canvas.itemconfig("flechaleft", state=HIDDEN)
+                Test_Canvas.itemconfig("flecharight", state=HIDDEN)
+                Test_Canvas.itemconfig("leftoff", state=NORMAL)
+                Test_Canvas.itemconfig("richtoff", state=NORMAL)
                 L_DirON = False
                 L_rightON = False
                 L_leftON = False
@@ -1385,6 +1493,7 @@ def ventana_TestDrive():
         global NumGas, pressTecla
         Test_Canvas.itemconfig("L_s2", state=HIDDEN)
         Test_Canvas.itemconfig("L_s", state=HIDDEN)
+        send("lb:0;")
         if 500 <= NumGas <= 950 and pressTecla:
             if pressTecla:
                 NumGas += 50
@@ -1413,6 +1522,7 @@ def ventana_TestDrive():
         global NumGas_Re, Reverse_on, pressTecla
         Test_Canvas.itemconfig("L_s2", state=NORMAL)
         Test_Canvas.itemconfig("L_s", state=NORMAL)
+        send("lb:1;")
         if -500 >= NumGas_Re >= -950 and pressTecla:
             if pressTecla:
                 NumGas_Re -= 50
@@ -1441,9 +1551,11 @@ def ventana_TestDrive():
         global NumGas, pressS
         Test_Canvas.itemconfig("L_s2", state=HIDDEN)
         Test_Canvas.itemconfig("L_s", state=HIDDEN)
+        send("lb:0;")
         if NumGas <= 450:
             Test_Canvas.itemconfig("L_s2", state=NORMAL)
             Test_Canvas.itemconfig("L_s", state=NORMAL)
+            send("lb:1;")
             NumGas = 0
             send("pwm:" + str(NumGas) + ";")
             print("pwm:" + str(NumGas) + ";")
@@ -1466,9 +1578,11 @@ def ventana_TestDrive():
         global NumGas_Re, Reverse_on, pressS
         Test_Canvas.itemconfig("L_s2", state=NORMAL)
         Test_Canvas.itemconfig("L_s", state=NORMAL)
+        send("lb:1;")
         if NumGas_Re >= -450:
             Test_Canvas.itemconfig("L_s2", state=NORMAL)
             Test_Canvas.itemconfig("L_s", state=NORMAL)
+            send("lb:1;")
             NumGas_Re = 0
             send("pwm:" + str(NumGas_Re) + ";")
             print("pwm:" + str(NumGas_Re) + ";")
