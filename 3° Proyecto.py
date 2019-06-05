@@ -841,7 +841,7 @@ def ventana_Carros():
         ListaCarros = ListaEfi[::-1]
         print(ListaCarros[0])
         for i in range(0,10):
-            ListaCarros[i][14] = ListaY[i]
+            ListaCarros[i][15] = ListaY[i]
             ListaCarros[i][13] = str(i)
         for i in range(0, 10):
             listatext.append(Carros_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
@@ -856,7 +856,7 @@ def ventana_Carros():
         ListaCarros = ListaEfi
         listatemporal = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
         for i in range(0, 10):
-            ListaCarros[i][14] = ListaY[i]
+            ListaCarros[i][15] = ListaY[i]
             ListaCarros[i][13] = str(i)
         for i in range(0, 10):
             listatext.append(Carros_Canvas.create_text(5, ListaY[i], anchor=NW, text=listatemporal[i], font=('Britannic Bold', 16)))
@@ -874,7 +874,7 @@ def ventana_Carros():
                 return burbuja_auxCars(Lista, i + 1, 0, n, False, cord)
             else:
                 return Lista
-        if Lista[j][cord] > Lista[j + 1][cord]:
+        if int(Lista[j][cord]) > int(Lista[j + 1][cord]):
             Tmp = Lista[j]
             Lista[j] = Lista[j + 1]
             Lista[j + 1] = Tmp
@@ -1067,7 +1067,10 @@ def ventana_Carros():
             #   for line in lines:
             #      f.write(line)()
             listita2 = []
-            print(len(ListaCarros[1][9]))
+            print(len(ListaCarros[1][14]))
+            for i in range(0,10):
+                if len(ListaCarros[i][14]) ==1:
+                    ListaCarros[i][14] += '\n'
             for i in range(0, 10):
                 listita2.append('@'.join(ListaCarros[i][0:15]))
             print(listita2)
