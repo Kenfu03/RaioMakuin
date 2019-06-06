@@ -59,6 +59,8 @@ pressS = False
 NumGas = 0
 NumGas_Re = 0
 num_bar = 0
+ListaPilotos = []
+ListaCarros = []
 
 
 # __________/Función para cargar imagenes
@@ -191,7 +193,6 @@ def ventana_Pilots():
     for nombre in listapng:  # Se cargan las imagenes a una lista llamada listaimg
         listaimg.append(cargarImg(nombre))
     global ListaPilotos  # Se crea una lista la cual contendra todos los datos de los pilotos para poder ser manejada despues
-    ListaPilotos = []
     ListaY = [40, 145, 250, 355, 460, 565, 670, 775, 880, 985]
     arch1 = open('Pilotos.txt', 'r+')
     for i in range(0, 10):  # Se abre el archivo con los datos de lo pilotos y se meten dentro de la ListaPilotos
@@ -248,11 +249,11 @@ def ventana_Pilots():
     for i in range(0, 10):
         listatext.append(Pilots_Canvas.create_text(5, ListaY[i], anchor=NW, text=i + 1, font=('Britannic Bold', 16)))
     #Se crean los nombres de las caracteristicas a mostrar en el canvas
-    Nombre = Pilots_Canvas.create_text(182, 2, anchor=NW, text='Nombre/Edad', font=('Britannic Bold', 16))
-    Temp = Pilots_Canvas.create_text(380, 2, anchor=NW, text='Temporada', font=('Britannic Bold', 16))
-    RGP = Pilots_Canvas.create_text(500, 2, anchor=NW, text='RGP', font=('Britannic Bold', 16))
-    REP = Pilots_Canvas.create_text(555, 2, anchor=NW, text='REP', font=('Britannic Bold', 16))
-    Comp = Pilots_Canvas.create_text(610, 2, anchor=NW, text='Competencias', font=('Britannic Bold', 16))
+    Nombre = Pilots_Canvas.create_text(182, 2, anchor=NW, text='Nombre/Edad', font=('Britannic Bold', 16),fill="#fdf2b4")
+    Temp = Pilots_Canvas.create_text(380, 2, anchor=NW, text='Temporada', font=('Britannic Bold', 16),fill="#fdf2b4")
+    RGP = Pilots_Canvas.create_text(500, 2, anchor=NW, text='RGP', font=('Britannic Bold', 16),fill="#fdf2b4")
+    REP = Pilots_Canvas.create_text(555, 2, anchor=NW, text='REP', font=('Britannic Bold', 16),fill="#fdf2b4")
+    Comp = Pilots_Canvas.create_text(610, 2, anchor=NW, text='Competencias', font=('Britannic Bold', 16),fill="#fdf2b4")
 
     def pilotos():
         '''
@@ -262,27 +263,27 @@ def ventana_Pilots():
         '''
         for i in range(0, 10): #Ciclo que coloca el nombre del piloto en la pantalla y lo mete a una lista
             listanom.append(Pilots_Canvas.create_text(182, ListaPilotos[i][12], anchor=NW, text=ListaPilotos[i][0],
-                                                      font=('Britannic Bold', 16)))
+                                                      font=('Britannic Bold', 16),fill='white'))
         for i in range(0, 10): #Ciclo que coloca la nacionalidad del piloto en la pantalla y lo mete a una lista
             listanacion.append(
                 Pilots_Canvas.create_text(182, ListaPilotos[i][12] + 50, anchor=NW, text=ListaPilotos[i][2],
-                                          font=('Britannic Bold', 16)))
+                                          font=('Britannic Bold', 16),fill='white'))
         for i in range(0, 10): #Ciclo que coloca la edad del piloto en la pantalla y lo mete a una lista
             listaedad.append(
                 Pilots_Canvas.create_text(182, ListaPilotos[i][12] + 25, anchor=NW, text=ListaPilotos[i][1],
-                                          font=('Britannic Bold', 16)))
+                                          font=('Britannic Bold', 16),fill='white'))
         for i in range(0, 10): #Ciclo que coloca la temporada del piloto en la pantalla y lo mete a una lista
             listatmp.append(Pilots_Canvas.create_text(380, ListaPilotos[i][12], anchor=NW, text=ListaPilotos[i][3],
-                                                      font=('Britannic Bold', 16)))
+                                                      font=('Britannic Bold', 16),fill='white'))
         for i in range(0, 10): #Ciclo que coloca el RGP del piloto en la pantalla y lo mete a una lista
             listargp.append(Pilots_Canvas.create_text(500, ListaPilotos[i][12], anchor=NW, text=ListaPilotos[i][10],
-                                                      font=('Britannic Bold', 16)))
+                                                      font=('Britannic Bold', 16),fill='white'))
         for i in range(0, 10): #Ciclo que coloca el REP del piloto en la pantalla y lo mete a una lista
             listarep.append(Pilots_Canvas.create_text(555, ListaPilotos[i][12], anchor=NW, text=ListaPilotos[i][11],
-                                                      font=('Britannic Bold', 16)))
+                                                      font=('Britannic Bold', 16),fill='white'))
         for i in range(0, 10): #Ciclo que coloca la cantidad de competencias del piloto en la pantalla y lo mete a una lista
             listacomp.append(Pilots_Canvas.create_text(610, ListaPilotos[i][12], anchor=NW, text=ListaPilotos[i][4],
-                                                       font=('Britannic Bold', 16)))
+                                                       font=('Britannic Bold', 16),fill='white'))
 
     def nuevoRGP(): #Funcion que vuelve a calcular el RGP y REP y lo reemplaza en la lista de pilotos
         for i in range(0, 10):
@@ -317,6 +318,7 @@ def ventana_Pilots():
             Pilots_Canvas.delete(comp)
         for btn in listabtn:
             btn.destroy()
+        print(listabotones2)
         for btn2 in listabotones2:
             btn2.destroy()
     def mayor_RGP():
@@ -658,7 +660,7 @@ def ventana_Pilots():
         pausa = True
         Pilots.destroy()
         root.deiconify()
-    listabotones2 = [0, 1, 2, 3, 4]
+    listabotones2 = [0, 1, 2, 3,4]
     listatext2 = ['Atras', 'Mayor RGP', 'Menor RGP', 'Mayor REP', 'Menor REP']
     listacomandos = [atras_Pilots, mayor_RGP, menor_RGP, mayor_REP, menor_REP]
     listabtn = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -675,7 +677,7 @@ def ventana_Pilots():
         for i in range(0, 10):# Crea los botones de los pilotos con su imagen en un frame distinto por ciclo
             listabtn[i] = (Button(listaframes[i], command=listacomandos2[i], image=ListaPilotos[i][13]))
             listabtn[i].pack()
-        for i in range(0, 4):
+        for i in range(0, 5):
             listabotones2[i] = (
                 Button(Pilots_frame, text=listatext2[i], font=('Britannic Bold', 14), command=listacomandos[i]
                        ,bg='#2d2d2e', fg="#fdf2b4"))
@@ -694,6 +696,147 @@ def ventana_Pilots():
     botones()
     Pilots.mainloop()
 
+#______________/Ventana para escoger piloto
+def ventana_esc_pil():
+    root.withdraw()
+    EscPil = Toplevel()
+    EscPil.title('Piloto')
+    EscPil.minsize(700,250)
+    EscPil.resizable(width=NO, height=NO)
+    pil_Canvas = Canvas(EscPil, width=1000, height=626, bg='#2d2d2e')
+    pil_Canvas.place(x=0,y=0)
+    global ListaPilotos
+    global ListaCarros
+    listabtn = [0,1,2,3,4,5,6,7,8,9]
+    listaframes = []
+    for i in range(0,10):
+        listaframes.append(Frame(EscPil))
+    print(ListaPilotos)
+    def atras():
+        EscPil.destroy()
+    def pil0():
+        ventana_esc_carro(ListaPilotos[0][9])
+    def pil1():
+        ventana_esc_carro(ListaPilotos[1][9])
+    def pil2():
+        ventana_esc_carro(ListaPilotos[2][9])
+    def pil3():
+        ventana_esc_carro(ListaPilotos[3][9])
+    def pil4():
+        ventana_esc_carro(ListaPilotos[4][9])
+    def pil5():
+        ventana_esc_carro(ListaPilotos[5][9])
+    def pil6():
+        ventana_esc_carro(ListaPilotos[6][9])
+    def pil7():
+        ventana_esc_carro(ListaPilotos[7][9])
+    def pil8():
+        ventana_esc_carro(ListaPilotos[8][9])
+    def pil9():
+        ventana_esc_carro(ListaPilotos[9][9])
+    listaX = [64,182,300,418,536]
+    listacomandos = [pil0,pil1,pil2,pil3,pil4,pil5,pil6,pil7,pil8,pil9]
+    for i in range(0, 10):  # Crea los botones de los pilotos con su imagen en un frame distinto por ciclo
+        listabtn[i] = (Button(listaframes[i], command = listacomandos[i],image=ListaPilotos[i][13]))
+        listabtn[i].pack()
+    for i in range(0, 5):# Crea una ventana por piloto en el canvas
+        pil_Canvas.create_window(listaX[i], 20, anchor=NW, window=listaframes[i])
+    for i in range(0, 5):# Crea una ventana por piloto en el canvas
+        pil_Canvas.create_window(listaX[i], 120, anchor=NW, window=listaframes[i+5])
+    messagebox.showinfo("Seleccionar Piloto",
+                        "Seleccione el piloto con\nel que se realizará el test drive")
+
+
+    def ventana_esc_carro(piloto):
+        EscCar = Toplevel()
+        EscCar.title('Carros')
+        EscCar.minsize(700, 250)
+        EscCar.resizable(width=NO, height=NO)
+        pil2_Canvas = Canvas(EscCar, width=700, height=250, bg='#2d2d2e')
+        pil2_Canvas.place(x=0, y=0)
+        atras()
+        listabtn2 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        listaframes2 = []
+        print(ListaCarros)
+        for i in range(0, 10):
+            listaframes2.append(Frame(EscCar))
+
+        def car0():
+            if ListaCarros[0][8] == 'Descargado' or ListaCarros[0][8] == 'Reparacion':
+                messagebox.showerror("Auto Descargado",
+                                     "El auto seleccionado se\nencuentra descargado en el momento")
+            else:
+                ventana_TestDrive(ListaCarros[0][14],piloto)
+        def car1():
+            if ListaCarros[1][8] == 'Descargado' or ListaCarros[1][8] == 'Reparacion':
+                messagebox.showerror("Auto Descargado",
+                                     "El auto seleccionado se\nencuentra descargado en el momento")
+            else:
+                ventana_TestDrive(ListaCarros[1][14],piloto)
+        def car2():
+            if ListaCarros[2][8] == 'Descargado' or ListaCarros[2][8] == 'Reparacion':
+                messagebox.showerror("Auto Descargado",
+                                     "El auto seleccionado se\nencuentra descargado en el momento")
+            else:
+                ventana_TestDrive(ListaCarros[2][14],piloto)
+        def car3():
+            if ListaCarros[3][8] == 'Descargado' or ListaCarros[3][8] == 'Reparacion':
+                messagebox.showerror("Auto Descargado",
+                                     "El auto seleccionado se\nencuentra descargado en el momento")
+            else:
+                ventana_TestDrive(ListaCarros[3][14],piloto)
+        def car4():
+            if ListaCarros[4][8] == 'Descargado' or ListaCarros[4][8] == 'Reparacion':
+                messagebox.showerror("Auto Descargado",
+                                     "El auto seleccionado se\nencuentra descargado en el momento")
+            else:
+                ventana_TestDrive(ListaCarros[4][14],piloto)
+        def car5():
+            if ListaCarros[5][8] == 'Descargado' or ListaCarros[5][8] == 'Reparacion':
+                messagebox.showerror("Auto Descargado",
+                                     "El auto seleccionado se\nencuentra descargado en el momento")
+            else:
+                ventana_TestDrive(ListaCarros[5][14],piloto)
+        def car6():
+            if ListaCarros[6][8] == 'Descargado' or ListaCarros[6][8] == 'Reparacion':
+                messagebox.showerror("Auto Descargado",
+                                     "El auto seleccionado se\nencuentra descargado en el momento")
+            else:
+                ventana_TestDrive(ListaCarros[6][14],piloto)
+        def car7():
+            if ListaCarros[7][8] == 'Descargado' or ListaCarros[7][8] == 'Reparacion':
+                messagebox.showerror("Auto Descargado",
+                                     "El auto seleccionado se\nencuentra descargado en el momento")
+            else:
+                ventana_TestDrive(ListaCarros[7][14],piloto)
+        def car8():
+            if ListaCarros[8][8] == 'Descargado' or ListaCarros[8][8] == 'Reparacion':
+                messagebox.showerror("Auto Descargado",
+                                     "El auto seleccionado se\nencuentra descargado en el momento")
+            else:
+                ventana_TestDrive(ListaCarros[8][14],piloto)
+        def car9():
+            if ListaCarros[9][8] == 'Descargado' or ListaCarros[9][8] == 'Reparacion':
+                messagebox.showerror("Auto Descargado",
+                                     "El auto seleccionado se\nencuentra descargado en el momento")
+            else:
+                ventana_TestDrive(ListaCarros[9][14],piloto)
+
+        listaX = [64, 182, 300, 418, 536]
+        listacomandos2 = [car0, car1,car2, car3, car4, car5, car6,car7, car8, car9]
+        for i in range(0, 10):  # Crea los botones de los pilotos con su imagen en un frame distinto por ciclo
+            listabtn2[i] = (Button(listaframes2[i], command=listacomandos2[i], image=ListaCarros[i][16]))
+            listabtn2[i].pack()
+        for i in range(0, 5):  # Crea una ventana por piloto en el canvas
+            pil2_Canvas.create_window(listaX[i], 20, anchor=NW, window=listaframes2[i])
+        for i in range(0, 5):  # Crea una ventana por piloto en el canvas
+            pil2_Canvas.create_window(listaX[i], 120, anchor=NW, window=listaframes2[i + 5])
+        messagebox.showinfo("Seleccionar Piloto",
+                            "Seleccione el piloto con\nel que se realizará el test drive")
+        EscCar.mainloop()
+
+    pil_Canvas.update_idletasks()
+    EscPil.mainloop()
 
 # _____________/Ventana Carros
 def ventana_Carros():
@@ -728,7 +871,6 @@ def ventana_Carros():
         listacarrosImg.append(cargarImg(carImg))
 
     global ListaCarros
-    ListaCarros = []
     ListaY = [60, 175, 290, 405, 520, 635, 750, 865, 980, 1095]
 
     # __Se abre el archivo de texto con la info. de los carros
@@ -1126,7 +1268,7 @@ def send(mensaje):
     # __________ /Funcion para ventana de TestDrive
 
 
-def ventana_TestDrive():
+def ventana_TestDrive(piloto,carro):
     # Esconder la pantalla principal sin destruirla
     root.withdraw()
     # Pantalla Test_drive
@@ -1683,7 +1825,7 @@ def ventana_TestDrive():
 # __________/Botones de ventana principal
 
 Btn_Test = cargarImg("Btn_Test.png")
-Btn_Test_Driver = Button(Principal_Canvas, image=Btn_Test, command=ventana_TestDrive, bg='#2d2d2e')
+Btn_Test_Driver = Button(Principal_Canvas, image=Btn_Test, command=ventana_esc_pil, bg='#2d2d2e')
 Btn_Test_Driver.place(x=10, y=60)
 
 Btn_PilotsImg = cargarImg("Btn_Pilots.png")
