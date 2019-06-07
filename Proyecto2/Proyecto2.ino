@@ -18,7 +18,7 @@
  *          Cristian Calvo
  *          
  * Pais de emission: Cosat Rica.
- * 
+ */
 #include <ESP8266WiFi.h>
 
 //Cantidad maxima de clientes es 1
