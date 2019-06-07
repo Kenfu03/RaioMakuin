@@ -56,6 +56,18 @@ left_press = False
 right_press = False
 Dir_press = False
 pressS = False
+pressM = False
+pressP = False
+pressO = False
+pressI = False
+pressL = False
+pressK = False
+btnMON = False
+btnPON = False
+btnOON = False
+btnION = False
+btnLON = False
+btnKON = False
 NumGas = 0
 NumGas_Re = 0
 num_bar = 0
@@ -1455,7 +1467,7 @@ def ventana_TestDrive(piloto,carro):
         key = event.char
         # Globales
         global left, right, NumGas, NumGas_Re, reverseON, L_rightON, L_leftON, L_backON, GasON, L_DirON, pressTecla, L_frontON, front_press, reverse_press, left_press, right_press
-        global Dir_press, pressS
+        global Dir_press, pressS, pressM, pressP, pressO, pressI, pressL, pressK, btnMON, btnPON, btnOON, btnION, btnLON, btnKON
 
         # Control de direccion izquierda
         if (key == "a") and not left:
@@ -1545,62 +1557,117 @@ def ventana_TestDrive(piloto,carro):
 
         # Reset, reinicia todas las luces, a 0
         elif key == "m":
-            Test_Canvas.itemconfig("reset", state=HIDDEN)
-            Test_Canvas.itemconfig("reseton", state=NORMAL)
-            send("ll:0;")
-            send("lr:0;")
-            send("lf:0;")
-            send("lb:1;")
-            time.sleep(2)
-            Test_Canvas.itemconfig("reset", state=HIDDEN)
-            Test_Canvas.itemconfig("resetoff", state=NORMAL)
+            if pressM:
+                return
+            else:
+                pressM = True
+                if btnMON:
+                    Test_Canvas.itemconfig("reset", state=HIDDEN)
+                    Test_Canvas.itemconfig("resetoff", state=NORMAL)
+                    btnMON = False
+                else:
+                    Test_Canvas.itemconfig("reset", state=HIDDEN)
+                    Test_Canvas.itemconfig("reseton", state=NORMAL)
+                    btnMON = True
+                    send("ll:0;")
+                    send("lr:0;")
+                    send("lf:0;")
+                    send("lb:1;")
+                    print("ll:0;")
+                    print("lr:0;")
+                    print("lf:0;")
+                    print("lb:1;")
+
 
         # Comandos especiales
 
         # Circle derecha
         elif key == "p":
-            Test_Canvas.itemconfig("circle", state=HIDDEN)
-            Test_Canvas.itemconfig("circleon", state=NORMAL)
-            send("Circle:1;")
-            time.sleep(2)
-            Test_Canvas.itemconfig("circle", state=HIDDEN)
-            Test_Canvas.itemconfig("circleoff", state=NORMAL)
+            if pressP:
+                return
+            else:
+                pressP = True
+                if btnPON:
+                    Test_Canvas.itemconfig("circle", state=HIDDEN)
+                    Test_Canvas.itemconfig("circleoff", state=NORMAL)
+                    btnPON = False
+                else:
+                    Test_Canvas.itemconfig("circle", state=HIDDEN)
+                    Test_Canvas.itemconfig("circleon", state=NORMAL)
+                    btnPON = True
+                    send("Circle:1;")
+                    print("Circle:1;")
+
 
         # Circle izquierda
         elif key == "o":
-            Test_Canvas.itemconfig("circle", state=HIDDEN)
-            Test_Canvas.itemconfig("circleon", state=NORMAL)
-            send("Circle:-1;")
-            time.sleep(2)
-            Test_Canvas.itemconfig("circle", state=HIDDEN)
-            Test_Canvas.itemconfig("circleoff", state=NORMAL)
+            if pressO:
+                return
+            else:
+                pressO = True
+                if btnOON:
+                    Test_Canvas.itemconfig("circle", state=HIDDEN)
+                    Test_Canvas.itemconfig("circleoff", state=NORMAL)
+                    btnOON = False
+                else:
+                    Test_Canvas.itemconfig("circle", state=HIDDEN)
+                    Test_Canvas.itemconfig("circleon", state=NORMAL)
+                    btnOON = True
+                    send("Circle:-1;")
+                    print("Circle:-1;")
+
 
         # Infinite
         elif key == "i":
-            Test_Canvas.itemconfig("infinite", state=HIDDEN)
-            Test_Canvas.itemconfig("infiniteon", state=NORMAL)
-            send("Infinite;")
-            time.sleep(2)
-            Test_Canvas.itemconfig("infinite", state=HIDDEN)
-            Test_Canvas.itemconfig("infiniteoff", state=NORMAL)
+            if pressI:
+                return
+            else:
+                pressI = True
+                if btnION:
+                    Test_Canvas.itemconfig("infinite", state=HIDDEN)
+                    Test_Canvas.itemconfig("infiniteoff", state=NORMAL)
+                    btnION = False
+                else:
+                    Test_Canvas.itemconfig("infinite", state=HIDDEN)
+                    Test_Canvas.itemconfig("infiniteon", state=NORMAL)
+                    btnION = True
+                    send("Infinite;")
+                    print("Infinite;")
+
 
         # Especial
         elif key == "l":
-            Test_Canvas.itemconfig("special", state=HIDDEN)
-            Test_Canvas.itemconfig("specialon", state=NORMAL)
-            send("Especial;")
-            time.sleep(2)
-            Test_Canvas.itemconfig("special", state=HIDDEN)
-            Test_Canvas.itemconfig("specialoff", state=NORMAL)
+            if pressL:
+                return
+            else:
+                pressL = True
+                if btnLON:
+                    Test_Canvas.itemconfig("special", state=HIDDEN)
+                    Test_Canvas.itemconfig("specialoff", state=NORMAL)
+                    btnLON = False
+                else:
+                    Test_Canvas.itemconfig("special", state=HIDDEN)
+                    Test_Canvas.itemconfig("specialon", state=NORMAL)
+                    btnLON = True
+                    send("Especial;")
+                    print("Especial;")
 
         # ZigZig
         elif key == "k":
-            Test_Canvas.itemconfig("zigzag", state=HIDDEN)
-            Test_Canvas.itemconfig("zigzagon", state=NORMAL)
-            send("ZigZag;")
-            time.sleep(2)
-            Test_Canvas.itemconfig("zigzag", state=HIDDEN)
-            Test_Canvas.itemconfig("zigzagoff", state=NORMAL)
+            if pressK:
+                return
+            else:
+                pressK = True
+                if btnKON:
+                    Test_Canvas.itemconfig("zigzag", state=HIDDEN)
+                    Test_Canvas.itemconfig("zigzagoff", state=NORMAL)
+                    btnKON = False
+                else:
+                    Test_Canvas.itemconfig("zigzag", state=HIDDEN)
+                    Test_Canvas.itemconfig("zigzagon", state=NORMAL)
+                    btnKON = True
+                    send("ZigZag;")
+                    print("ZigZag;")
 
 
         # Control de luces
@@ -1886,7 +1953,7 @@ def ventana_TestDrive(piloto,carro):
     # Control key release
     def release_Control(event):
         key = event.char
-        global right, left, GasON, reverse_press, front_press, left_press, right_press, Dir_press, pressTecla, pressS
+        global right, left, GasON, reverse_press, front_press, left_press, right_press, Dir_press, pressTecla, pressS, pressM, pressP, pressO, pressI, pressL, pressK
 
         # Control de direccion
         if key == "a" or key == "d" and left or right:
@@ -1908,6 +1975,24 @@ def ventana_TestDrive(piloto,carro):
 
         elif key == "f":
             front_press = False
+
+        elif key == "m":
+            pressM = False
+
+        elif key == "p":
+            pressP = False
+
+        elif key == "o":
+            pressO = False
+
+        elif key == "i":
+            pressI = False
+
+        elif key == "l":
+            pressL = False
+
+        elif key == "k":
+            pressK = False
 
         elif key == "z":
             left_press = False
