@@ -7,6 +7,7 @@ import time  # time.sleep(x)
 from tkinter import messagebox  # AskYesNo ()
 from WiFiClient import NodeMCU  # Biblioteca para conectar con el carro
 from pygame import mixer
+import random
 
 InfoPer = """
 _______________________________________________
@@ -65,6 +66,8 @@ btnOON = False
 btnION = False
 btnLON = False
 btnKON = False
+pressB = False
+btnBON = False
 NumGas = 0
 NumGas_Re = 0
 num_bar = 0
@@ -113,6 +116,8 @@ Principal_Canvas.create_image(0, 0, image=InicioBackup, anchor=NW)
 Play = Thread(target=Song1, args=())
 Play.start()
 
+Logo = cargarImg("logo.png")
+Principal_Canvas.create_image(700,0, image= Logo, anchor = NW)
 
 # Funcion para salir de la aplicacion
 def quitApp():
@@ -1535,7 +1540,7 @@ def ventana_TestDrive(piloto,carro):
         key = event.char
         # Globales
         global left, right, NumGas, NumGas_Re, reverseON, L_rightON, L_leftON, L_backON, GasON, L_DirON, pressTecla, L_frontON, front_press, reverse_press, left_press, right_press
-        global Dir_press, pressS, pressM, pressP, pressO, pressI, pressL, pressK, btnMON, btnPON, btnOON, btnION, btnLON, btnKON
+        global Dir_press, pressS, pressM, pressP, pressO, pressI, pressL, pressK, btnMON, btnPON, btnOON, btnION, btnLON, btnKON, pressB, btnBON
 
         # Control de direccion izquierda
         if (key == "a") and not left:
@@ -1645,6 +1650,24 @@ def ventana_TestDrive(piloto,carro):
                     print("lr:0;")
                     print("lf:0;")
                     print("lb:1;")
+
+
+        elif key == "b":
+            if pressB:
+                return
+            else:
+                pressB = True
+                if btnBON:
+                    Test_Canvas.itemconfig("cele", state = HIDDEN)
+                    Test_Canvas.itemconfig("cele_off", state = NORMAL)
+                    btnBON = False
+                else:
+                    Test_Canvas.itemconfig("cele", state=HIDDEN)
+                    Test_Canvas.itemconfig("cele_on", state=NORMAL)
+                    T_celebration = Thread(target=celebration)
+                    T_celebration.start()
+                    btnBON = True
+
 
 
         # Comandos especiales
@@ -1815,6 +1838,40 @@ def ventana_TestDrive(piloto,carro):
                     L_DirON = True
                     T_blinking(1, "lr")
                     T_blinking(1, "ll")
+
+    def celebration():
+        x = random.randint(0, 3)
+        if x == 1:
+            send("pwm:600;")
+            print("pwm:600;")
+            time.sleep(1.5)
+            send("pwm:-600;")
+            print("pwm:-600;")
+            time.sleep(1.5)
+            send("pwm:0;")
+            print("pwm:0;")
+
+        elif x == 2:
+            send("pwm:-600;")
+            print("pwm:-600;")
+            time.sleep(1.5)
+            send("pwm:600;")
+            print("pwm:600;")
+            time.sleep(1.5)
+            send("pwm:0;")
+            print("pwm:0;")
+
+        elif x == 3:
+            send("dir:-1;")
+            print("dir:-1;")
+            time.sleep(1)
+            send("dir:1;")
+            print("dir:1;")
+            time.sleep(1)
+            send("dir:0;")
+            print("dir:0;")
+        else:
+            return
 
     def T_blinking_stop(n, command):
         global L_DirON, L_rightON, L_leftON
@@ -2021,7 +2078,7 @@ def ventana_TestDrive(piloto,carro):
     # Control key release
     def release_Control(event):
         key = event.char
-        global right, left, GasON, reverse_press, front_press, left_press, right_press, Dir_press, pressTecla, pressS, pressM, pressP, pressO, pressI, pressL, pressK
+        global right, left, GasON, reverse_press, front_press, left_press, right_press, Dir_press, pressTecla, pressS, pressM, pressP, pressO, pressI, pressL, pressK, pressB
 
         # Control de direccion
         if key == "a" or key == "d" and left or right:
@@ -2043,6 +2100,9 @@ def ventana_TestDrive(piloto,carro):
 
         elif key == "f":
             front_press = False
+
+        elif key == "b":
+            pressB = False
 
         elif key == "m":
             pressM = False
