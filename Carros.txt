@@ -1,5 +1,5 @@
 Honda@Mclaren@Italia@2016@9v@1.5v@1@5@Disponible@3-6v@SensorLuz@2.4kg@68@0@3
-Lotus@e22@Inglaterra@2014@9v@1.5v@1@5@Reparacion@3-6v@SensorLuz@2.4kg@70@1@2
+Lotus@e22@Inglaterra@2014@9v@1.5v@1@5@Disponible@3-6v@SensorLuz@2.4kg@70@1@2
 Honda@Mclaren@Italia@2017@9v@1.5v@1@5@Descargado@3-6v@SensorLuz@2.4kg@72@2@9
 Honda@Mclaren@Italia@2016@9v@1.5v@1@5@Descargado@3-6v@SensorLuz@2.4kg@72@3@1
 Honda@Mclaren@Italia@2018@9v@1.5v@1@5@Descargado@3-6v@SensorLuz@2.4kg@80@4@8

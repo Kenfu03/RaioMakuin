@@ -25,10 +25,7 @@ _______________________________________________
     Pais: Costa Rica
     Python 3.7.2                    
     Version: 1.0.0                        
-_________________________________________________
-Guia basica:
-
-_________________________________________________
+________________________________________________
 """
 # ______________________________________________
 # Control del carrito por NodeMCU
@@ -662,10 +659,8 @@ def ventana_Pilots():
         with open("Pilotos.txt", "w") as f:
             # Se abre el archivo .txt para editarlo
             listita = []
-            print(len(ListaPilotos[1][9]))
             for i in range(0, 10): # Se hace una lista con los primeros 9 datos de todos los pilotos unidos por @
                 listita.append('@'.join(ListaPilotos[i][0:10]))
-            print(listita)
             for strs in listita:# Luego se escribe por linea del txt la informacion de un piloto hasta acabarse los pilotos
                 f.write(strs)
         global pausa
@@ -778,61 +773,71 @@ def ventana_esc_pil():
                 messagebox.showerror("Auto Descargado",
                                      "El auto seleccionado se\nencuentra descargado en el momento")
             else:
-                ventana_TestDrive(ListaCarros[0][14],piloto)
+                EscCar.destroy()
+                ventana_TestDrive(piloto,ListaCarros[0][14])
         def car1():
             if ListaCarros[1][8] == 'Descargado' or ListaCarros[1][8] == 'Reparacion':
                 messagebox.showerror("Auto Descargado",
                                      "El auto seleccionado se\nencuentra descargado en el momento")
             else:
-                ventana_TestDrive(ListaCarros[1][14],piloto)
+                EscCar.destroy()
+                ventana_TestDrive(piloto,ListaCarros[1][14])
         def car2():
             if ListaCarros[2][8] == 'Descargado' or ListaCarros[2][8] == 'Reparacion':
                 messagebox.showerror("Auto Descargado",
                                      "El auto seleccionado se\nencuentra descargado en el momento")
             else:
-                ventana_TestDrive(ListaCarros[2][14],piloto)
+                EscCar.destroy()
+                ventana_TestDrive(piloto,ListaCarros[2][14])
         def car3():
             if ListaCarros[3][8] == 'Descargado' or ListaCarros[3][8] == 'Reparacion':
                 messagebox.showerror("Auto Descargado",
                                      "El auto seleccionado se\nencuentra descargado en el momento")
             else:
-                ventana_TestDrive(ListaCarros[3][14],piloto)
+                EscCar.destroy()
+                ventana_TestDrive(piloto,ListaCarros[3][14])
         def car4():
             if ListaCarros[4][8] == 'Descargado' or ListaCarros[4][8] == 'Reparacion':
                 messagebox.showerror("Auto Descargado",
                                      "El auto seleccionado se\nencuentra descargado en el momento")
             else:
-                ventana_TestDrive(ListaCarros[4][14],piloto)
+                EscCar.destroy()
+                ventana_TestDrive(piloto,ListaCarros[4][14])
         def car5():
             if ListaCarros[5][8] == 'Descargado' or ListaCarros[5][8] == 'Reparacion':
                 messagebox.showerror("Auto Descargado",
                                      "El auto seleccionado se\nencuentra descargado en el momento")
             else:
-                ventana_TestDrive(ListaCarros[5][14],piloto)
+                EscCar.destroy()
+                ventana_TestDrive(piloto,ListaCarros[5][14])
         def car6():
             if ListaCarros[6][8] == 'Descargado' or ListaCarros[6][8] == 'Reparacion':
                 messagebox.showerror("Auto Descargado",
                                      "El auto seleccionado se\nencuentra descargado en el momento")
             else:
-                ventana_TestDrive(ListaCarros[6][14],piloto)
+                EscCar.destroy()
+                ventana_TestDrive(piloto,ListaCarros[6][14])
         def car7():
             if ListaCarros[7][8] == 'Descargado' or ListaCarros[7][8] == 'Reparacion':
                 messagebox.showerror("Auto Descargado",
                                      "El auto seleccionado se\nencuentra descargado en el momento")
             else:
-                ventana_TestDrive(ListaCarros[7][14],piloto)
+                EscCar.destroy()
+                ventana_TestDrive(piloto,ListaCarros[7][14])
         def car8():
             if ListaCarros[8][8] == 'Descargado' or ListaCarros[8][8] == 'Reparacion':
                 messagebox.showerror("Auto Descargado",
                                      "El auto seleccionado se\nencuentra descargado en el momento")
             else:
-                ventana_TestDrive(ListaCarros[8][14],piloto)
+                EscCar.destroy()
+                ventana_TestDrive(piloto,ListaCarros[8][14])
         def car9():
             if ListaCarros[9][8] == 'Descargado' or ListaCarros[9][8] == 'Reparacion':
                 messagebox.showerror("Auto Descargado",
                                      "El auto seleccionado se\nencuentra descargado en el momento")
             else:
-                ventana_TestDrive(ListaCarros[9][14],piloto)
+                EscCar.destroy()
+                ventana_TestDrive(piloto,ListaCarros[9][14])
 
         listaX = [64, 182, 300, 418, 536]
         listacomandos2 = [car0, car1,car2, car3, car4, car5, car6,car7, car8, car9]
@@ -843,8 +848,8 @@ def ventana_esc_pil():
             pil2_Canvas.create_window(listaX[i], 20, anchor=NW, window=listaframes2[i])
         for i in range(0, 5):  # Crea una ventana por piloto en el canvas
             pil2_Canvas.create_window(listaX[i], 120, anchor=NW, window=listaframes2[i + 5])
-        messagebox.showinfo("Seleccionar Piloto",
-                            "Seleccione el piloto con\nel que se realizará el test drive")
+        messagebox.showinfo("Seleccionar Carro",
+                            "Seleccione el carro con\nel que se realizará el test drive")
         EscCar.mainloop()
 
     pil_Canvas.update_idletasks()
@@ -1292,6 +1297,7 @@ def ventana_TestDrive(piloto,carro):
     Test_Canvas = Canvas(Test, width=1000, height=720, bg='black')
     Test_Canvas.place(x=0, y=0)
     # __Se carga una imagen de fondo
+    print(piloto)
 
     BackupVel = cargarImg('BackupVel.png')
     Test_Canvas.create_image(0, 300, image=BackupVel, anchor=NW)
@@ -1418,7 +1424,69 @@ def ventana_TestDrive(piloto,carro):
     Test_Canvas.create_image(458, 480, image=luna_on, anchor=NW, tags=('l-on', 'luna'), state=HIDDEN)
 
     # __Funcionalidades principales del test drive
+    #Se coloca el piloto en pantalla
+    if int(piloto) == 0:
+        pil = cargarImg("jonathan.png")
+        Test_Canvas.create_image(850,440,image = pil,anchor = NW)
+    if int(piloto) == 1:
+        pil = cargarImg('joseph.png')
+        Test_Canvas.create_image(850,440,image = pil, anchor = NW)
+    if int(piloto) == 2:
+        pil = cargarImg('jotaro.png')
+        Test_Canvas.create_image(850,440,image = pil,anchor = NW)
+    if int(piloto) == 3:
+        pil = cargarImg('josuke.png')
+        Test_Canvas.create_image(850,440,image = pil,anchor = NW)
+    if int(piloto) == 4:
+        pil = cargarImg('giorno.png')
+        Test_Canvas.create_image(850,440,image = pil,anchor = NW)
+    if int(piloto) == 5:
+        pil = cargarImg('dio.png')
+        Test_Canvas.create_image(850,440,image = pil,anchor = NW)
+    if int(piloto) == 6:
+        pil = cargarImg('kira.png')
+        Test_Canvas.create_image(850,440,image = pil,anchor = NW)
+    if int(piloto) == 7:
+        pil = cargarImg('bruno.png')
+        Test_Canvas.create_image(850,440,image = pil,anchor = NW)
+    if int(piloto) == 8:
+        pil = cargarImg('polnareff.png')
+        Test_Canvas.create_image(850,440,image = pil,anchor = NW)
+    if int(piloto) == 9:
+        pil = cargarImg('caesar.png')
+        Test_Canvas.create_image(850,440,image = pil,anchor = NW)
 
+    #Se coloca el carro en pantalla
+    if int(carro) == 0:
+        car = cargarImg("car7.png")
+        Test_Canvas.create_image(800,550,image = car,anchor = NW)
+    if int(carro) == 1:
+        car = cargarImg('car3.png')
+        Test_Canvas.create_image(800,550,image = car, anchor = NW)
+    if int(carro) == 2:
+        car = cargarImg('car1.png')
+        Test_Canvas.create_image(800,550,image = car,anchor = NW)
+    if int(carro) == 3:
+        car = cargarImg('car0.png')
+        Test_Canvas.create_image(800,550,image = car,anchor = NW)
+    if int(carro) == 4:
+        pil = cargarImg('car6.png')
+        Test_Canvas.create_image(800,550,image = pil,anchor = NW)
+    if int(carro) == 5:
+        car = cargarImg('car9.png')
+        Test_Canvas.create_image(800,550,image = car,anchor = NW)
+    if int(carro) == 6:
+        car = cargarImg('car8.png')
+        Test_Canvas.create_image(800,550,image = car,anchor = NW)
+    if int(carro) == 7:
+        car = cargarImg('car5.png')
+        Test_Canvas.create_image(800,550,image = car,anchor = NW)
+    if int(carro) == 8:
+        car = cargarImg('car4.png')
+        Test_Canvas.create_image(800,550,image = car,anchor = NW)
+    if int(carro) == 9:
+        car = cargarImg('car2.png')
+        Test_Canvas.create_image(800,550,image = car,anchor = NW)
     # Funcion para obtener el nivel de bateria y la iluminacion de ambiente
     def GetSense():
         global Carrito
